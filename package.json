@@ -1,0 +1,25 @@
+{
+  "name": "project-blue-is",
+  "version": "0.1.0",
+  "description": "Lorem ipsum",
+  "repository": {
+    "type": "git",
+    "url": "Lorem ipsum"
+  },
+  "private": true,
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "contributors": [
+    "Nathanael Fuller",
+    "James Schnebly",
+    "Alex Yovev"
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "Lorem ipsum/issues"
+  },
+  "homepage": "Lorem ipsum#readme"
+}

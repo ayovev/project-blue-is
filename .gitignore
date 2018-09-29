@@ -1,0 +1,16 @@
+# See https://help.github.com/ignore-files/ for more about ignoring files.
+
+# dependencies
+node_modules
+
+# editor-specific settings
+.vscode
+
+# platform-specific
+.DS_Store
+
+# sensitive values
+.env
+
+# python bytecode
+__pycache_
