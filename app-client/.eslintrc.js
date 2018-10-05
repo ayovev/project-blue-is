@@ -23,7 +23,7 @@ module.exports = {
     },
     "rules": {
       "brace-style": ["error", "stroustrup"],
-      "comma-dangle": ["warn"],
+      "comma-dangle": ["warn", "never"],
       "curly": ["error", "all"],
       "indent": ["error", 2],
       "jsx-quotes": ["error", "prefer-double"],

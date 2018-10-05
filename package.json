@@ -1,25 +1,33 @@
 {
   "name": "project-blue-is",
   "version": "0.1.0",
-  "description": "Lorem ipsum",
+  "description": "The purpose of this project is to produce a quantity known as the Investability Index by calculating the probability of a specific security outperforming it's index.",
   "repository": {
     "type": "git",
-    "url": "Lorem ipsum"
+    "url": "https://github.com/ayovev/project-blue-is.git",
+    "homepage": "https://github.com/ayovev/project-blue-is",
+    "bugs": "https://github.com/ayovev/project-blue-is/issues"
   },
+  "license": "unlicensed",
   "private": true,
-  "dependencies": {},
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "contributors": [
     "Nathanael Fuller",
     "James Schnebly",
     "Alex Yovev"
   ],
-  "license": "ISC",
-  "bugs": {
-    "url": "Lorem ipsum/issues"
+  "scripts": {
+    "lint:app-client": "cd app-client && npm run lint && cd ..",
+    "lint:app-server": "cd app-server && npm run lint && cd ..",
+    "lint:analyzer-service": "cd analyzer-service && pylint app.py && cd ..",
+    "lint": "npm run lint:app-client && npm run lint:app-server && npm run lint:analyzer-service",
+    "start": "docker-compose up",
+    "start:rebuild": "docker-compose up --build",
+    "stop": "docker-compose down",
+    "reset": "docker system prune --volumes -f",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "homepage": "Lorem ipsum#readme"
+  "engines": {
+    "node": "~10.11",
+    "npm": "~6.4"
+  }
 }

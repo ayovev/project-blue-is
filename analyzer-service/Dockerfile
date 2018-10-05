@@ -1,11 +1,12 @@
-# Use an official Python runtime as a parent image
-FROM python:latest
+FROM python:3.7
 
 RUN mkdir -p /analyzer-service
 
 WORKDIR /analyzer-service
 
-RUN pip install Flask
+COPY ./requirements.txt /analyzer-service
+
+RUN pip install -r ./requirements.txt
 
 EXPOSE 4000
 

@@ -1,29 +1,30 @@
-from datetime import datetime
+"""datetime module used in status route handler"""
+from datetime import datetime, timezone, timedelta
 from flask import Flask, jsonify
 
 app = Flask("analyzer-service")
 app.config["ENV"] = "development"
 app.config["DEBUG"] = 1
 
-
 @app.route("/")
-def main1():
-    return "Flask root route"
-
+def rootHandler():
+  """Documentation for root route handler"""
+  return "Flask root route"
 
 @app.route("/users")
-def main2():
-    return "Flask users route"
-
+def usersHandler():
+  """Documentation for users route handler"""
+  return "Flask users route"
 
 @app.route("/status")
-def status():
-    return jsonify({
-      "datetime": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-      "service": "analyzer-service",
-      "status": 200
-    })
-
+def statusHandler():
+  """Documentation for status route handler"""
+  timezoneOffset = timezone(offset=timedelta(hours=-7))
+  return jsonify({
+    "datetime": datetime.now(tz=timezoneOffset).strftime("%Y-%m-%d %H:%M:%S"),
+    "service": "analyzer-service",
+    "status": 200
+  })
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=4000)
+  app.run(host="0.0.0.0", port=4000)

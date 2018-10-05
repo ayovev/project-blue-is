@@ -1,11 +1,10 @@
-# Use an official Node runtime as a parent image
-FROM node:latest
+FROM node:10.11
 
 RUN mkdir -p /app-client
 
 WORKDIR /app-client
 
-COPY package.json /app-client/package.json
+COPY package*.json /app-client/
 
 RUN npm install
 
