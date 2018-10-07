@@ -1,6 +1,10 @@
 from datetime import datetime
 from flask import Flask, jsonify
 
+# import from local files
+from DBInterface import DBInterface
+from Seeder import Seeder
+
 app = Flask("analyzer-service")
 app.config["ENV"] = "development"
 app.config["DEBUG"] = 1
@@ -10,10 +14,25 @@ app.config["DEBUG"] = 1
 def main1():
     return "Flask root route"
 
+@app.route("/admin/getHistoricalData")
+def historicalData():
+    return DBInterface.getHistoricalData()
 
 @app.route("/users")
 def main2():
     return "Flask users route"
+
+@app.route("/seed")
+def main3():
+    return Seeder.seed(["MU", "MSFT"])
+
+@app.route("/seed/redeploy")
+def redeploy():
+    return Seeder.redeploy(["MU"])
+
+@app.route("/seed/drop")
+def drop():
+    return Seeder.dropDB()
 
 
 @app.route("/status")

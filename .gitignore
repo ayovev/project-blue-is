@@ -13,4 +13,4 @@ node_modules
 .env
 
 # python bytecode
-__pycache_
+*/__pycache_/*
