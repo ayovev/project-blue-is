@@ -1,7 +1,7 @@
-import React from 'react';
-import { Route, Switch } from 'react-router-dom';
-import { App } from './App';
-import { Status } from './Status';
+import React from "react";
+import { Route, Switch } from "react-router-dom";
+import { App } from "./App";
+import { Status } from "./Status";
 
 export default () =>
   <Switch>

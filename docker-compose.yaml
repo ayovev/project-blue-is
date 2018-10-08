@@ -10,6 +10,10 @@ services:
       - /analyzer-service
     ports:
       - 4000:4000
+    links:
+      - mongo
+    depends_on:
+      - mongo
     restart: on-failure
 
   app-client:
@@ -44,20 +48,21 @@ services:
 
   mongo:
     container_name: mongo
-    image: mongo
+    image: mongo:4.0
     ports:
       - 27017:27017
 
   mongo-admin:
     container_name: mongo-admin
-    image: mrvautin/adminmongo
+    image: mrvautin/adminmongo:latest
     environment:
       - CONN_NAME=admin-connection
       - DB_HOST=mongo
       - DB_PORT=27017
+    ports:
+      - 1234:1234
+      - 27018:1234
     links:
       - mongo
     depends_on:
       - mongo
-    ports:
-      - 27018:1234

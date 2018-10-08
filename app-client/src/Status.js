@@ -1,12 +1,15 @@
-import { Component } from 'react';
+import React, { Component } from "react";
 const moment = require(`moment`);
 
 export default class Status extends Component {
   render() {
-    return ({
-      datetime: moment().format(`YYYY-MM-DD HH:mm:ss`),
-      service: `app-server`,
-      status: 200,
-    });
+    return (
+      <div>
+        {{
+          datetime: moment().format(`YYYY-MM-DD HH:mm:ss`),
+          service: `app-client`,
+          status: 200
+        }}
+      </div>);
   }
 }
