@@ -1,12 +1,14 @@
 import requests
 from pymongo import MongoClient
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 class Seeder:
     '''Seeder -- static class'''
 
-    # class variables
-    AV_KEY = "Z59MIQGN9I6S666Q" # .env
-
+    KEY = os.environ["AV_KEY"]
     #methods
 
     @staticmethod
@@ -22,7 +24,7 @@ class Seeder:
         collection = db.stocks
 
         for ticker in tickers:
-            tickerJSON = requests.get('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={}&outputsize={}&apikey={}'.format(ticker, "compact", Seeder.AV_KEY))
+            tickerJSON = requests.get('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={}&outputsize={}&apikey={}'.format(ticker, "compact", Seeder.KEY))
             collection.insert({"data": tickerJSON.json()}, check_keys=False)
 
         client.close()
