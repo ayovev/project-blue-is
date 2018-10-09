@@ -2,6 +2,10 @@
 from datetime import datetime, timezone, timedelta
 from flask import Flask, jsonify
 
+# import from local files
+from DBInterface import DBInterface
+from Seeder import Seeder
+
 app = Flask("analyzer-service")
 app.config["ENV"] = "development"
 app.config["DEBUG"] = 1
@@ -25,6 +29,22 @@ def statusHandler():
     "service": "analyzer-service",
     "status": 200
   })
+
+@app.route("/admin/getHistoricalData")
+def historicalData():
+    return DBInterface.getHistoricalData()
+
+@app.route("/seeder/seed")
+def seed():
+    return Seeder.seed(["MU", "MSFT"])
+
+@app.route("/seeder/redeploy")
+def redeploy():
+    return Seeder.redeploy(["MU"])
+
+@app.route("/seeder/drop")
+def drop():
+    return Seeder.dropDB()
 
 if __name__ == "__main__":
   app.run(host="0.0.0.0", port=4000)
