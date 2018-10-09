@@ -1,8 +1,9 @@
-"""datetime module used in status route handler"""
+"""dependencies"""
 from datetime import datetime, timezone, timedelta
 from flask import Flask, jsonify
+from dotenv import load_dotenv
+load_dotenv()
 
-# import from local files
 from DBInterface import DBInterface
 from Seeder import Seeder
 
@@ -12,39 +13,78 @@ app.config["DEBUG"] = 1
 
 @app.route("/")
 def rootHandler():
-  """Documentation for root route handler"""
-  return "Flask root route"
+  """
+  Handler for requests to root route
 
-@app.route("/users")
-def usersHandler():
-  """Documentation for users route handler"""
-  return "Flask users route"
+  @return string test string
+  """
+
+  return "Flask root route"
 
 @app.route("/status")
 def statusHandler():
-  """Documentation for status route handler"""
+  """
+  Handler for requests to status route
+
+  @return object status of current service
+  """
+
+  # TODO: refactor for easy reuse
   timezoneOffset = timezone(offset=timedelta(hours=-7))
   return jsonify({
     "datetime": datetime.now(tz=timezoneOffset).strftime("%Y-%m-%d %H:%M:%S"),
     "service": "analyzer-service",
+    "operation": "statusCheck",
     "status": 200
   })
 
 @app.route("/admin/getHistoricalData")
 def historicalData():
-    return DBInterface.getHistoricalData()
+  """
+  Seed cloud database with full set of sample data
 
-@app.route("/seeder/seed")
+  @return string HTML confirmation of seeding
+  """
+
+  return DBInterface.getHistoricalData()
+
+@app.route("/seeder/deploy")
 def seed():
-    return Seeder.seed(["MU", "MSFT"])
+  """
+  Seed local database with compact set of sample data
+
+  @return string string confirmation of seeding
+  """
+
+  Seeder.deploy()
+
+  # TODO: refactor for easy reuse
+  timezoneOffset = timezone(offset=timedelta(hours=-7))
+  return jsonify({
+    "datetime": datetime.now(tz=timezoneOffset).strftime("%Y-%m-%d %H:%M:%S"),
+    "service": "analyzer-service",
+    "operation": "databaseDeploy",
+    "status": 200
+  })
 
 @app.route("/seeder/redeploy")
 def redeploy():
-    return Seeder.redeploy(["MU"])
+  """
+  Redeploy local database with new compact set of sample data
 
-@app.route("/seeder/drop")
-def drop():
-    return Seeder.dropDB()
+  @return string string confirmation of seeding
+  """
+
+  Seeder.redeploy()
+
+  # TODO: refactor for easy reuse
+  timezoneOffset = timezone(offset=timedelta(hours=-7))
+  return jsonify({
+    "datetime": datetime.now(tz=timezoneOffset).strftime("%Y-%m-%d %H:%M:%S"),
+    "service": "analyzer-service",
+    "operation": "databaseRedeploy",
+    "status": 200
+  })
 
 if __name__ == "__main__":
   app.run(host="0.0.0.0", port=4000)

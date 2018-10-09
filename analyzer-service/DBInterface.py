@@ -1,57 +1,65 @@
-import requests
-import pymongo
-from dotenv import load_dotenv
+"""dependencies"""
 import os
-
-load_dotenv()
+import requests
+from pymongo import MongoClient
 
 class DBInterface:
-    '''class for opening, closing, getDailyData, and getHistData'''
+  """class used to interface with cloud mongo database instance"""
 
-    #class variables:
-    tickers = ["MU", "AAPL", "CVX", "FB", "MSFT"]
-    KEY = os.environ["AV_KEY"]
+  TICKERS = ["MU", "AAPL", "GPRO", "TSLA"]
+  KEY = os.getenv("ALPHA_VANTAGE_KEY")
 
+  @staticmethod
+  def connect():
+    """
+    connect to cloud database
 
-    #methods
+    @return tuple connection to client with collection
+    """
 
-    @staticmethod
-    def dbConnect():
-        ''' Connect to mongo database and return a tuple with client and collection'''
+    HOST = "mongodb://"
+    USERNAME = os.getenv("MONGODB_USERNAME")
+    PASSWORD = os.getenv("MONGODB_PASSWORD")
+    URI = "@cluster0-shard-00-00-ialvl.mongodb.net:27017,\
+      cluster0-shard-00-01-ialvl.mongodb.net:27017,\
+      cluster0-shard-00-02-ialvl.mongodb.net:27017\
+      /test?ssl=true&replicaSet=Cluster0-shard-0&\
+      authSource=admin&retryWrites=true"
 
-        host = "mongodb://"
-        username = os.environ["USERNAME"]
-        password = os.environ["PASSWORD"]
-        URI = "@cluster0-shard-00-00-ialvl.mongodb.net:27017,cluster0-shard-00-01-ialvl.mongodb.net:27017,cluster0-shard-00-02-ialvl.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true"
-
-        client = pymongo.MongoClient(host + username + ":" + password + URI)
-        db = client['pbi-data']
-        collection = db.tickerData
-        return (client, collection)
-
-
-    @staticmethod
-    def dbDisconnect(client):
-        # Disconnect from MongoDB instance
-        client.close()
-        return 0
+    client = MongoClient(HOST + USERNAME + ":" + PASSWORD + URI)
+    db = client['pbi-data']
+    collection = db.tickerData
+    return (client, collection)
 
 
-    @staticmethod
-    def getHistoricalData():
-        '''
-        give string ticker
-        get json of full historical data
-        '''
+  @staticmethod
+  def disconnect(client):
+    """
+    disconnect from cloud database
 
-        client, collection = DBInterface.dbConnect()
+    @return boolean result of operation
+    """
+    client.close()
+    return True
 
-        for ticker in DBInterface.tickers:
-            tickerJSON = requests.get('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={}&outputsize={}&apikey={}'.format(ticker, "full", DBInterface.KEY))
+  @staticmethod
+  def getHistoricalData():
+    """
+    load data into cloud database
 
-            collection.insert({"data": tickerJSON.json()}, check_keys=False)
-            print(ticker, "historical data has been inserted.")
+    @return boolean result of operation
+    """
 
-        DBInterface.dbDisconnect(client)
-        return "<h2>Historical data has been input into the cloud mongoDB instance!</h2>"
+    client, collection = DBInterface.connect()
 
+    for ticker in DBInterface.TICKERS:
+      tickerJSON = requests.get(
+        "https://www.alphavantage.co/query?\
+        function=TIME_SERIES_DAILY&symbol={}&outputsize={}&apikey={}"
+        .format(ticker, "full", DBInterface.KEY))
+
+      collection.insert({"data": tickerJSON.json()}, check_keys=False)
+      print(ticker, "historical data has been inserted.")
+
+    DBInterface.disconnect(client)
+    print("Historical data has been input into the cloud mongoDB instance!")

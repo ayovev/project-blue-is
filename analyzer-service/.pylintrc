@@ -141,7 +141,9 @@ disable=print-statement,
         exception-escape,
         comprehension-escape,
 
-        invalid-name
+        import-error,
+        invalid-name,
+        wrong-import-position
 
 # Enable the message, report, category or checker with the given id(s). You can
 # either give multiple identifier separated by comma (,) or put this option
@@ -417,9 +419,6 @@ function-naming-style=camelCase
 good-names=i,
            j,
            k,
-           ex,
-           Run,
-           _
 
 # Include a hint for the correct naming format with invalid-name.
 include-naming-hint=no
@@ -439,7 +438,7 @@ method-naming-style=camelCase
 #method-rgx=
 
 # Naming style matching correct module names.
-module-naming-style=camelCase
+module-naming-style=PascalCase
 
 # Regular expression matching correct module names. Overrides module-naming-
 # style.

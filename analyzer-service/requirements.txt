@@ -1,1 +1,4 @@
 Flask
+pymongo
+python-dotenv
+requests
