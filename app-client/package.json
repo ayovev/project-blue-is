@@ -2,6 +2,7 @@
   "name": "app-client",
   "version": "0.1.0",
   "dependencies": {
+    "grommet": "^1.11.0",
     "moment": "^2.22.2",
     "react": "^16.5.1",
     "react-dom": "^16.5.1",
