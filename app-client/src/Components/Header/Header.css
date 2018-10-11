@@ -1,0 +1,19 @@
+.App-header {
+  background-color: #24292e;
+  padding: 10px;
+  color: white;
+  width: 100%;
+}
+
+.Grommet-header {
+  background-color: #24292e;
+  color: inherit;
+}
+
+.Grommet-header-search {
+  padding-left: 30px;
+}
+
+.title {
+  color: red
+}
