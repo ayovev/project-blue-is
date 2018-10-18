@@ -1,5 +1,3 @@
-# See https://help.github.com/ignore-files/ for more about ignoring files.
-
 # javascript dependencies
 node_modules/
 
@@ -14,3 +12,6 @@ __pycache__/
 
 # platform-specific files
 .DS_Store
+
+# built static resources
+build/

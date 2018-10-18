@@ -1,19 +1,13 @@
-.App-header {
+.navbar {
   background-color: #24292e;
-  padding: 10px;
-  color: white;
-  width: 100%;
+  padding-left: 10%;
+  padding-right: 10%;
 }
 
-.Grommet-header {
-  background-color: #24292e;
-  color: inherit;
+.navlink {
+  color: #c9c7c7;
 }
 
-.Grommet-header-search {
-  padding-left: 30px;
-}
-
-.title {
-  color: red
+.navlink:hover {
+  color: #4286f4;
 }
