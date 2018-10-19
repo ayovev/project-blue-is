@@ -4,6 +4,10 @@
   padding-right: 10%;
 }
 
+.navitem {
+  padding-right: 20px;
+}
+
 .navlink {
   color: #c9c7c7;
 }
