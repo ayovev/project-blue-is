@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
-import { LineChart, Line, XAxis, YAxis, ResponsiveContainer } from "recharts";
+// import { LineChart, Line } from "recharts";
 import "./Header.css";
 
 const DATA_LENGTH = 8;
@@ -35,39 +35,55 @@ export default class Header extends Component {
   render() {
     return (
       <Navbar className="navbar" expand="md">
-        <NavbarBrand>
+        <NavbarBrand style={{color: "white"}}>
 
           {/* <AreaChart width={100} height={50} data={this.generateData()} >
             <Area type="natural" dataKey="value" fill="#4286f4" stroke="dark" animationDuration={1200}/>
           </AreaChart> */}
 
-          <LineChart width={100} height={50} data={this.generateData()}>
+          {/* <LineChart width={100} height={50} data={this.generateData()}>
             <Line type="natural" dataKey="value" stroke="#4286f4" strokeWidth={2} dot={null} animationDuration={1200}/>
-            {/* <XAxis tick={false}/>
-            <YAxis tick={false}/> */}
-          </LineChart>
+          </LineChart> */}
 
+          <NavLink href="/" className="navlink"><b>ieen</b></NavLink>
         </NavbarBrand>
         <NavbarToggler color={"#ffffff"} className="navbarToggler" onClick={this.toggle}/>
         <Collapse isOpen={this.state.isOpen} navbar>
-          <Nav navbar className="ml-auto">
+          <Nav navbar className="ml-auto mx-auto nav">
             <NavItem className="navitem">
               <NavLink href="/" className="navlink">Home</NavLink>
+            </NavItem>
+            <NavItem className="navitem">
+              {/* Maybe rephrase / reword this link? */}
+              <NavLink href="/" className="navlink">Our Algorithm</NavLink>
             </NavItem>
             <NavItem className="navitem">
               <NavLink href="/" className="navlink">Meet The Team</NavLink>
             </NavItem>
             <NavItem className="navitem">
+              {/* Is this the same as the Meet the Team link above? */}
               <NavLink href="/" className="navlink">About Us</NavLink>
             </NavItem>
             <NavItem className="navitem">
-              <NavLink href="/signup" className="navlink">Signup</NavLink>
+              <NavLink href="/signup" className="navlink">Login</NavLink>
             </NavItem>
             <NavItem className="navitem">
-              <NavLink href="/" className="navlink">Login</NavLink>
+              <NavLink href="/" className="navlink">Signup</NavLink>
             </NavItem>
           </Nav>
         </Collapse>
+        <NavbarBrand style={{color: "white"}}>
+
+          {/* <AreaChart width={100} height={50} data={this.generateData()} >
+            <Area type="natural" dataKey="value" fill="#4286f4" stroke="dark" animationDuration={1200}/>
+          </AreaChart> */}
+
+          {/* <LineChart width={100} height={50} data={this.generateData()}>
+            <Line type="natural" dataKey="value" stroke="#4286f4" strokeWidth={2} dot={null} animationDuration={1200}/>
+          </LineChart> */}
+
+          <b>user stuff</b>
+        </NavbarBrand>
       </Navbar>
     );
   }

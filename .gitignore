@@ -13,5 +13,5 @@ __pycache__/
 # platform-specific files
 .DS_Store
 
-# built static resources
+# production resources
 build/

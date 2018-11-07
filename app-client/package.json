@@ -22,5 +22,14 @@
     "start": "react-scripts start",
     "test": "react-scripts test --env=jsdom"
   },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
   "proxy": "http://app-server:3001"
 }
