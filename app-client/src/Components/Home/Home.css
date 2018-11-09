@@ -1,3 +1,29 @@
+@import url('https://fonts.googleapis.com/css?family=Fira+Mono');
+
+:local(.container) {
+  background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url("https://images.unsplash.com/photo-1499463217683-ee3c9ce038f1?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=75d74b30c53b84b891bce92e803dd40c&auto=format&fit=crop&w=1950&q=80") no-repeat center center fixed;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+}
+
+:local(.projectName) {
+  padding-top: 5%;
+  text-align: center;
+  color: #ffffff;
+  font-family: 'Fira Mono', monospace;
+  font-size: 60px;
+}
+
+:local(.projectTagline) {
+  color: #ffffff;
+  font-family: 'Fira Mono', monospace;
+  text-align: center;
+  margin: auto;
+  padding-bottom: 1%;
+}
+
 .typewriter h1 {
   text-align: center;
   color: #ffffff;

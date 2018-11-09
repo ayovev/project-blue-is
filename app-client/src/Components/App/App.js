@@ -6,11 +6,10 @@ import "./App.css";
 export default class App extends Component {
   render() {
     return (
-      <div>
+      <React.Fragment>
         <Header />
-        Hello World
         <Routes />
-      </div>
+      </React.Fragment>
     );
   }
 }

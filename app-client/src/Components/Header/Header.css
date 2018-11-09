@@ -1,20 +1,21 @@
-.navbar {
-  background-color: #24292e;
+:local(.navbar) {
+  background-color: rgba(0,0,0,0.98);
   padding-left: 10%;
   padding-right: 10%;
 }
 
-.navitem {
+:local(.navitem) {
   padding-right: 20px;
   text-transform: uppercase;
   font-size: 14px;
 }
 
-.navlink {
+:local(.navlink) {
   color: #ffffff;
+  text-align: center;
 }
 
 /* Maybe add underline effect as in mockups? Replace text color change? */
-.navlink:hover {
+:local(.navlink:hover) {
   color: #4286f4;
 }

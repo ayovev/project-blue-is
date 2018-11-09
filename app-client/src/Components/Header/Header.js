@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 // import { LineChart, Line } from "recharts";
 import { AuthenticationConsumer } from "../../Contexts/AuthenticationContext";
-import "./Header.css";
+import styles from "./Header.css";
 
 const DATA_LENGTH = 8;
 
@@ -37,7 +37,7 @@ export default class Header extends Component {
     return (
       <AuthenticationConsumer>
         {({isAuthenticated, login, logout}) => (
-          <Navbar className="navbar" expand="md">
+          <Navbar sticky="top" className={styles.navbar} expand="lg">
             <NavbarBrand style={{color: "white"}}>
 
               {/* <AreaChart width={100} height={50} data={this.generateData()} >
@@ -48,45 +48,48 @@ export default class Header extends Component {
                 <Line type="natural" dataKey="value" stroke="#4286f4" strokeWidth={2} dot={null} animationDuration={1200}/>
               </LineChart> */}
 
-              <NavLink href="/" className="navlink"><b>ieen</b></NavLink>
+              <NavLink href="/" className={styles.navlink}><b>ieen</b></NavLink>
             </NavbarBrand>
-            <NavbarToggler color={"#ffffff"} className="navbarToggler" onClick={this.toggle}/>
+            <NavbarToggler className="navbar-dark" onClick={this.toggle}/>
             <Collapse isOpen={this.state.isOpen} navbar>
-              <Nav navbar className="ml-auto mx-auto nav">
-                <NavItem className="navitem">
-                  <NavLink href="/" className="navlink">Home</NavLink>
+              <Nav navbar className="mx-auto nav">
+                <NavItem className={styles.navitem}>
+                  <NavLink href="/" className={styles.navlink}>Home</NavLink>
                 </NavItem>
-                <NavItem className="navitem">
+                <NavItem className={styles.navitem}>
                   {/* Maybe rephrase / reword this link? */}
-                  <NavLink href="/" className="navlink">Our Algorithm</NavLink>
+                  <NavLink href="/" className={styles.navlink}>Our Algorithm</NavLink>
                 </NavItem>
-                <NavItem className="navitem">
-                  <NavLink href="/" className="navlink">Meet The Team</NavLink>
-                </NavItem>
-                <NavItem className="navitem">
-                  {/* Is this the same as the Meet the Team link above? */}
-                  <NavLink href="/" className="navlink">About Us</NavLink>
+                <NavItem className={styles.navitem}>
+                  <NavLink href="/" className={styles.navlink}>Meet The Team</NavLink>
                 </NavItem>
                 {!isAuthenticated &&
                   <React.Fragment>
-                    <NavItem className="navitem">
-                      <NavLink href="/" className="navlink" onClick={login}>Login</NavLink>
+                    <NavItem className={styles.navitem}>
+                      <NavLink href="/" className={styles.navlink} onClick={login}>Login</NavLink>
                     </NavItem>
-                    <NavItem className="navitem">
-                      <NavLink href="/signup" className="navlink">Signup</NavLink>
+                    <NavItem className={styles.navitem}>
+                      <NavLink href="/signup" className={styles.navlink}>Signup</NavLink>
                     </NavItem>
                   </React.Fragment>
                 }
                 {isAuthenticated &&
-                  <NavItem className="navitem">
-                    <NavLink href="/" className="navlink" onClick={logout}>Logout</NavLink>
-                  </NavItem>
+                  <React.Fragment>
+                    <NavItem className={styles.navitem}>
+                      <NavLink href="/" className={styles.navlink}>Securities</NavLink>
+                    </NavItem>
+                    <NavItem className={styles.navitem}>
+                      <NavLink href="/" className={styles.navlink} onClick={logout}>Logout</NavLink>
+                    </NavItem>
+                  </React.Fragment>
                 }
               </Nav>
             </Collapse>
-            <NavbarBrand style={{color: "white"}}>
-              <b>user stuff</b>
-            </NavbarBrand>
+            {!this.state.isOpen &&
+              <NavbarBrand style={{color: "white"}}>
+                <b>user stuff</b>
+              </NavbarBrand>
+            }
           </Navbar>
         )}
       </AuthenticationConsumer>
