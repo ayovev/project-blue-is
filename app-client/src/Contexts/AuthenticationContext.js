@@ -6,10 +6,8 @@ class AuthenticationProvider extends Component {
   constructor(props) {
     super(props);
 
-    let authentication = localStorage.getItem("isAuthenticated").toLowerCase() === "true";
-
     this.state = {
-      isAuthenticated: authentication
+      isAuthenticated: localStorage.getItem("isAuthenticated").toLowerCase() === "true"
     };
   }
 
