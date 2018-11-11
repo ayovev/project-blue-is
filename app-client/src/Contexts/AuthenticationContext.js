@@ -1,22 +1,30 @@
+// should we use localStorage or sessionStorage for this...?
+
 import React, { Component } from 'react';
 
+const IS_AUTHENTICATED = "isAuthenticated";
+
 const AuthenticationContext = React.createContext();
+const AuthenticationConsumer = AuthenticationContext.Consumer;
 
 class AuthenticationProvider extends Component {
   constructor(props) {
     super(props);
 
+    // TODO: this needs to be broken down into a sequence of more robust and thorough checks (possibly it's own function)
+    const authentication = sessionStorage.getItem(IS_AUTHENTICATED) !== null ? sessionStorage.getItem(IS_AUTHENTICATED).toLowerCase() === "true" : false;
+
     this.state = {
-      isAuthenticated: localStorage.getItem("isAuthenticated").toLowerCase() === "true"
+      isAuthenticated: authentication
     };
   }
 
   login = () => {
-    localStorage.setItem("isAuthenticated", true);
+    sessionStorage.setItem(IS_AUTHENTICATED, true);
   }
 
   logout = () => {
-    localStorage.setItem("isAuthenticated", false);
+    sessionStorage.setItem(IS_AUTHENTICATED, false);
   }
 
   render() {
@@ -34,6 +42,4 @@ class AuthenticationProvider extends Component {
   }
 }
 
-const AuthenticationConsumer = AuthenticationContext.Consumer;
-
-export { AuthenticationProvider, AuthenticationConsumer };
+export { AuthenticationConsumer, AuthenticationProvider };
