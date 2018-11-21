@@ -33,6 +33,11 @@ export default class Header extends Component {
     return data;
   }
 
+  getUserLetter = () => {
+    // https://ui-avatars.com/api/?name=John+Doe
+    console.log("Letter");
+  }
+
   render() {
     return (
       <AuthenticationConsumer>
@@ -57,8 +62,7 @@ export default class Header extends Component {
                   <NavLink href="/" className={styles.navlink}>Home</NavLink>
                 </NavItem>
                 <NavItem className={styles.navitem}>
-                  {/* Maybe rephrase / reword this link? */}
-                  <NavLink href="/" className={styles.navlink}>Our Algorithm</NavLink>
+                  <NavLink href="/" className={styles.navlink}>Methodology</NavLink>
                 </NavItem>
                 <NavItem className={styles.navitem}>
                   <NavLink href="/" className={styles.navlink}>Meet The Team</NavLink>
@@ -87,7 +91,7 @@ export default class Header extends Component {
             </Collapse>
             {!this.state.isOpen &&
               <NavbarBrand style={{color: "white"}}>
-                <b>user stuff</b>
+                <NavLink className={styles.navlink} onClick={this.getUserLetter}><b>User</b></NavLink>
               </NavbarBrand>
             }
           </Navbar>

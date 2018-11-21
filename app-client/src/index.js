@@ -9,7 +9,7 @@ import "./index.css";
 ReactDOM.render(
   <AuthenticationProvider>
     <Router>
-      <App />
+      <App/>
     </Router>
   </AuthenticationProvider>,
   document.getElementById(`root`)

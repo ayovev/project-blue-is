@@ -11,38 +11,6 @@ export default class Home extends Component {
         <br></br>
         <br></br>
         <h3 className={styles.projectTagline}>Institutional Analysis for<br></br>the Retail Investor</h3>
-        {/* EXTRA CONTENT START */}
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <h3 className={styles.projectTagline}>Institutional Analysis for<br></br>the Retail Investor</h3>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <h3 className={styles.projectTagline}>Institutional Analysis for<br></br>the Retail Investor</h3>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <h3 className={styles.projectTagline}>Institutional Analysis for<br></br>the Retail Investor</h3>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <h3 className={styles.projectTagline}>Institutional Analysis for<br></br>the Retail Investor</h3>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <h3 className={styles.projectTagline}>Institutional Analysis for<br></br>the Retail Investor</h3>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <h3 className={styles.projectTagline}>Institutional Analysis for<br></br>the Retail Investor</h3>
-        {/* EXTRA CONTENT END */}
       </div>
     );
   }
