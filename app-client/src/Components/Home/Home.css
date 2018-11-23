@@ -1,11 +1,19 @@
 @import url('https://fonts.googleapis.com/css?family=Fira+Mono');
 
 :local(.container) {
-  background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url("https://images.unsplash.com/photo-1499463217683-ee3c9ce038f1?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=75d74b30c53b84b891bce92e803dd40c&auto=format&fit=crop&w=1950&q=80") no-repeat center center fixed;
+  background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url("assets/skyline.jpg") no-repeat center center fixed;
   background-size: cover;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
+  margin:auto;
+}
+
+/*Content Area might end up being global as different frames will use this.*/
+:local(.contentArea){
+  width: 1080px;
+  margin:auto;
+
 }
 
 :local(.projectName) {
@@ -14,6 +22,7 @@
   color: #ffffff;
   font-family: 'Fira Mono', monospace;
   font-size: 60px;
+  margin-bottom:100px;
 }
 
 :local(.projectTagline) {
@@ -22,6 +31,56 @@
   text-align: center;
   margin: auto;
   padding-bottom: 1%;
+}
+
+:local(.learnMoreButton){
+
+  color:white;
+  border: 2px solid white;
+  font-size: 18px;
+  width: 150px;
+  height: 40px;
+  background-color: transparent;
+  transition: all 0.5s;
+  cursor:pointer;
+
+}
+:local(.learnMoreButton:hover){
+
+  box-shadow: inset 0 0 0 3px black;
+  background-color:white;
+  color:black;
+}
+
+/*:after affects*/
+:local(.learnMoreButton:after)
+{
+  content: '»';
+  right: -20px;
+  transition: 0.5s;
+  opacity: 0;
+}
+
+:local(.learnMoreButton:hover:after)
+{
+  opacity: 1;
+  right:10px;
+}
+
+:local(hr){
+  width: 10%;
+  border-top: 1px solid white;
+  padding-bottom:30px;
+  margin-top:60px;
+
+}
+
+
+:local(.centerButtonDiv)
+{
+  margin:auto;
+  text-align:center;
+  padding-bottom:200px;
 }
 
 .typewriter h1 {
