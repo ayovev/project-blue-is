@@ -18,13 +18,9 @@ class DBInterface:
     """
 
     HOST = "mongodb://"
-    USERNAME = os.getenv("MONGODB_USERNAME")
-    PASSWORD = os.getenv("MONGODB_PASSWORD")
-    URI = "@cluster0-shard-00-00-ialvl.mongodb.net:27017,\
-      cluster0-shard-00-01-ialvl.mongodb.net:27017,\
-      cluster0-shard-00-02-ialvl.mongodb.net:27017\
-      /test?ssl=true&replicaSet=Cluster0-shard-0&\
-      authSource=admin&retryWrites=true"
+    USERNAME = str(os.getenv("MONGODB_USERNAME"))
+    PASSWORD = str(os.getenv("MONGODB_PASSWORD"))
+    URI = "@cluster0-shard-00-00-ialvl.mongodb.net:27017,cluster0-shard-00-01-ialvl.mongodb.net:27017,cluster0-shard-00-02-ialvl.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true"
 
     client = MongoClient(HOST + USERNAME + ":" + PASSWORD + URI)
     db = client['pbi-data']
