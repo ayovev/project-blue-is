@@ -29,6 +29,8 @@ services:
     links:
       - app-server
     restart: on-failure
+    environment:
+      - CHOKIDAR_USEPOLLING=true
 
   app-server:
     container_name: app-server
@@ -45,6 +47,8 @@ services:
     depends_on:
       - mongo
     restart: on-failure
+    environment:
+      - CHOKIDAR_USEPOLLING=true
 
   mongo:
     container_name: mongo
