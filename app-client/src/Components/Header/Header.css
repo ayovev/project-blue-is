@@ -26,3 +26,17 @@
   text-decoration: underline;
   text-decoration-color: #4286f4;
 }
+
+.selected{
+  color:#4286f4;
+
+}
+.selected:after{
+  content:"";
+  color:#4286f4;
+  border-bottom: 3px solid #4286f4;
+  padding-bottom:5px;
+  width:80%;
+  display:block;
+  margin:auto;
+}

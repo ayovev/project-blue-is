@@ -13,16 +13,21 @@
 :local(.contentArea){
   width: 1080px;
   margin:auto;
+  padding-top:50px;
 
 }
 
+
+
 :local(.projectName) {
-  padding-top: 5%;
+
   text-align: center;
   color: #ffffff;
   font-family: 'Fira Mono', monospace;
   font-size: 60px;
+  margin:auto;
   margin-bottom:100px;
+  width:770px;
 }
 
 :local(.projectTagline) {
@@ -31,6 +36,7 @@
   text-align: center;
   margin: auto;
   padding-bottom: 1%;
+
 }
 
 :local(.learnMoreButton){
@@ -45,6 +51,18 @@
   cursor:pointer;
 
 }
+
+:local(.learnMoreButton .arrow){
+  display:none;
+}
+
+:local(.learnMoreButton:hover .arrow){
+  display:inline-block;
+}
+:local(.learnMoreButton:hover:after .arrow){
+  transition:0.3s;
+}
+
 :local(.learnMoreButton:hover){
 
   box-shadow: inset 0 0 0 3px black;
@@ -52,21 +70,10 @@
   color:black;
 }
 
-/*:after affects*/
-:local(.learnMoreButton:after)
-{
-  content: '»';
-  /*Use all of this in a span and then modify opacity and margins.. this is too complicated.*/
-  transform: rotateZ(90deg);
-  right: -20px;
-  transition: 0.5s;
-  opacity: 0;
-}
-
 :local(.learnMoreButton:hover:after)
 {
   opacity: 1;
-  right:10px;
+  transition: 0.5s;
 }
 
 :local(hr){
@@ -85,28 +92,32 @@
   padding-bottom:200px;
 }
 
-.typewriter h1 {
+/*Needed to add the px definition so the cursor border wouldn't go crazy.*/
+.typewriter{width:770px;margin:auto;}
+.typewriter h1{
   text-align: center;
   color: #ffffff;
-
+  border-right: .07em solid #4286f4;
   overflow: hidden; /* Ensures the content is not revealed until the animation */
-  border-right: .10em solid orange; /* The typwriter cursor */
   white-space: nowrap; /* Keeps the content on a single line */
-  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
-  letter-spacing: .15em; /* Adjust as needed */
+
   animation:
-    typing 4s steps(40, end),
-    blink-caret 1s step-end infinite;
+    typing 3s steps(30, end),
+    blink-caret 0.7s step-end infinite ;
+
+
 }
 
 /* The typing effect */
 @keyframes typing {
   from { width: 0 }
   to { width: 100% }
+
 }
 
 /* The typewriter cursor effect */
 @keyframes blink-caret {
-  from, to { border-color: transparent }
-  50% { border-color: orange; }
+  from, to { border-color:transparent }
+  50% { border-color: #4286f4; }
+
 }

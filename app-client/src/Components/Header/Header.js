@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
+import { NavLink as RRNavLink } from 'react-router-dom';
 // import { LineChart, Line } from "recharts";
 import { AuthenticationConsumer } from "../../Contexts/AuthenticationContext";
 import styles from "./Header.css";
@@ -59,31 +60,35 @@ export default class Header extends Component {
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav navbar className="mx-auto nav">
                 <NavItem className={styles.navitem}>
-                  <NavLink href="/" className={styles.navlink}>>Home</NavLink>
+                  <NavLink to="/" activeClassName="selected" tag={RRNavLink} className={styles.navlink}>Home</NavLink>
                 </NavItem>
                 <NavItem className={styles.navitem}>
-                  <NavLink href="/"  className={styles.navlink}>Methodology</NavLink>
+                  <NavLink to="/methodology" activeClassName="selected" tag={RRNavLink}  className={styles.navlink}>Methodology</NavLink>
                 </NavItem>
                 <NavItem className={styles.navitem}>
-                  <NavLink href="/" className={styles.navlink}>Meet The Team</NavLink>
+                  <NavLink to="/team" activeClassName="selected" tag={RRNavLink} className={styles.navlink}>Meet The Team</NavLink>
                 </NavItem>
                 {!isAuthenticated &&
                   <React.Fragment>
                     <NavItem className={styles.navitem}>
-                      <NavLink href="/" className={styles.navlink} onClick={login}>Login</NavLink>
+                      <NavLink to="/login" activeClassName="selected" tag={RRNavLink} className={styles.navlink} onClick={login}>Login</NavLink>
                     </NavItem>
                     <NavItem className={styles.navitem}>
-                      <NavLink href="/signup" className={styles.navlink}>Signup</NavLink>
+                      <NavLink to="/signup" activeClassName="selected" tag={RRNavLink} className={styles.navlink}>Signup</NavLink>
                     </NavItem>
                   </React.Fragment>
                 }
+
+                {/* Did I screw up the Auth with the menu stuff? if so, just remove 'to' up through 'selected'... then just place href="/" */}
+
+
                 {isAuthenticated &&
                   <React.Fragment>
                     <NavItem className={styles.navitem}>
-                      <NavLink href="/" className={styles.navlink}>Securities</NavLink>
+                      <NavLink to="/securities" activeClassName="selected" tag={RRNavLink} className={styles.navlink}>Securities</NavLink>
                     </NavItem>
                     <NavItem className={styles.navitem}>
-                      <NavLink href="/" className={styles.navlink} onClick={logout}>Logout</NavLink>
+                      <NavLink to="/logout" activeClassName="selected" tag={RRNavLink} className={styles.navlink} onClick={logout}>Logout</NavLink>
                     </NavItem>
                   </React.Fragment>
                 }
