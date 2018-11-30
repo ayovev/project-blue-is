@@ -10,7 +10,10 @@ export default class Home extends Component {
           <h1 className={styles.projectName}>intelligence == null</h1>
 
           <h3 className={styles.projectTagline}>Institutional Analysis for<br></br>the Retail Investor</h3>
+
+
           <hr></hr>
+
           {/*
             inline Style reference: (for anything above 2 attributes, make a class object in css.)
             remove className and replace with style.

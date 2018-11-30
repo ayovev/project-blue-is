@@ -53,16 +53,16 @@ export default class Header extends Component {
                 <Line type="natural" dataKey="value" stroke="#4286f4" strokeWidth={2} dot={null} animationDuration={1200}/>
               </LineChart> */}
 
-              <NavLink href="/" className={styles.navlink}><b>ieen</b></NavLink>
+              <NavLink href="/"  className={styles.navlink}><b>ieen</b></NavLink>
             </NavbarBrand>
             <NavbarToggler className="navbar-dark" onClick={this.toggle}/>
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav navbar className="mx-auto nav">
                 <NavItem className={styles.navitem}>
-                  <NavLink href="/" className={styles.navlink}>Home</NavLink>
+                  <NavLink href="/" className={styles.navlink}>>Home</NavLink>
                 </NavItem>
                 <NavItem className={styles.navitem}>
-                  <NavLink href="/" className={styles.navlink}>Methodology</NavLink>
+                  <NavLink href="/"  className={styles.navlink}>Methodology</NavLink>
                 </NavItem>
                 <NavItem className={styles.navitem}>
                   <NavLink href="/" className={styles.navlink}>Meet The Team</NavLink>

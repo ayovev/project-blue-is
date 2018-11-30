@@ -19,3 +19,10 @@
 :local(.navlink:hover) {
   color: #4286f4;
 }
+
+
+:local(.navActive){
+
+  text-decoration: underline;
+  text-decoration-color: #4286f4;
+}
