@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import styles from "./Home.css";
 
 //Need to remove the border off that typewriter
+//TODO: When react re-renders this component from a menu item selection, the event listener is bypassed... how to resolve?
+
 if(window.location.pathname === '/')
 {
   //If this invokes on any other page, we get errors because the typewriter class doesn't exist.
