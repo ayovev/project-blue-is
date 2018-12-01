@@ -44,7 +44,7 @@ export default class Header extends Component {
       <AuthenticationConsumer>
         {({isAuthenticated, login, logout}) => (
           <Navbar sticky="top" className={styles.navbar} expand="lg">
-            <NavbarBrand style={{color: "white"}}>
+            <NavbarBrand href="/" className={styles.navlink}><b>ieen</b></NavbarBrand>
 
               {/* <AreaChart width={100} height={50} data={this.generateData()} >
                 <Area type="natural" dataKey="value" fill="#4286f4" stroke="dark" animationDuration={1200}/>
@@ -52,15 +52,18 @@ export default class Header extends Component {
 
               {/* <LineChart width={100} height={50} data={this.generateData()}>
                 <Line type="natural" dataKey="value" stroke="#4286f4" strokeWidth={2} dot={null} animationDuration={1200}/>
-              </LineChart> */}
+              </LineChart>
 
               <NavLink href="/"  className={styles.navlink}><b>ieen</b></NavLink>
-            </NavbarBrand>
+              */}
+
+
+
             <NavbarToggler className="navbar-dark" onClick={this.toggle}/>
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav navbar className="mx-auto nav">
                 <NavItem className={styles.navitem}>
-                  <NavLink to="/" activeClassName="selected" tag={RRNavLink} className={styles.navlink}>Home</NavLink>
+                  <NavLink to="/" activeClassName="selected" tag={RRNavLink} className={styles.navlink} exact>Home</NavLink>
                 </NavItem>
                 <NavItem className={styles.navitem}>
                   <NavLink to="/methodology" activeClassName="selected" tag={RRNavLink}  className={styles.navlink}>Methodology</NavLink>
@@ -95,9 +98,7 @@ export default class Header extends Component {
               </Nav>
             </Collapse>
             {!this.state.isOpen &&
-              <NavbarBrand style={{color: "white"}}>
-                <NavLink className={styles.navlink} onClick={this.getUserLetter}><b>User</b></NavLink>
-              </NavbarBrand>
+              <NavbarBrand href="#" className={styles.navlink} onClick={this.getUserLetter}><b>User</b></NavbarBrand>
             }
           </Navbar>
         )}
