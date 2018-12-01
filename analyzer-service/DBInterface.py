@@ -50,7 +50,7 @@ class DBInterface:
 
     for ticker in DBInterface.TICKERS:
       tickerJSON = requests.get(
-        "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={}&outputsize={}&apikey={}".format(ticker, "full", DBInterface.KEY))
+        "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol={}&outputsize={}&apikey={}".format(ticker, "full", DBInterface.KEY))
 
       collection.insert({"data": tickerJSON.json()}, check_keys=False)
       print(ticker, "historical data has been inserted.")
