@@ -18,8 +18,8 @@ class DBInterface:
     """
 
     HOST = "mongodb://"
-    USERNAME = str(os.getenv("MONGODB_USERNAME"))
-    PASSWORD = str(os.getenv("MONGODB_PASSWORD"))
+    USERNAME = str(os.getenv("USERNAME"))
+    PASSWORD = str(os.getenv("PASSWORD"))
     URI = "@cluster0-shard-00-00-ialvl.mongodb.net:27017,cluster0-shard-00-01-ialvl.mongodb.net:27017,cluster0-shard-00-02-ialvl.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true"
 
     client = MongoClient(HOST + USERNAME + ":" + PASSWORD + URI)
@@ -50,12 +50,10 @@ class DBInterface:
 
     for ticker in DBInterface.TICKERS:
       tickerJSON = requests.get(
-        "https://www.alphavantage.co/query?\
-        function=TIME_SERIES_DAILY&symbol={}&outputsize={}&apikey={}"
-        .format(ticker, "full", DBInterface.KEY))
+        "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={}&outputsize={}&apikey={}".format(ticker, "full", DBInterface.KEY))
 
       collection.insert({"data": tickerJSON.json()}, check_keys=False)
       print(ticker, "historical data has been inserted.")
 
     DBInterface.disconnect(client)
-    print("Historical data has been input into the cloud mongoDB instance!")
+    return "Historical data has been input into the cloud mongoDB instance!"

@@ -1,6 +1,8 @@
 """dependencies"""
 from datetime import datetime, timezone, timedelta
 from flask import Flask, jsonify
+import os
+import sys
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -90,7 +92,12 @@ def redeploy():
 @app.route("/analyzer/var")
 def valueAtRisk():
   '''value at risk'''
-  return Var.test()
+  ticker, data = Var.loadHistorical()
+  test = Var.calculateVar(ticker, data)
+
+  print(test, file=sys.stderr)
+
+  return "Success"
 
 if __name__ == "__main__":
   app.run(host="0.0.0.0", port=4000)
