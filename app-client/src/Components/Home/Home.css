@@ -10,7 +10,6 @@
   height: 95vh;
 }
 :local(.containerFrame2) {
-
   margin:auto;
 }
 
@@ -19,13 +18,9 @@
   width: 1080px;
   margin:auto;
   padding-top:12%;
-
 }
 
-
-
 :local(.projectName) {
-
   text-align: center;
   color: #ffffff;
   font-family: 'Fira Mono', monospace;
@@ -41,11 +36,9 @@
   text-align: center;
   margin: auto;
   padding-bottom: 1%;
-
 }
 
-:local(.learnMoreButton){
-
+:local(.learnMoreButton) {
   color:white;
   border: 2px solid white;
   font-size: 18px;
@@ -54,39 +47,37 @@
   background-color: transparent;
   transition: all 0.5s;
   cursor:pointer;
-
 }
 
-:local(.learnMoreButton:hover){
-
+:local(.learnMoreButton:hover) {
   box-shadow: inset 0 0 0 3px black;
   background-color:white;
   color:black;
 }
 
-:local(.learnMoreButton:hover:after)
-{
+:local(.learnMoreButton:hover:after) {
   opacity: 1;
   transition: 0.5s;
 }
 
-:local(hr){
+:local(hr) {
   width: 10%;
   border-top: 1px solid white;
   padding-bottom:30px;
   margin-top:60px;
-
 }
 
-
-:local(.centerButtonDiv)
-{
+:local(.centerButtonDiv) {
   margin:auto;
   text-align:center;
 }
 
 /*Needed to add the px definition so the cursor border wouldn't go crazy.*/
-.typewriter{width:770px;margin:auto;}
+.typewriter {
+  width: 770px;
+  margin: auto;
+}
+
 .typewriter h1{
   text-align: center;
   color: #ffffff;
@@ -97,20 +88,16 @@
   animation:
     typing 3s steps(30, end),
     blink-caret 0.7s step-end infinite ;
-
-
 }
 
 /* The typing effect */
 @keyframes typing {
   from { width: 0 }
   to { width: 100% }
-
 }
 
 /* The typewriter cursor effect */
 @keyframes blink-caret {
   from, to { border-color:transparent }
   50% { border-color: #4286f4; }
-
 }

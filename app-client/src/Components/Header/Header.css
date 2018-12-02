@@ -15,22 +15,19 @@
   text-align: center;
 }
 
-/* Maybe add underline effect as in mockups? Replace text color change? */
 :local(.navlink:hover) {
   color: #4286f4;
 }
 
-
 :local(.navActive){
-
   text-decoration: underline;
   text-decoration-color: #4286f4;
 }
 
 .selected{
   color:#4286f4;
-
 }
+
 .selected:after{
   content:"";
   color:#4286f4;
