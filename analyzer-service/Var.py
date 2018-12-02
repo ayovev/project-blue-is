@@ -30,9 +30,8 @@ class Var:
     df = df.T
 
     # caculate percent returns per day
-    #returns = pd.to_numeric(df.iloc[:, 3]) - pd.to_numeric(df.iloc[:, 0])
-    #pReturns = returns / pd.to_numeric(pd.to_numeric(df.iloc[:, 0]))
+    pReturns = pd.to_numeric(df.iloc[:, 4]).pct_change() #TODO: need to reverse order of indices
 
 
 
-    return str(df)
+    return str(pReturns)
