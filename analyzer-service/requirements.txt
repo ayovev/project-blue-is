@@ -3,3 +3,4 @@ pymongo
 python-dotenv
 requests
 pandas
+scipy

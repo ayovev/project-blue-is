@@ -2,6 +2,8 @@ import math
 from pymongo import MongoClient
 import json
 import pandas as pd
+import numpy as np
+from scipy.stats import norm
 
 from DBInterface import DBInterface
 
@@ -28,10 +30,11 @@ class Var:
     # make data into a pandas data frame
     df = pd.DataFrame.from_dict(tData)
     df = df.T
+    df = df.iloc[::-1]
 
     # caculate percent returns per day
-    pReturns = pd.to_numeric(df.iloc[:, 4]).pct_change() #TODO: need to reverse order of indices
+    pReturns = pd.to_numeric(df.iloc[:, 4]).pct_change()
+    pr_mean = np.mean(pReturns)
+    pr_std = np.std(pReturns)
 
-
-
-    return str(pReturns)
+    return str(pr_std)
