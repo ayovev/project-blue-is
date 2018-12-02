@@ -1,11 +1,8 @@
 import React, { Component } from "react";
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 import { NavLink as RRNavLink } from 'react-router-dom';
-// import { LineChart, Line } from "recharts";
 import { AuthenticationConsumer } from "../../Contexts/AuthenticationContext";
 import styles from "./Header.css";
-
-const DATA_LENGTH = 8;
 
 export default class Header extends Component {
   constructor(props) {
@@ -20,18 +17,6 @@ export default class Header extends Component {
     this.setState({
       isOpen: !this.state.isOpen
     });
-  }
-
-  generateData = () => {
-    let data = [];
-    let value;
-
-    for (let index = 0; index < DATA_LENGTH; index++) {
-      value = Math.floor(Math.random() * Math.floor(50));
-      data.push({value: value});
-    }
-
-    return data;
   }
 
   getUserLetter = () => {
