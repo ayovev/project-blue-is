@@ -9,8 +9,9 @@
   margin:auto;
   height: 95vh;
 }
-:local(.containerFrame2) {
+:local(.containerFrame2){
   margin:auto;
+  margin-top:30px;
 }
 
 /*Content Area might end up being global as different frames will use this.*/
@@ -60,16 +61,54 @@
   transition: 0.5s;
 }
 
-:local(hr) {
+
+
+:local(.darkContentSeperator){
+  background-color:black;
+  color:white;
+  text-align:center;
+  padding:10px 0;
+}
+
+:local(.mediaCard){
+  justify-content: center;
+  padding-bottom:40px;
+  text-align: center;
+}
+
+
+
+hr.light {
   width: 10%;
   border-top: 1px solid white;
   padding-bottom:30px;
   margin-top:60px;
 }
+hr.dark {
+  width: 10%;
+  border-top: 4px solid #4286f4;
+  padding-bottom:30px;
+  margin-top:15px;
+}
 
 :local(.centerButtonDiv) {
   margin:auto;
   text-align:center;
+}
+
+.FrameTitleText
+{
+  font-size:20px;
+  color:black;
+  text-align:center;
+}
+
+h2
+{
+  font-size:22px;
+}
+p{
+  color: grey;
 }
 
 /*Needed to add the px definition so the cursor border wouldn't go crazy.*/
