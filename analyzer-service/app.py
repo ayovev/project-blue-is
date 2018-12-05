@@ -95,9 +95,7 @@ def valueAtRisk():
   ticker, data = Var.loadHistorical()
   test = Var.calculateVar(ticker, data)
 
-  print(test, file=sys.stderr)
-
-  return "Success"
+  return str(test)
 
 if __name__ == "__main__":
   app.run(host="0.0.0.0", port=4000)
