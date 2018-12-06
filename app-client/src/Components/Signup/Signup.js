@@ -51,7 +51,6 @@ export default class Signup extends Component {
         </div>
         <h1 className={styles.preFormText}>Sign up for IEEN</h1>
         <br/>
-        <br/>
         <div className={styles.container}>
           <FormGroup>
             <Label for="email">Email</Label>

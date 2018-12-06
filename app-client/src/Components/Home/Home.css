@@ -70,11 +70,16 @@
   padding:10px 0;
 }
 
-:local(.mediaCard){
+:local(.mediaCardContainer){
   justify-content: center;
   padding-bottom:40px;
   text-align: center;
 }
+
+:local(.mediaCard){
+  cursor: pointer;
+}
+
 
 
 
@@ -107,7 +112,7 @@ h2
 {
   font-size:22px;
 }
-p{
+:local(p){
   color: grey;
 }
 
