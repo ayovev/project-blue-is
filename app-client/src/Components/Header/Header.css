@@ -19,16 +19,16 @@
   color: #4286f4;
 }
 
-:local(.navActive){
+:local(.navActive) {
   text-decoration: underline;
   text-decoration-color: #4286f4;
 }
 
-.selected{
+.selected {
   color:#4286f4;
 }
 
-.selected:after{
+.selected:after {
   content:"";
   color:#4286f4;
   border-bottom: 3px solid #4286f4;

@@ -9,13 +9,14 @@
   margin:auto;
   height: 95vh;
 }
-:local(.containerFrame2){
+
+:local(.containerFrame2) {
   margin:auto;
   margin-top:30px;
 }
 
-/*Content Area might end up being global as different frames will use this.*/
-:local(.contentArea){
+/* Content Area might end up being global as different frames will use this */
+:local(.contentArea) {
   width: 1080px;
   margin:auto;
   padding-top:12%;
@@ -61,27 +62,22 @@
   transition: 0.5s;
 }
 
-
-
-:local(.darkContentSeperator){
+:local(.darkContentSeperator) {
   background-color:black;
   color:white;
   text-align:center;
   padding:10px 0;
 }
 
-:local(.mediaCardContainer){
+:local(.mediaCardContainer) {
   justify-content: center;
   padding-bottom:40px;
   text-align: center;
 }
 
-:local(.mediaCard){
+:local(.mediaCard) {
   cursor: pointer;
 }
-
-
-
 
 hr.light {
   width: 10%;
@@ -89,6 +85,7 @@ hr.light {
   padding-bottom:30px;
   margin-top:60px;
 }
+
 hr.dark {
   width: 10%;
   border-top: 4px solid #4286f4;
@@ -101,28 +98,27 @@ hr.dark {
   text-align:center;
 }
 
-.FrameTitleText
-{
+.FrameTitleText {
   font-size:20px;
   color:black;
   text-align:center;
 }
 
-h2
-{
+h2 {
   font-size:22px;
 }
-:local(p){
+
+:local(p) {
   color: grey;
 }
 
-/*Needed to add the px definition so the cursor border wouldn't go crazy.*/
+/* Needed to add the px definition so the cursor border wouldn't go crazy. */
 .typewriter {
   width: 770px;
   margin: auto;
 }
 
-.typewriter h1{
+.typewriter h1 {
   text-align: center;
   color: #ffffff;
   border-right: .07em solid #4286f4;

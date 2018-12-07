@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Fira+Mono');
 
-:local(.ButtonStyle){
+:local(.ButtonStyle) {
   -moz-box-shadow:inset 0px 1px 0px 0px #97c4fe;
 	-webkit-box-shadow:inset 0px 1px 0px 0px #97c4fe;
 	box-shadow:inset 0px 1px 0px 0px #97c4fe;
