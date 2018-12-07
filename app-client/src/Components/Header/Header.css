@@ -1,0 +1,39 @@
+:local(.navbar) {
+  background-color: rgba(0,0,0,0.98);
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+:local(.navitem) {
+  padding-right: 20px;
+  font-variant: small-caps;
+  font-size: 1rem;
+}
+
+:local(.navlink) {
+  color: #ffffff;
+  text-align: center;
+}
+
+:local(.navlink:hover) {
+  color: #4286f4;
+}
+
+:local(.navActive) {
+  text-decoration: underline;
+  text-decoration-color: #4286f4;
+}
+
+.selected {
+  color:#4286f4;
+}
+
+.selected:after {
+  content:"";
+  color:#4286f4;
+  border-bottom: 3px solid #4286f4;
+  padding-bottom:5px;
+  width:80%;
+  display:block;
+  margin:auto;
+}

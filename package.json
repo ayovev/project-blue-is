@@ -18,7 +18,7 @@
   "scripts": {
     "lint:app-client": "cd app-client && npm run lint && cd ..",
     "lint:app-server": "cd app-server && npm run lint && cd ..",
-    "lint:analyzer-service": "cd analyzer-service && pylint app.py && cd ..",
+    "lint:analyzer-service": "cd analyzer-service && pylint *.py && cd ..",
     "lint": "npm run lint:app-client && npm run lint:app-server && npm run lint:analyzer-service",
     "start": "docker-compose up",
     "start:rebuild": "docker-compose up --build",
