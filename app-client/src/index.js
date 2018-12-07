@@ -4,12 +4,15 @@ import { BrowserRouter as Router } from "react-router-dom";
 import App from "./Components/App/App";
 import * as serviceWorker from './serviceWorker';
 import { AuthenticationProvider } from "./Contexts/AuthenticationContext";
+import ScrollRestoration from "./Components/ScrollRestoration/ScrollRestoration";
 import "./index.css";
 
 ReactDOM.render(
   <AuthenticationProvider>
     <Router>
-      <App/>
+      <ScrollRestoration>
+        <App/>
+      </ScrollRestoration>
     </Router>
   </AuthenticationProvider>,
   document.getElementById(`root`)

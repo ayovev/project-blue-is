@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 
-const IS_AUTHENTICATED = "isAuthenticated";
+const IS_AUTHENTICATED = `isAuthenticated`;
 
 const AuthenticationContext = React.createContext();
 const AuthenticationConsumer = AuthenticationContext.Consumer;
@@ -12,7 +12,7 @@ class AuthenticationProvider extends Component {
     super(props);
 
     // TODO: this needs to be broken down into a sequence of more robust and thorough checks (possibly it's own function)
-    const authentication = sessionStorage.getItem(IS_AUTHENTICATED) !== null ? sessionStorage.getItem(IS_AUTHENTICATED).toLowerCase() === "true" : false;
+    const authentication = sessionStorage.getItem(IS_AUTHENTICATED) !== null ? sessionStorage.getItem(IS_AUTHENTICATED).toLowerCase() === `true` : false;
 
     this.state = {
       isAuthenticated: authentication
@@ -28,7 +28,7 @@ class AuthenticationProvider extends Component {
   }
 
   render() {
-    return(
+    return (
       <AuthenticationContext.Provider
         value={{
           isAuthenticated: this.state.isAuthenticated,
@@ -38,7 +38,7 @@ class AuthenticationProvider extends Component {
       >
         {this.props.children}
       </AuthenticationContext.Provider>
-    )
+    );
   }
 }
 

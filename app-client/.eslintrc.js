@@ -3,6 +3,7 @@ module.exports = {
       "google",
       "plugin:react/recommended"
     ],
+    "parser": "babel-eslint",
     "plugins": ["react"],
     "settings": {
       "react": {
@@ -28,14 +29,18 @@ module.exports = {
       "indent": ["error", 2],
       "jsx-quotes": ["error", "prefer-double"],
       "linebreak-style": ["error", "unix"],
-      "max-len": ["warn"],
+      "max-len": ["off"],
       "no-console": ["warn"],
+      "no-invalid-this": ["off"],
       "object-curly-spacing": ["error", "always"],
       "quotes": ["error", "backtick"],
       "require-jsdoc": ["off"],
       "semi": ["error", "always"],
       "space-in-parens": ["error", "never"],
 
-      "react/display-name": ["off"]
+      "react/display-name": ["off"],
+
+      // potentially fix at some point
+      "react/prop-types": ["off"]
     }
 };

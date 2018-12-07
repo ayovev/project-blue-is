@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FormGroup, Input, Button, Label } from 'reactstrap';
-import { LineChart, Line } from 'recharts'
+import { LineChart, Line } from 'recharts';
 import styles from './Signup.css';
 
 const DATA_LENGTH = 8;
@@ -14,13 +14,13 @@ export default class Signup extends Component {
       password: ``,
       confirmPassword: ``,
       birthdate: ``,
-      investorPreferences: ``,
+      investorPreferences: ``
     };
   }
 
   handleChange = (event) => {
     this.setState({
-      [event.target.id]: event.target.value,
+      [event.target.id]: event.target.value
     });
   }
 
@@ -33,11 +33,11 @@ export default class Signup extends Component {
   generateData = () => {
     let data = [];
     let value;
-     for (let index = 0; index < DATA_LENGTH; index++) {
+    for (let index = 0; index < DATA_LENGTH; index++) {
       value = Math.floor(Math.random() * Math.floor(50));
-      data.push({value: value});
+      data.push({ value: value });
     }
-     return data;
+    return data;
   }
 
   render() {

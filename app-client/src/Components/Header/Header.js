@@ -21,13 +21,13 @@ export default class Header extends Component {
 
   getUserLetter = () => {
     // https://ui-avatars.com/api/?name=John+Doe
-    console.log("Letter");
+    // console.log(`Letter`);
   }
 
   render() {
     return (
       <AuthenticationConsumer>
-        {({isAuthenticated, logout}) => (
+        {({ isAuthenticated, logout }) => (
           <Navbar sticky="top" className={styles.navbar} expand="lg">
             <NavbarBrand href="/" className={styles.navlink}><b>ieen</b></NavbarBrand>
             <NavbarToggler className="navbar-dark" onClick={this.toggle}/>
@@ -37,7 +37,7 @@ export default class Header extends Component {
                   <NavLink to="/" activeClassName="selected" tag={RRNavLink} className={styles.navlink} exact>Home</NavLink>
                 </NavItem>
                 <NavItem className={styles.navitem}>
-                  <NavLink to="/methodology" activeClassName="selected" tag={RRNavLink}  className={styles.navlink}>Methodology</NavLink>
+                  <NavLink to="/methodology" activeClassName="selected" tag={RRNavLink} className={styles.navlink}>Methodology</NavLink>
                 </NavItem>
                 <NavItem className={styles.navitem}>
                   <NavLink to="/team" activeClassName="selected" tag={RRNavLink} className={styles.navlink}>Meet The Team</NavLink>
