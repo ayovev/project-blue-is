@@ -5,6 +5,7 @@ const logger = require(`morgan`);
 
 const indexRouter = require(`./routes/index`);
 const statusRouter = require(`./routes/status`);
+const loginRouter = require(`./routes/login`);
 
 const app = express();
 
@@ -14,7 +15,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, `public`)));
 
-app.use(`/`, indexRouter);
-app.use(`/status`, statusRouter);
+app.use(`/eapi`, indexRouter);
+app.use(`/eapi/status`, statusRouter);
+app.use(`/eapi/login`, loginRouter);
 
 module.exports = app;
