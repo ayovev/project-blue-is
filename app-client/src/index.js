@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import App from "./Components/App/App";
 import * as serviceWorker from './serviceWorker';
-import { AuthenticationProvider } from "./Contexts/AuthenticationContext";
+import { AuthenticationProvider } from "./Contexts/AuthenticationContext/AuthenticationContext";
 import ScrollRestoration from "./Components/ScrollRestoration/ScrollRestoration";
 import "./index.css";
 
