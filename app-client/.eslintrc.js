@@ -26,7 +26,7 @@ module.exports = {
       "brace-style": ["error", "stroustrup"],
       "comma-dangle": ["warn", "never"],
       "curly": ["error", "all"],
-      "indent": ["error", 2],
+      "indent": ["error", 2, { "SwitchCase": 1 }],
       "jsx-quotes": ["error", "prefer-double"],
       "linebreak-style": ["error", "unix"],
       "max-len": ["off"],
