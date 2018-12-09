@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Form, FormGroup, Input, Button, Label } from 'reactstrap';
 import { LineChart, Line } from 'recharts';
+import md5 from "md5";
 import styles from './Signup.css';
 
 // test data for chart
@@ -35,8 +36,39 @@ export default class Signup extends Component {
     });
   }
 
-  handleSubmit = (event) => {
+  handleSubmit = async (event) => {
     event.preventDefault();
+
+    const data = {
+      email: this.state.email,
+      password: md5(this.state.password),
+      birthdate: this.state.birthdate,
+      investorPreferences: this.state.investorPreferences
+    };
+
+    const config = {
+      method: `POST`,
+      headers: {
+        "accept": `application/json`,
+        "content-type": `application/json`
+      },
+      body: JSON.stringify(data)
+    };
+
+    let response = await fetch(`/eapi/signup`, config);
+
+    switch (response.status) {
+      case 201:
+        alert(`Signed Up`);
+        window.location.assign(`/`);
+        break;
+      case 422:
+        alert(`User Already Exists`);
+        break;
+      default:
+        alert(`Unknown Error ${response.status}`);
+        break;
+    }
   }
 
   // definitely need to have more validation here but it's a start
@@ -90,7 +122,7 @@ export default class Signup extends Component {
             </FormGroup>
             <br/>
             <Button type="submit" color="primary" block disabled={!this.validateForm()}>
-            Create Account
+              Create Account
             </Button>
           </Form>
         </div>
