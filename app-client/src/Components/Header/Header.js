@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 import { NavLink as RRNavLink } from 'react-router-dom';
-import { AuthenticationConsumer } from "../../Contexts/AuthenticationContext";
+import { AuthenticationConsumer } from "../../Contexts/AuthenticationContext/AuthenticationContext";
 import styles from "./Header.css";
 
 export default class Header extends Component {
@@ -58,7 +58,7 @@ export default class Header extends Component {
                       <NavLink to="/securities" activeClassName="selected" tag={RRNavLink} className={styles.navlink}>Securities</NavLink>
                     </NavItem>
                     <NavItem className={styles.navitem}>
-                      <NavLink className={styles.navlink} onClick={logout}>Logout</NavLink>
+                      <NavLink href="#" className={styles.navlink} onClick={logout}>Logout</NavLink>
                     </NavItem>
                   </React.Fragment>
                 }
