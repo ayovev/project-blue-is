@@ -18,7 +18,7 @@ module.exports = {
     "indent": ["error", 2],
     "jsx-quotes": ["error", "prefer-double"],
     "linebreak-style": ["error", "unix"],
-    "max-len": ["warn"],
+    "max-len": ["off"],
     "no-console": ["off"],
     "object-curly-spacing": ["error", "always"],
     "prefer-const": ["warn"],

@@ -9,7 +9,7 @@ router.route(`/`)
 
     const collection = database.collection(`users`);
 
-    const results = await collection.find({ email: request.body.email }).toArray();
+    let results = await collection.find({ email: request.body.email }).toArray();
 
     if (results.length !== 0) {
       response.sendStatus(422);
