@@ -6,7 +6,7 @@ from pymongo import MongoClient
 class DBInterface:
   """class used to interface with cloud mongo database instance"""
 
-  TICKERS = ["MU", "AAPL", "GPRO", "TSLA"]
+  TICKERS = ["MU", "AAPL", "SPY", "TSLA"]
   KEY = os.getenv("ALPHA_VANTAGE_KEY")
 
   @staticmethod

@@ -64,3 +64,23 @@ class Var:
     returnDict = {"Ticker" : tName, "Value at Risk 90%" : round(VaR_90, 4), "Value at Risk 95%" : round(VaR_95, 4), "Value at Risk 99%" : round(VaR_99, 4)}
 
     return returnDict
+
+    @staticmethod
+    def calculateBeta(tName, tData):
+      '''
+      Class method to calculate the Value at Risk using the Variance/Covaraiance method
+
+       @return dict containing ticker symbol and 3 levels of value at risk (90, 95, 99)
+      '''
+      # make data into a pandas data frame
+      df = pd.DataFrame.from_dict(tData)
+      df = df.T
+      df = df.iloc[::-1]
+
+      # caculate percent returns per day for stock
+      pReturns = pd.to_numeric(df.iloc[:, 4]).pct_change()
+
+      pr_std = np.std(pReturns)
+      pr_variance = pr_std**2
+
+
