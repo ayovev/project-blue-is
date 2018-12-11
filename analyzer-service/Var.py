@@ -72,6 +72,10 @@ class Var:
 
        @return dict containing ticker symbol and 3 levels of value at risk (90, 95, 99)
       '''
+      cursor = Var.collection.find_one({})
+      mName = cursor['Meta Data']['2. Symbol']
+      mData = cursor['Time Series (Daily)']
+
       # make data into a pandas data frame
       df = pd.DataFrame.from_dict(tData)
       df = df.T
