@@ -54,9 +54,11 @@ class DBInterface:
 
       tickerJSON = tickerJSON.json() #converts to a dict
 
+      tickerJSON =  {k.translate({32: None}): v for k, v in tickerJSON.items()}
       for key in tickerJSON:
-        key = key.replace(" ", "")
-        print(key)
+        if type(tickerJSON[key]) == dict:
+          tickerJSON[key] =  {k.translate({32: None}): v for k, v in tickerJSON[key].items()}
+          tickerJSON[key] =  {k.translate({46: None}): v for k, v in tickerJSON[key].items()}
 
       collection.insert(tickerJSON, check_keys=False)
       print(ticker, "historical data has been inserted.")
