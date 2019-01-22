@@ -97,5 +97,13 @@ def valueAtRisk():
 
   return str(test)
 
+@app.route("/analyzer/beta")
+def calculateBeta():
+  '''beta'''
+  ticker, data = Var.loadHistorical()
+  test = Var.calculateBeta(ticker, data)
+
+  return str(test)
+
 if __name__ == "__main__":
   app.run(host="0.0.0.0", port=4000)

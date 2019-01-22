@@ -33,8 +33,8 @@ class Var:
     @return bool set to true if functions completes
     '''
     cursor = Var.collection.find_one()
-    tName = cursor['data']['Meta Data']['2. Symbol']
-    tData = cursor['data']['Time Series (Daily)']
+    tName = cursor['MetaData']['2Symbol']
+    tData = cursor['TimeSeries(Daily)']
     return (tName, tData)
 
   @staticmethod
@@ -49,7 +49,7 @@ class Var:
     df = df.T
     df = df.iloc[::-1]
 
-    # caculate percent returns per day
+    # calculate percent returns per day
     pReturns = pd.to_numeric(df.iloc[:, 4]).pct_change()
 
     # calculate the percent return's mean and s.d.
@@ -65,26 +65,28 @@ class Var:
 
     return returnDict
 
-    @staticmethod
-    def calculateBeta(tName, tData):
-      '''
-      Class method to calculate the Value at Risk using the Variance/Covaraiance method
+  @staticmethod
+  def calculateBeta(tName, tData):
+    '''
+    Class method to calculate the Beta of a given ticker
 
-       @return dict containing ticker symbol and 3 levels of value at risk (90, 95, 99)
-      '''
-      cursor = Var.collection.find_one({})
-      mName = cursor['Meta Data']['2. Symbol']
-      mData = cursor['Time Series (Daily)']
+    @return Beta value
+    '''
+    # make data into a pandas data frame
+    df = pd.DataFrame.from_dict(tData)
+    df = df.T
+    df = df.iloc[::-1]
 
-      # make data into a pandas data frame
-      df = pd.DataFrame.from_dict(tData)
-      df = df.T
-      df = df.iloc[::-1]
+    # # calculate percent returns per day for stock
+    pReturns = pd.to_numeric(df.iloc[:, 4]).pct_change()
 
-      # caculate percent returns per day for stock
-      pReturns = pd.to_numeric(df.iloc[:, 4]).pct_change()
+    # calculate the std and variance of the percent returns
+    pr_std = np.std(pReturns)
+    pr_variance = pr_std**2
 
-      pr_std = np.std(pReturns)
-      pr_variance = pr_std**2
+    # get the benchmark percentage returns per day and get the std + variance
+
+    return tName
+
 
 
