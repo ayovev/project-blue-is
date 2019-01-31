@@ -1,3 +1,4 @@
+const jwt = require(`jsonwebtoken`);
 const express = require(`express`);
 const router = express.Router();
 
@@ -20,6 +21,10 @@ router.route(`/`)
       response.sendStatus(401);
     }
     else {
+      response.clearCookie(`pbiToken`);
+      const token = await jwt.sign({ data: user._id }, process.env.TOKEN_SECRET, { expiresIn: `1h` });
+
+      response.cookie(`pbiToken`, token.toString(), { httpOnly: true });
       response.sendStatus(200);
     }
   });

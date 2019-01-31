@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Container, Row, Col } from 'reactstrap';
 import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle } from 'reactstrap';
-
 import styles from "./Home.css";
 
 import What from './assets/what.jpg';
@@ -31,12 +30,17 @@ export default class Home extends Component {
             <h3 className={styles.projectTagline}>Institutional Analysis for<br></br>the Retail Investor</h3>
 
             <hr className={`light`}></hr>
+            {/*
+              inline Style reference: (for anything above 2 attributes, make a class object in css.)
+              remove className and replace with style.
+              style={{margin:'auto'}}
+            */}
 
             <div className={styles.centerButtonDiv}>
-              {/* eslint-disable-next-line */}
-              <button onClick={() => {this.scroll(this.myRef);}} className={styles.learnMoreButton}>Learn More <i className={`w3-jumbo fa fa-angle-down`}></i></button>
+              <button onClick={() => {
+                this.scroll(this.myRef);
+              }} className={styles.learnMoreButton}>Learn More <i className={`w3-jumbo fa fa-angle-down`}></i></button>
             </div>
-
           </div>
         </div>
         <Container className={styles.containerFrame2}>
