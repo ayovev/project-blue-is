@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import styles from "./Home.css";
 import { Container, Row, Col } from 'reactstrap';
 import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle } from 'reactstrap';
+import styles from "./Home.css";
 
-import WhatWeDo from './assets/whatwedo.jpg';
-import HowWeDo from './assets/HowWeDoIt.png';
-import WhoWeAre from './assets/team.png';
+import What from './assets/what.jpg';
+import How from './assets/how.png';
+import Who from './assets/who.png';
 
 export default class Home extends Component {
   constructor(props) {
@@ -14,7 +14,7 @@ export default class Home extends Component {
     this.myRef = React.createRef();
   }
 
-  scroll(ref) {
+  scroll = (ref) => {
     ref.current.scrollIntoView({ behavior: `smooth` });
   }
 
@@ -30,7 +30,6 @@ export default class Home extends Component {
             <h3 className={styles.projectTagline}>Institutional Analysis for<br></br>the Retail Investor</h3>
 
             <hr className={`light`}></hr>
-
             {/*
               inline Style reference: (for anything above 2 attributes, make a class object in css.)
               remove className and replace with style.
@@ -42,7 +41,6 @@ export default class Home extends Component {
                 this.scroll(this.myRef);
               }} className={styles.learnMoreButton}>Learn More <i className={`w3-jumbo fa fa-angle-down`}></i></button>
             </div>
-
           </div>
         </div>
         <Container className={styles.containerFrame2}>
@@ -61,36 +59,33 @@ export default class Home extends Component {
           <Row className={styles.mediaCardContainer}>
             <Col xs="3" >
               <Card className={styles.mediaCard} onClick={() => this.props.history.push(`#`)}>
-                <CardImg top width="100%" src={WhatWeDo} alt="What we do" />
+                <CardImg top width="100%" src={What} alt="What we do" />
                 <CardBody>
                   <CardTitle>What We Do</CardTitle>
                   <CardSubtitle></CardSubtitle>
                   <CardText></CardText>
-
                 </CardBody>
               </Card>
             </Col>
 
             <Col xs="3" >
               <Card className={styles.mediaCard} onClick={() => this.props.history.push(`/methodology`)}>
-                <CardImg top width="100%" src={HowWeDo} alt="How we do it" />
+                <CardImg top width="100%" src={How} alt="How we do it" />
                 <CardBody>
                   <CardTitle>How We Do It</CardTitle>
                   <CardSubtitle></CardSubtitle>
                   <CardText></CardText>
-
                 </CardBody>
               </Card>
             </Col>
 
             <Col xs="3" >
               <Card className={styles.mediaCard} onClick={() => this.props.history.push(`/team`)}>
-                <CardImg top width="100%" src={WhoWeAre} alt="Who are we" />
+                <CardImg top width="100%" src={Who} alt="Who are we" />
                 <CardBody>
                   <CardTitle>Who Are We</CardTitle>
                   <CardSubtitle></CardSubtitle>
                   <CardText></CardText>
-
                 </CardBody>
               </Card>
             </Col>
@@ -98,7 +93,7 @@ export default class Home extends Component {
 
         </Container>
         <Row className={styles.darkContentSeperator}>
-          <Col><h2 ref={this.myRef}>High quality analysis shouldn't be exlusive to firms.</h2></Col>
+          <Col><h2 ref={this.myRef}>High quality analysis shouldn&apos;t be exlusive to firms.</h2></Col>
         </Row>
       </React.Fragment>
     );

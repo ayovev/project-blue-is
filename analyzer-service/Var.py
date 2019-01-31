@@ -33,8 +33,8 @@ class Var:
     @return bool set to true if functions completes
     '''
     cursor = Var.collection.find_one()
-    tName = cursor['data']['Meta Data']['2. Symbol']
-    tData = cursor['data']['Time Series (Daily)']
+    tName = cursor['Meta Data']['2. Symbol']
+    tData = cursor['Time Series (Daily)']
     return (tName, tData)
 
   @staticmethod

@@ -17,12 +17,12 @@ class DBInterface:
     @return tuple connection to client with collection
     """
 
-    HOST = "mongodb://"
-    USERNAME = str(os.getenv("USERNAME"))
-    PASSWORD = str(os.getenv("PASSWORD"))
+    PREFIX = "mongodb://"
+    USERNAME = str(os.getenv("DATABASE_USERNAME"))
+    PASSWORD = str(os.getenv("DATABASE_PASSWORD"))
     URI = "@cluster0-shard-00-00-ialvl.mongodb.net:27017,cluster0-shard-00-01-ialvl.mongodb.net:27017,cluster0-shard-00-02-ialvl.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true"
 
-    client = MongoClient(HOST + USERNAME + ":" + PASSWORD + URI)
+    client = MongoClient(PREFIX + USERNAME + ":" + PASSWORD + URI)
     db = client['pbi-data']
     collection = db.tickerData
     return (client, collection)
