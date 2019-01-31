@@ -23,7 +23,7 @@
     "start": "docker-compose up",
     "start:rebuild": "docker-compose up --build",
     "stop": "docker-compose down",
-    "reset": "docker system prune --volumes -f",
+    "reset": "docker system prune --volumes --all --force",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
