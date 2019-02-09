@@ -1,4 +1,5 @@
 // should we use localStorage or sessionStorage for this...?
+//local right? Because a session could end but a user might want to continue. 
 
 import React, { Component } from 'react';
 
