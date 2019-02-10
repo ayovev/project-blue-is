@@ -15,3 +15,5 @@ __pycache__
 
 # production resources
 build
+
+docker-compose.override.yml
