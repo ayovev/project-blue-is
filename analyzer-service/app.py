@@ -92,7 +92,7 @@ def redeploy():
 @app.route("/analyzer/var")
 def valueAtRisk():
   '''value at risk'''
-  ticker, data = Var.loadHistorical()
+  ticker, data = Var.loadHistorical("")
   test = Var.calculateVar(ticker, data)
 
   return str(test)
@@ -100,8 +100,17 @@ def valueAtRisk():
 @app.route("/analyzer/beta")
 def calculateBeta():
   '''beta'''
-  ticker, data = Var.loadHistorical()
-  test = Var.calculateBeta(ticker, data)
+  ticker, data = Var.loadHistorical("")
+  bTicker, bData = Var.loadHistorical("SPY")
+  test = Var.calculateBeta(ticker, data, bData)
+
+  return str(test)
+
+@app.route("/analyzer/sd")
+def calculateSD():
+  '''sd of returns'''
+  ticker, data = Var.loadHistorical("")
+  test = Var.calculateSD(ticker, data)
 
   return str(test)
 

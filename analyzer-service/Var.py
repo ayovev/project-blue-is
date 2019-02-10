@@ -26,15 +26,21 @@ class Var:
     return True
 
   @staticmethod
-  def loadHistorical():
+  def loadHistorical(ticker):
     '''
     load historical data for class attribute - ticker
 
     @return bool set to true if functions completes
     '''
-    cursor = Var.collection.find_one()
-    tName = cursor['MetaData']['2Symbol']
-    tData = cursor['TimeSeries(Daily)']
+    if (ticker == ""):
+      cursor = Var.collection.find_one()
+      tName = cursor['MetaData']['2Symbol']
+      tData = cursor['TimeSeries(Daily)']
+    else:
+      cursor = Var.collection.find_one({"MetaData.2Symbol" : "SPY"}) # Query for SPY
+      tName = cursor['MetaData']['2Symbol']
+      tData = cursor['TimeSeries(Daily)']
+
     return (tName, tData)
 
   @staticmethod
@@ -66,7 +72,7 @@ class Var:
     return returnDict
 
   @staticmethod
-  def calculateBeta(tName, tData):
+  def calculateBeta(tName, tData, bData):
     '''
     Class method to calculate the Beta of a given ticker
 
@@ -80,13 +86,33 @@ class Var:
     # # calculate percent returns per day for stock
     pReturns = pd.to_numeric(df.iloc[:, 4]).pct_change()
 
-    # calculate the std and variance of the percent returns
-    pr_std = np.std(pReturns)
-    pr_variance = pr_std**2
-
     # get the benchmark percentage returns per day and get the std + variance
+    df2 = pd.DataFrame.from_dict(bData)
+    df2 = df2.T
+    df2 = df2.iloc[::-1]
 
-    return tName
+    bReturns = pd.to_numeric(df2.iloc[:, 4]).pct_change()
 
+    numerator = bReturns.cov(pReturns)
+    denominator = np.std(bReturns) ** 2
+
+    return {"Beta" : float(numerator/denominator)}
+
+  @staticmethod
+  def calculateSD(tName, tData):
+    '''
+    SD of percent returns
+    '''
+    # make data into a pandas data frame
+    df = pd.DataFrame.from_dict(tData)
+    df = df.T
+    df = df.iloc[::-1]
+
+    # # calculate percent returns per day for stock
+    pReturns = pd.to_numeric(df.iloc[:, 4]).pct_change()
+
+    pr_std = np.std(pReturns)
+
+    return {"Standard Deviation of percent returns" : float(pr_std)}
 
 
