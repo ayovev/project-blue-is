@@ -1,5 +1,7 @@
 FROM node:10.11-alpine
 
+RUN apk add --no-cache curl
+
 RUN mkdir -p /app-server
 
 WORKDIR /app-server
@@ -11,8 +13,6 @@ RUN npm install
 COPY . .
 
 EXPOSE 3001 9229
-
-RUN apk add --no-cache curl
 
 HEALTHCHECK --interval=1m \
             --timeout=10s \
