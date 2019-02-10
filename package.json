@@ -20,10 +20,8 @@
     "lint:app-server": "cd app-server && npm run lint && cd ..",
     "lint:analyzer-service": "cd analyzer-service && pylint *.py && cd ..",
     "lint": "npm run lint:app-client && npm run lint:app-server && npm run lint:analyzer-service",
-    "start": "docker-compose up",
-    "start:rebuild": "docker-compose up --build",
-    "stop": "docker-compose down",
-    "reset": "docker system prune --volumes --all --force",
+    "start:dev": "docker-compose -f docker-compose.override.yml up",
+    "start:prod": "docker-compose -f docker-compose.yml up",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
