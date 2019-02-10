@@ -2,14 +2,18 @@
   "name": "project-blue-is",
   "version": "0.1.0",
   "description": "The purpose of this project is to produce a quantity known as the Investability Index by calculating the probability of a specific security outperforming it's index.",
+  "engines": {
+    "node": "~10.11",
+    "npm": "~6.4"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/ayovev/project-blue-is.git",
     "homepage": "https://github.com/ayovev/project-blue-is",
     "bugs": "https://github.com/ayovev/project-blue-is/issues"
   },
-  "license": "unlicensed",
   "private": true,
+  "license": "unlicensed",
   "contributors": [
     "Nathanael Fuller",
     "James Schnebly",
@@ -23,9 +27,5 @@
     "start:dev": "docker-compose -f docker-compose.override.yml up",
     "start:prod": "docker-compose -f docker-compose.yml up",
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "engines": {
-    "node": "~10.11",
-    "npm": "~6.4"
   }
 }
