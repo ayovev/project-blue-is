@@ -1,0 +1,4 @@
+.eslintignore
+.eslintrc.js
+README.md
+node_modules

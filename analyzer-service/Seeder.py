@@ -9,7 +9,7 @@ class Seeder:
   """class used to manage local database seeding interactions"""
 
   TICKERS = ["MU", "AAPL", "GPRO", "TSLA"]
-  KEY = os.getenv("ALPHA_VANTAGE_KEY")
+  KEY = os.getenv("ALPHAVANTAGE_API_KEY")
   HOST = "mongo"
   PORT = 27017
   DATABASE = "ieen"

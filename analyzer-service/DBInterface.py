@@ -7,7 +7,7 @@ class DBInterface:
   """class used to interface with cloud mongo database instance"""
 
   TICKERS = ["MU", "AAPL", "GPRO", "TSLA"]
-  KEY = os.getenv("ALPHA_VANTAGE_KEY")
+  KEY = os.getenv("ALPHAVANTAGE_API_KEY")
 
   @staticmethod
   def connect():

@@ -51,7 +51,7 @@ export default class Login extends Component {
       body: JSON.stringify(data)
     };
 
-    let response = await fetch(`/eapi/login`, config);
+    let response = await fetch(`/api/login`, config);
 
     switch (response.status) {
       case 401:
