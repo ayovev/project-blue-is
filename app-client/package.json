@@ -21,6 +21,8 @@
     "eject": "react-scripts eject",
     "lint": "eslint --fix ./src/**/**/*.js",
     "start": "react-scripts start",
+    "start:dev": "react-scripts --inspect=0.0.0.0:9228 start",
+    "start:prod": "react-scripts start",
     "test": "react-scripts test --env=jsdom"
   },
   "eslintConfig": {

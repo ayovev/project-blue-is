@@ -16,15 +16,15 @@ require(`mongodb`).MongoClient.connect(DATABASE_URI, { useNewUrlParser: true, po
   app.locals.MongoClient = client;
 });
 
-app.use(logger(`dev`));
+app.use(logger(`combined`));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, `public`)));
+app.use(express.static(path.join(__dirname, `../..`, `app-server/build`)));
 
-app.use(`/eapi`, indexRouter);
-app.use(`/eapi/status`, statusRouter);
-app.use(`/eapi/login`, loginRouter);
-app.use(`/eapi/signup`, signupRouter);
+app.use(`/api`, indexRouter);
+app.use(`/api/status`, statusRouter);
+app.use(`/api/login`, loginRouter);
+app.use(`/api/signup`, signupRouter);
 
 module.exports = app;

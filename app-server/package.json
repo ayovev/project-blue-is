@@ -18,7 +18,9 @@
   },
   "scripts": {
     "lint": "eslint --fix ./*.js ./routes/*.js ./bin/www",
-    "start": "nodemon ./bin/www",
+    "start": "node ./bin/www",
+    "start:dev": "nodemon --inspect=0.0.0.0:9229 ./bin/www",
+    "start:prod": "node ./bin/www",
     "test": "echo \"Error: no test specified\" && exit 1"
   }
 }

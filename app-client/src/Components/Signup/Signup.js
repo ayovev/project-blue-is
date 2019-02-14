@@ -55,7 +55,7 @@ export default class Signup extends Component {
       body: JSON.stringify(data)
     };
 
-    let response = await fetch(`/eapi/signup`, config);
+    let response = await fetch(`/api/signup`, config);
 
     switch (response.status) {
       case 201:
