@@ -19,4 +19,4 @@ HEALTHCHECK --interval=1m \
             --retries=3 \
             CMD curl --fail --silent http://localhost:3001/api/status || exit 1
 
-CMD ["npm","start"]
+CMD ["npm","run","start:dev"]
