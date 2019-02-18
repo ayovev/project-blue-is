@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
+import { Dropdown, DropdownMenu, DropdownItem, DropdownToggle } from 'reactstrap';
 import { NavLink as RRNavLink } from 'react-router-dom';
 import { AuthenticationConsumer } from "../../Contexts/AuthenticationContext/AuthenticationContext";
 import styles from "./Header.css";
@@ -9,13 +10,20 @@ export default class Header extends Component {
     super(props);
 
     this.state = {
-      isOpen: false
+      isOpen: false,
+      dropdownOpen: false
     };
   }
 
   toggle = () => {
     this.setState({
       isOpen: !this.state.isOpen
+    });
+  }
+
+  toggleDropdown = () => {
+    this.setState({
+      dropdownOpen: !this.state.dropdownOpen
     });
   }
 
@@ -65,7 +73,18 @@ export default class Header extends Component {
               </Nav>
             </Collapse>
             {!this.state.isOpen &&
-              <NavbarBrand href="#" className={styles.navlink} onClick={this.getUserLetter}><b>User</b></NavbarBrand>
+              <NavbarBrand className={styles.navlink}>
+                <Dropdown className={styles.dropdown} isOpen={this.state.dropdownOpen} toggle={this.toggleDropdown}>
+                  <DropdownToggle color="link" className={styles.dropdownToggle}>
+                    <img src={`https://ui-avatars.com/api/?rounded=true&size=32`}></img>
+                  </DropdownToggle>
+                  <DropdownMenu /* className={styles.dropdownMenu}*/ right>
+                    <DropdownItem /* className={styles.dropdownItem}*/>Profile</DropdownItem>
+                    <DropdownItem /* className={styles.dropdownItem}*/>Settings</DropdownItem>
+                    <DropdownItem /* className={styles.dropdownItem}*/>Logout</DropdownItem>
+                  </DropdownMenu>
+                </Dropdown>
+              </NavbarBrand>
             }
           </Navbar>
         )}
