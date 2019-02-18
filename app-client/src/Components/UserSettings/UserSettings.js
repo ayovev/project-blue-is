@@ -5,7 +5,7 @@ export default class Methodology extends Component {
   render() {
     return (
       <React.Fragment>
-        <h1>Methodology!</h1>
+        <h1>User Settings</h1>
       </React.Fragment>
     );
   }

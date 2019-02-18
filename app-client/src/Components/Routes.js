@@ -7,6 +7,8 @@ import Team from "./Team/Team";
 import Methodology from "./Methodology/Methodology";
 import Login from "./Login/Login";
 import NotFoundPage from "./NotFoundPage/NotFound"
+import UserSettings from "./UserSettings/UserSettings"
+import ProtectedRoute from "./ProtectedRoute/ProtectedRoute"
 
 export default () =>
   <Switch>
@@ -16,6 +18,6 @@ export default () =>
     <Route path="/signup" exact component={Signup} />
     <Route path="/status" exact component={Status} />
     <Route path="/team" exact component={Team} />
+    <ProtectedRoute path="/userPreferences" exact component={UserSettings} />
     <Route path="" component={NotFoundPage} />
-    
   </Switch>;
