@@ -1,3 +1,5 @@
+`use strict`;
+
 const express = require(`express`);
 const path = require(`path`);
 const cookieParser = require(`cookie-parser`);
@@ -14,6 +16,8 @@ const app = express();
 
 require(`mongodb`).MongoClient.connect(DATABASE_URI, { useNewUrlParser: true, poolSize: 10 }, (error, client) => {
   app.locals.MongoClient = client;
+  app.locals.Database = app.locals.MongoClient.db(`ieen`);
+  app.locals.UsersCollection = app.locals.Database.collection(`users`);
 });
 
 app.use(logger(`combined`));
