@@ -1,0 +1,32 @@
+[
+  {
+    "firstName": "Alex",
+    "lastName": "Yovev",
+    "birthdate": "06/05/1997",
+    "email": "alexy@funfunds.com",
+    "password": "fcea920f7412b5da7be0cf42b8c93759",
+    "investmentStyle": "investor",
+    "role": "administrator",
+    "createdAt": "2019-02-14T18:33:11.264Z"
+  },
+  {
+    "firstName": "James",
+    "lastName": "Schnebly",
+    "birthdate": "09/27/1997",
+    "email": "jamess@funfunds.com",
+    "password": "fcea920f7412b5da7be0cf42b8c93759",
+    "investmentStyle": "dayTrader",
+    "role": "administrator",
+    "createdAt": "2019-02-14T18:33:11.264Z"
+  },
+  {
+    "firstName": "Nate",
+    "lastName": "Fuller",
+    "birthdate": "09/15/1997",
+    "email": "natef@funfunds.com",
+    "password": "fcea920f7412b5da7be0cf42b8c93759",
+    "investmentStyle": "swingTrader",
+    "role": "administrator",
+    "createdAt": "2019-02-14T18:33:11.264Z"
+  }
+]
