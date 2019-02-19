@@ -20,6 +20,9 @@
     "Alex Yovev"
   ],
   "scripts": {
+    "install:app-client": "cd app-client && npm install && cd ..",
+    "install:app-server": "cd app-server && npm install && cd ..",
+    "install": "npm run install:app-client && npm run install:app-server",
     "lint:app-client": "cd app-client && npm run lint && cd ..",
     "lint:app-server": "cd app-server && npm run lint && cd ..",
     "lint:analyzer-service": "cd analyzer-service && pylint *.py && cd ..",
