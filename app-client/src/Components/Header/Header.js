@@ -72,7 +72,7 @@ export default class Header extends Component {
                 }
               </Nav>
             </Collapse>
-            {!this.state.isOpen &&
+            {isAuthenticated &&
               <NavbarBrand className={styles.navlink}>
                 <Dropdown className={styles.dropdown} isOpen={this.state.dropdownOpen} toggle={this.toggleDropdown}>
                   <DropdownToggle color="link" className={styles.dropdownToggle}>
