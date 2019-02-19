@@ -76,7 +76,7 @@ export default class Header extends Component {
               <NavbarBrand className={styles.navlink}>
                 <Dropdown className={styles.dropdown} isOpen={this.state.dropdownOpen} toggle={this.toggleDropdown}>
                   <DropdownToggle color="link" className={styles.dropdownToggle}>
-                    <img src={`https://ui-avatars.com/api/?rounded=true&size=32`}></img>
+                    <img src={`https://ui-avatars.com/api/?rounded=true&size=32`} alt="profile initials gravatar"></img>
                   </DropdownToggle>
                   <DropdownMenu /* className={styles.dropdownMenu}*/ right>
                     <DropdownItem /* className={styles.dropdownItem}*/>Profile</DropdownItem>
