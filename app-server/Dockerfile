@@ -1,6 +1,6 @@
 FROM node:10.11-alpine
 
-RUN apk add --no-cache curl
+RUN apk add curl
 
 RUN mkdir -p /app-server
 
