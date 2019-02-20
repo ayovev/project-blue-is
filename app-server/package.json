@@ -2,6 +2,7 @@
   "name": "app-server",
   "version": "0.1.0",
   "dependencies": {
+    "axios": "^0.18.0",
     "cookie-parser": "^1.4.4",
     "debug": "^4.1.1",
     "express": "^4.16.4",
