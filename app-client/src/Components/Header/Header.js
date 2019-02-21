@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
-import { Dropdown, DropdownMenu, DropdownItem, DropdownToggle } from 'reactstrap';
 import { NavLink as RRNavLink } from 'react-router-dom';
-import { AuthenticationConsumer } from "../../Contexts/AuthenticationContext/AuthenticationContext";
+import { Collapse, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Nav, Navbar, NavbarBrand, NavItem, NavLink, NavbarToggler } from 'reactstrap';
+import axios from 'axios';
+import { AuthenticationConsumer, AuthenticationContext } from "../../Contexts/AuthenticationContext/AuthenticationContext";
 import styles from "./Header.css";
 
 export default class Header extends Component {
@@ -11,13 +11,29 @@ export default class Header extends Component {
 
     this.state = {
       isOpen: false,
-      dropdownOpen: false
+      dropdownOpen: false,
+      profilePicture: null
     };
   }
 
-  toggle = () => {
+  async componentDidMount() {
+    if (this.context.isAuthenticated) {
+      await this.getUserLetter();
+    }
+  }
+
+  getUserLetter = async () => {
+    const options = {
+      method: `GET`,
+      url: `/api/user/profilePicture`,
+      resolveWithFullResponse: true
+    };
+
+    const response = await axios(options);
+    const profilePicture = response.data;
+
     this.setState({
-      isOpen: !this.state.isOpen
+      profilePicture
     });
   }
 
@@ -27,9 +43,10 @@ export default class Header extends Component {
     });
   }
 
-  getUserLetter = () => {
-    // https://ui-avatars.com/api/?name=John+Doe
-    // console.log(`Letter`);
+  toggleNavbar = () => {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
   }
 
   render() {
@@ -38,7 +55,7 @@ export default class Header extends Component {
         {({ isAuthenticated, logout }) => (
           <Navbar sticky="top" className={styles.navbar} expand="lg">
             <NavbarBrand href="/" className={styles.navlink}><b>ieen</b></NavbarBrand>
-            <NavbarToggler className="navbar-dark" onClick={this.toggle}/>
+            <NavbarToggler className="navbar-dark" onClick={this.toggleNavbar}/>
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav navbar className="mx-auto nav">
                 <NavItem className={styles.navitem}>
@@ -65,23 +82,20 @@ export default class Header extends Component {
                     <NavItem className={styles.navitem}>
                       <NavLink to="/securities" activeClassName="selected" tag={RRNavLink} className={styles.navlink}>Securities</NavLink>
                     </NavItem>
-                    <NavItem className={styles.navitem}>
-                      <NavLink href="#" className={styles.navlink} onClick={logout}>Logout</NavLink>
-                    </NavItem>
                   </React.Fragment>
                 }
               </Nav>
             </Collapse>
-            {isAuthenticated &&
+            {isAuthenticated && this.state.profilePicture &&
               <NavbarBrand className={styles.navlink}>
                 <Dropdown className={styles.dropdown} isOpen={this.state.dropdownOpen} toggle={this.toggleDropdown}>
                   <DropdownToggle color="link" className={styles.dropdownToggle}>
-                    <img src={`https://ui-avatars.com/api/?rounded=true&size=32`} alt="profile initials gravatar"></img>
+                    <img src={this.state.profilePicture} alt="profile initials"></img>
                   </DropdownToggle>
-                  <DropdownMenu /* className={styles.dropdownMenu}*/ right>
-                    <DropdownItem /* className={styles.dropdownItem}*/>Profile</DropdownItem>
-                    <DropdownItem /* className={styles.dropdownItem}*/>Settings</DropdownItem>
-                    <DropdownItem /* className={styles.dropdownItem}*/>Logout</DropdownItem>
+                  <DropdownMenu right>
+                    <DropdownItem>Profile</DropdownItem>
+                    <DropdownItem>Settings</DropdownItem>
+                    <DropdownItem onClick={logout}>Logout</DropdownItem>
                   </DropdownMenu>
                 </Dropdown>
               </NavbarBrand>
@@ -92,3 +106,5 @@ export default class Header extends Component {
     );
   }
 }
+
+Header.contextType = AuthenticationContext;
