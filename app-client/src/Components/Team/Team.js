@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import styles from "./Team.css";
 import { Button, Container, Row, Col } from 'reactstrap';
-
+import styles from "./Team.css";
 import Alex from './assets/alex.png';
 import James from './assets/james.png';
 import Nate from './assets/nate.png';

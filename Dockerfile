@@ -20,7 +20,7 @@ RUN npm run build && npm prune --production
 # ============= CONFIGURE SERVER =============
 FROM node:10.11-alpine
 
-RUN apk add --no-cache curl
+RUN apk add curl
 
 ENV NODE_ENV production
 

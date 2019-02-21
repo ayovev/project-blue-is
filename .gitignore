@@ -16,5 +16,8 @@ __pycache__
 # production resources
 build
 
+# override file for local development
 docker-compose.override.yml
-docker-ompose.override.yml
+
+# auto-generated lock file from npm install at project root
+package-lock.json

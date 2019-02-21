@@ -1,6 +1,6 @@
 FROM node:10.11-alpine
 
-RUN apk add --no-cache curl
+RUN apk add curl
 
 RUN mkdir -p /app-server
 
@@ -19,4 +19,4 @@ HEALTHCHECK --interval=1m \
             --retries=3 \
             CMD curl --fail --silent http://localhost:3001/api/status || exit 1
 
-CMD ["npm","start"]
+CMD ["npm","run","start:dev"]

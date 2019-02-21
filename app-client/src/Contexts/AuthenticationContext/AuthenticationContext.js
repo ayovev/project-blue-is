@@ -1,6 +1,3 @@
-// should we use localStorage or sessionStorage for this...?
-//local right? Because a session could end but a user might want to continue. 
-
 import React, { Component } from 'react';
 
 const IS_AUTHENTICATED = `isAuthenticated`;
@@ -13,10 +10,10 @@ class AuthenticationProvider extends Component {
     super(props);
 
     // TODO: this needs to be broken down into a sequence of more robust and thorough checks (possibly it's own function)
-    const authentication = sessionStorage.getItem(IS_AUTHENTICATED) !== null ? sessionStorage.getItem(IS_AUTHENTICATED).toLowerCase() === `true` : false;
+    const isAuthenticated = sessionStorage.getItem(IS_AUTHENTICATED) !== null ? sessionStorage.getItem(IS_AUTHENTICATED).toLowerCase() === `true` : false;
 
     this.state = {
-      isAuthenticated: authentication
+      isAuthenticated
     };
   }
 
