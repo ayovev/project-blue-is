@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Container, Row, Col } from 'reactstrap';
-import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle } from 'reactstrap';
+import { Card, CardBody, CardImg, CardSubtitle, CardText, CardTitle, Container, Row, Col } from 'reactstrap';
 import styles from "./Home.css";
 
 import What from './assets/what.jpg';

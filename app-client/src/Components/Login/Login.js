@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Form, FormGroup, Input, Button, Label } from "reactstrap";
 import { LineChart, Line } from "recharts";
 import md5 from "md5";
+import axios from "axios";
 import { AuthenticationContext } from "../../Contexts/AuthenticationContext/AuthenticationContext";
 import styles from './Login.css';
 
@@ -42,16 +43,13 @@ export default class Login extends Component {
       password: md5(this.state.password)
     };
 
-    const config = {
+    const options = {
       method: `POST`,
-      headers: {
-        "accept": `application/json`,
-        "content-type": `application/json`
-      },
-      body: JSON.stringify(data)
+      url: `/api/login`,
+      data
     };
 
-    let response = await fetch(`/api/login`, config);
+    const response = await axios(options);
 
     switch (response.status) {
       case 401:
@@ -90,12 +88,12 @@ export default class Login extends Component {
           <Form onSubmit={this.handleSubmit}>
             <FormGroup>
               <Label for="email">Email</Label>
-              <Input type="email" id="email" value={this.state.email} onChange={this.handleChange}/>
+              <Input type="email" id="email" value={this.state.email} placeholder="Enter your email address" onChange={this.handleChange}/>
             </FormGroup>
             <br/>
             <FormGroup>
               <Label for="password">Password</Label>
-              <Input type="password" id="password" value={this.state.password} onChange={this.handleChange}/>
+              <Input type="password" id="password" value={this.state.password} placeholder="Enter your password" onChange={this.handleChange}/>
             </FormGroup>
             <br/>
             <Button type="submit" color="primary" block disabled={!this.validateForm()}>

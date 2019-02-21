@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Form, FormGroup, Input, Button, Label } from 'reactstrap';
 import { LineChart, Line } from 'recharts';
 import md5 from "md5";
+import axios from "axios";
 import styles from './Signup.css';
 
 // test data for chart
@@ -50,16 +51,13 @@ export default class Signup extends Component {
       investmentStyle: this.state.investmentStyle
     };
 
-    const config = {
+    const options = {
       method: `POST`,
-      headers: {
-        "accept": `application/json`,
-        "content-type": `application/json`
-      },
-      body: JSON.stringify(data)
+      url: `/api/signup`,
+      data
     };
 
-    const response = await fetch(`/api/signup`, config);
+    const response = await axios(options);
 
     switch (response.status) {
       case 201:
