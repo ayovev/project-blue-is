@@ -19,11 +19,6 @@
   color: #4286f4;
 }
 
-:local(.navActive) {
-  text-decoration: underline;
-  text-decoration-color: #4286f4;
-}
-
 .selected {
   color:#4286f4;
 }

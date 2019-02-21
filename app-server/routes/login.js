@@ -4,15 +4,9 @@ const router = express.Router();
 
 router.route(`/`)
   .post(async (request, response, next) => {
-    const MongoClient = request.app.locals.MongoClient;
+    const { UsersCollection } = request.app.locals;
 
-    const database = MongoClient.db(process.env.DATABASE_NAME);
-
-    const collection = database.collection(`users`);
-
-    const results = await collection.find({ email: request.body.email }).toArray();
-
-    const user = results[0];
+    const user = await UsersCollection.findOne({ email: request.body.email });
 
     if (!user) {
       response.sendStatus(404);
@@ -22,7 +16,7 @@ router.route(`/`)
     }
     else {
       response.clearCookie(`pbiToken`);
-      const token = await jwt.sign({ data: user._id }, process.env.TOKEN_SECRET, { expiresIn: `1h` });
+      const token = await jwt.sign({ data: user._id }, process.env.TOKEN_SECRET, { expiresIn: `30m` });
 
       response.cookie(`pbiToken`, token.toString(), { httpOnly: true });
       response.sendStatus(200);
