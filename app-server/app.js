@@ -11,6 +11,7 @@ const indexRouter = require(`./routes/index`);
 const statusRouter = require(`./routes/status`);
 const loginRouter = require(`./routes/login`);
 const signupRouter = require(`./routes/signup`);
+const userRouter = require(`./routes/user`);
 
 const app = express();
 
@@ -30,5 +31,6 @@ app.use(`/api`, indexRouter);
 app.use(`/api/status`, statusRouter);
 app.use(`/api/login`, loginRouter);
 app.use(`/api/signup`, signupRouter);
+app.use(`/api/user`, userRouter);
 
 module.exports = app;
