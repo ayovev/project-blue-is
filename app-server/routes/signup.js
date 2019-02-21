@@ -5,38 +5,26 @@ router.route(`/`)
   .post(async (request, response, next) => {
     const { UsersCollection } = request.app.locals;
 
-    const user = await UsersCollection.findOne({ email: request.body.email });
+    let user = await UsersCollection.findOne({ email: request.body.email });
 
     if (user) {
       response.sendStatus(422);
       return;
     }
 
-    // const options = {
-    //   uri: `https://ui-avatars.com/api/`,
-    //   qs: {
-    //     name: `John+Doe`,
-    //     size: 32
-    //   },
-    //   resolveWithFullResponse: true
-    // };
-
-    // const result = await rp(options);
-
-    // console.log(result);
-
-    const document = {
+    user = {
       firstName: request.body.firstName,
       lastName: request.body.lastName,
       birthdate: request.body.birthdate,
       email: request.body.email,
       password: request.body.password,
       investmentStyle: request.body.investmentStyle,
-      createdAt: new Date(),
-      role: `user`
+      profilePicture: `https://ui-avatars.com/api/?name=${request.body.firstName}+${request.body.lastName}&background=4286f4&color=000&rounded=true&size=32`,
+      role: `user`,
+      createdAt: new Date()
     };
 
-    await UsersCollection.insertOne(document);
+    await UsersCollection.insertOne(user);
 
     response.sendStatus(201);
   });
