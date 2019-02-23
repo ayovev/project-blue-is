@@ -114,7 +114,7 @@ class Var:
 
 
   @staticmethod
-  def calculateR2(tName, tData, bData)
+  def calculateR2(tName, tData, bData):
     '''
     Class method to calculate the r2 of a stock (w/ SPY)
     '''
