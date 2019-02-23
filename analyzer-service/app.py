@@ -114,5 +114,14 @@ def calculateSD():
 
   return str(test)
 
+@app.route("/analyzer/r2")
+def calculateR2():
+  '''r2 of returns'''
+  ticker, data = Var.loadHistorical("")
+  bTicker, bData = Var.loadHistorical("SPY")
+  test = Var.calculateR2(ticker, data, bData)
+
+  return str(test)
+
 if __name__ == "__main__":
   app.run(host="0.0.0.0", port=4000)

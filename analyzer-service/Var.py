@@ -5,6 +5,7 @@ import json
 import pandas as pd
 import numpy as np
 from scipy.stats import norm
+from sklearn import linear_model
 
 '''local class imports'''
 from DBInterface import DBInterface
@@ -83,7 +84,7 @@ class Var:
     df = df.T
     df = df.iloc[::-1]
 
-    # # calculate percent returns per day for stock
+    # calculate percent returns per day for stock
     pReturns = pd.to_numeric(df.iloc[:, 4]).pct_change()
 
     # get the benchmark percentage returns per day and get the std + variance
@@ -108,11 +109,42 @@ class Var:
     df = df.T
     df = df.iloc[::-1]
 
-    # # calculate percent returns per day for stock
+    # calculate percent returns per day for stock
     pReturns = pd.to_numeric(df.iloc[:, 4]).pct_change()
 
     pr_std = np.std(pReturns)
 
     return {"Standard Deviation of percent returns" : float(pr_std)}
+
+
+  @staticmethod
+  def calculateR2(tName, tData, bData)
+    '''
+    Class method to calculate the r2 of a stock (w/ SPY)
+    '''
+
+    # make data into a pandas data frame
+    df = pd.DataFrame.from_dict(tData)
+    df = df.T
+    df = df.iloc[::-1]
+
+    # calculate percent returns per day for stock
+    pReturns = pd.to_numeric(df.iloc[:, 4]).pct_change()
+
+    # get the benchmark percentage returns per day and get the std + variance
+    df2 = pd.DataFrame.from_dict(bData)
+    df2 = df2.T
+    df2 = df2.iloc[::-1]
+
+    bReturns = pd.to_numeric(df2.iloc[:, 4]).pct_change()
+
+    lm = linear_model.LinearRegression()
+
+    # Train the model
+    lm.fit(bReturns, pReturns)
+
+    return lm
+
+
 
 
