@@ -21,10 +21,12 @@ class AuthenticationProvider extends Component {
 
   login = () => {
     sessionStorage.setItem(IS_AUTHENTICATED, true);
+    window.location.assign(`/`);
   }
 
   logout = () => {
     sessionStorage.setItem(IS_AUTHENTICATED, false);
+    window.location.assign(`/`);
   }
 
   render() {
@@ -42,4 +44,4 @@ class AuthenticationProvider extends Component {
   }
 }
 
-export { AuthenticationConsumer, AuthenticationProvider };
+export { AuthenticationContext, AuthenticationConsumer, AuthenticationProvider };

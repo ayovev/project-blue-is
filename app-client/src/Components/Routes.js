@@ -5,12 +5,14 @@ import Signup from "./Signup/Signup";
 import Status from "./Status/Status";
 import Team from "./Team/Team";
 import Methodology from "./Methodology/Methodology";
+import Login from "./Login/Login";
 
 export default () =>
   <Switch>
     <Route path="/" exact component={Home} />
+    <Route path="/login" exact component={Login} />
+    <Route path="/methodology" exact component={Methodology} />
     <Route path="/signup" exact component={Signup} />
     <Route path="/status" exact component={Status} />
     <Route path="/team" exact component={Team} />
-    <Route path="/methodology" exact component={Methodology} />
   </Switch>;
