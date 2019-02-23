@@ -11,34 +11,3 @@ In the securities market, and to some extent more broadly in finance, the colors
 ## **Why "is"?**
 
 Pronounced like "eyes", the "is" is shorthand for multiple (two) I's. The expanded version of the I's is what we're out to build and that is an Investability Index. The Investability Index will set out to use hard-set math and statistics to quantify the probability of a security outperforming it's benchmark (index). In other words, we're trying to pick the winners/outperformers of a benchmark such as the S&P 500, the DJIA, or the NASDAQ. While this is not an easy task by any stretch of the imagination, the thought of achieving such a feat through the use of currently undeveloped math introduces a great prospect.
-
-#### THINK ABOUT THIS (AND REVISE)
-//
-The construction of this Investability Index is based on the theory of "factor investing" with the exception that instead of using it to construct a portfolio based on choosing securities on attributes, or "factors", that are associated with higher returns, we are using these factors to accurately rank the probability of a given security achieving a rate of return in excess of a benchmark.
-
-The construction of this index will utilize the theory of factor-based investing which targets quantifiable firm characteristics or “factors” that can explain differences in stock returns.
-
-A factor-based investment strategy involves tilting equity portfolios towards and away from specific factors in an attempt to generate long-term investment returns in excess of benchmarks. The approach is quantitative and based on observable data, such as stock prices and financial information, rather than on opinion or speculation.
-
-Security characteristics that may be included in a factor-based approach includes size, value, momentum, asset growth, profitability and leverage.
-//
-
-### ROLES
-|           Nate            |           James           |           Alex            |
-|---------------------------|---------------------------|---------------------------|
-|   Container Orchestration |   Stock Analysis          |   Code Review Lead        |
-|   Hosting Services        |   Service Integration     |   Back-End Lead           |
-|   Front-End Assistance    |   Data Structuring        |   Service Integration     |
-|   Documentation Lead      |   Data Aggregation        |   Data Structuring        |
-|   Application Monitoring  |   Schema Design(?)        |   Data Formatting         |
-|   CI/CD Pipeline          |   Back-End Assistance     |   Math                    |
-|   .                       |   Math                    |   .                       |
-
-### ROUTES
-|           React           |           Express         |           Flask           |
-|---------------------------|---------------------------|---------------------------|
-|       `/`                 |         `/status`         |       `/status`           |
-|       `/login`            |         `/login`          |       `/analyze/:ticker`  |
-|       `/signup`           |         `/signup`         |       `/analyze`          |
-|       `/profile`(?)       |         `/recent`         |       .                   |
-|   .                       |         `/favorites`      |       .                   |

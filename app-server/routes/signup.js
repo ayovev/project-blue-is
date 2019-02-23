@@ -3,27 +3,28 @@ const router = express.Router();
 
 router.route(`/`)
   .post(async (request, response, next) => {
-    const MongoClient = request.app.locals.MongoClient;
+    const { UsersCollection } = request.app.locals;
 
-    const database = MongoClient.db(process.env.DATABASE_NAME);
+    let user = await UsersCollection.findOne({ email: request.body.email });
 
-    const collection = database.collection(`users`);
-
-    let results = await collection.find({ email: request.body.email }).toArray();
-
-    if (results.length !== 0) {
+    if (user) {
       response.sendStatus(422);
       return;
     }
 
-    const document = {
+    user = {
+      firstName: request.body.firstName,
+      lastName: request.body.lastName,
+      birthdate: request.body.birthdate,
       email: request.body.email,
       password: request.body.password,
-      birthdate: request.body.birthdate,
-      investorPreferences: request.body.investorPreferences
+      investmentStyle: request.body.investmentStyle,
+      profilePicture: `https://ui-avatars.com/api/?name=${request.body.firstName}+${request.body.lastName}&background=4286f4&color=000&rounded=true&size=32`,
+      role: `user`,
+      createdAt: new Date()
     };
 
-    results = await collection.insertOne(document);
+    await UsersCollection.insertOne(user);
 
     response.sendStatus(201);
   });

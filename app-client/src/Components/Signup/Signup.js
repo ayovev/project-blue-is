@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Form, FormGroup, Input, Button, Label } from 'reactstrap';
 import { LineChart, Line } from 'recharts';
 import md5 from "md5";
+import axios from "axios";
 import styles from './Signup.css';
 
 // test data for chart
@@ -22,11 +23,13 @@ export default class Signup extends Component {
     super(props);
 
     this.state = {
+      firstName: ``,
+      lastName: ``,
+      birthdate: ``,
       email: ``,
       password: ``,
       confirmPassword: ``,
-      birthdate: ``,
-      investorPreferences: ``
+      investmentStyle: ``
     };
   }
 
@@ -40,22 +43,21 @@ export default class Signup extends Component {
     event.preventDefault();
 
     const data = {
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      birthdate: this.state.birthdate,
       email: this.state.email,
       password: md5(this.state.password),
-      birthdate: this.state.birthdate,
-      investorPreferences: this.state.investorPreferences
+      investmentStyle: this.state.investmentStyle
     };
 
-    const config = {
+    const options = {
       method: `POST`,
-      headers: {
-        "accept": `application/json`,
-        "content-type": `application/json`
-      },
-      body: JSON.stringify(data)
+      url: `/api/signup`,
+      data
     };
 
-    let response = await fetch(`/eapi/signup`, config);
+    const response = await axios(options);
 
     switch (response.status) {
       case 201:
@@ -90,6 +92,21 @@ export default class Signup extends Component {
         <div className={styles.container}>
           <Form onSubmit={this.handleSubmit}>
             <FormGroup>
+              <Label for="firstName">First Name</Label>
+              <Input autoComplete="first name" type="name" id="firstName" value={this.state.firstName} onChange={this.handleChange} placeholder="Enter your first name" />
+            </FormGroup>
+            <br/>
+            <FormGroup>
+              <Label for="lastName">Last Name</Label>
+              <Input autoComplete="last name" type="name" id="lastName" value={this.state.lastName} onChange={this.handleChange} placeholder="Enter your last name" />
+            </FormGroup>
+            <br/>
+            <FormGroup>
+              <Label for="birthdate">Date of Birth</Label>
+              <Input type="datetime" id="birthdate" value={this.state.birthdate} onChange={this.handleChange} placeholder="mm/dd/yyyy" />
+            </FormGroup>
+            <br/>
+            <FormGroup>
               <Label for="email">Email</Label>
               <Input autoComplete="username email" type="email" id="email" value={this.state.email} onChange={this.handleChange} placeholder="Enter your email address" />
             </FormGroup>
@@ -105,13 +122,8 @@ export default class Signup extends Component {
             </FormGroup>
             <br/>
             <FormGroup>
-              <Label for="birthdate">Date of Birth</Label>
-              <Input type="datetime" id="birthdate" value={this.state.birthdate} onChange={this.handleChange} placeholder="mm/dd/yyyy" />
-            </FormGroup>
-            <br/>
-            <FormGroup>
-              <Label for="investorPreferences">Investor Profile</Label>
-              <Input type="select" id="investorPreferences" value={this.state.investorPreferences} onChange={this.handleChange}>
+              <Label for="investmentStyle">Investment Style</Label>
+              <Input type="select" id="investmentStyle" value={this.state.investmentStyle} onChange={this.handleChange}>
                 <option></option>
                 <option value="scalper">Scalper</option>
                 <option value="dayTrader">Day Trader</option>

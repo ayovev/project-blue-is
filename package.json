@@ -2,32 +2,33 @@
   "name": "project-blue-is",
   "version": "0.1.0",
   "description": "The purpose of this project is to produce a quantity known as the Investability Index by calculating the probability of a specific security outperforming it's index.",
+  "engines": {
+    "node": "~10.11",
+    "npm": "~6.4"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/ayovev/project-blue-is.git",
     "homepage": "https://github.com/ayovev/project-blue-is",
     "bugs": "https://github.com/ayovev/project-blue-is/issues"
   },
-  "license": "unlicensed",
   "private": true,
+  "license": "unlicensed",
   "contributors": [
     "Nathanael Fuller",
     "James Schnebly",
     "Alex Yovev"
   ],
   "scripts": {
+    "install:app-client": "cd app-client && npm install && cd ..",
+    "install:app-server": "cd app-server && npm install && cd ..",
+    "install": "npm run install:app-client && npm run install:app-server",
     "lint:app-client": "cd app-client && npm run lint && cd ..",
     "lint:app-server": "cd app-server && npm run lint && cd ..",
     "lint:analyzer-service": "cd analyzer-service && pylint *.py && cd ..",
     "lint": "npm run lint:app-client && npm run lint:app-server && npm run lint:analyzer-service",
-    "start": "docker-compose up",
-    "start:rebuild": "docker-compose up --build",
-    "stop": "docker-compose down",
-    "reset": "docker system prune --volumes -f",
+    "start:dev": "docker-compose -f docker-compose.override.yml up --build",
+    "start:prod": "docker-compose -f docker-compose.yml up",
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "engines": {
-    "node": "~10.11",
-    "npm": "~6.4"
   }
 }

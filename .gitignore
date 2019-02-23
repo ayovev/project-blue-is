@@ -1,8 +1,8 @@
 # javascript dependencies
-node_modules/
+node_modules
 
 # python bytecode
-__pycache__/
+__pycache__
 
 # sensitive (private) values
 .env
@@ -14,4 +14,10 @@ __pycache__/
 .DS_Store
 
 # production resources
-build/
+build
+
+# override file for local development
+docker-compose.override.yml
+
+# auto-generated lock file from npm install at project root
+package-lock.json

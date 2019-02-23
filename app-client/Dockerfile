@@ -1,13 +1,15 @@
-FROM node:10.11
+FROM node:10.11-alpine
 
 RUN mkdir -p /app-client
 
 WORKDIR /app-client
 
-COPY package*.json /app-client/
+COPY package.json package-lock.json ./
 
 RUN npm install
 
-EXPOSE 3000
+COPY . .
 
-CMD ["npm","start"]
+EXPOSE 3000 9228
+
+CMD ["npm","run","start:dev"]

@@ -1,18 +1,18 @@
 """dependencies"""
-from datetime import datetime, timezone, timedelta
-from flask import Flask, jsonify
 import os
-import sys
-from dotenv import load_dotenv
-load_dotenv()
+from flask import Flask, Response
 
 from DBInterface import DBInterface
 from Seeder import Seeder
 from Var import Var
 
 app = Flask("analyzer-service")
-app.config["ENV"] = "development"
-app.config["DEBUG"] = 1
+
+env = os.getenv(key="PYTHON_ENV")
+app.config["ENV"] = env
+
+if env == "development":
+  app.config["DEBUG"] = 1
 
 @app.route("/")
 def rootHandler():
@@ -29,17 +29,9 @@ def statusHandler():
   """
   Handler for requests to status route
 
-  @return object status of current service
+  @return 200 OK
   """
-
-  # TODO: refactor for easy reuse
-  timezoneOffset = timezone(offset=timedelta(hours=-7))
-  return jsonify({
-    "datetime": datetime.now(tz=timezoneOffset).strftime("%Y-%m-%d %H:%M:%S"),
-    "service": "analyzer-service",
-    "operation": "statusCheck",
-    "status": 200
-  })
+  return Response(status=200)
 
 @app.route("/admin/getHistoricalData")
 def historicalData():
@@ -61,15 +53,6 @@ def seed():
 
   Seeder.deploy()
 
-  # TODO: refactor for easy reuse
-  timezoneOffset = timezone(offset=timedelta(hours=-7))
-  return jsonify({
-    "datetime": datetime.now(tz=timezoneOffset).strftime("%Y-%m-%d %H:%M:%S"),
-    "service": "analyzer-service",
-    "operation": "databaseDeploy",
-    "status": 200
-  })
-
 @app.route("/seeder/redeploy")
 def redeploy():
   """
@@ -79,15 +62,6 @@ def redeploy():
   """
 
   Seeder.redeploy()
-
-  # TODO: refactor for easy reuse
-  timezoneOffset = timezone(offset=timedelta(hours=-7))
-  return jsonify({
-    "datetime": datetime.now(tz=timezoneOffset).strftime("%Y-%m-%d %H:%M:%S"),
-    "service": "analyzer-service",
-    "operation": "databaseRedeploy",
-    "status": 200
-  })
 
 @app.route("/analyzer/var")
 def valueAtRisk():
@@ -124,4 +98,4 @@ def calculateR2():
   return str(test)
 
 if __name__ == "__main__":
-  app.run(host="0.0.0.0", port=4000)
+  app.run(host="0.0.0.0", port=os.getenv(key="PORT", default=4000))

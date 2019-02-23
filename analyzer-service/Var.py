@@ -1,13 +1,9 @@
 '''dependencies'''
-import math
-from pymongo import MongoClient
-import json
-import pandas as pd
 import numpy as np
+import pandas as pd
 from scipy.stats import norm
 from sklearn import linear_model
 
-'''local class imports'''
 from DBInterface import DBInterface
 
 class Var:
