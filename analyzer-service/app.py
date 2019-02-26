@@ -97,5 +97,23 @@ def calculateR2():
 
   return str(test)
 
+@app.route("/analyzer/CAPM")
+def calculateCAPM():
+  '''CAPM E(r)'''
+  ticker, data = Var.loadHistorical("")
+  bTicker, bData = Var.loadHistorical("SPY")
+  # CAPM = rf + B(rm - rf)
+  test = 1
+  return str(test)
+
+@app.route("/analyzer/sharpe")
+def calculateSharpe():
+  '''Sharpe Ratio'''
+  ticker, data = Var.loadHistorical("")
+  bTicker, bData = Var.loadHistorical("SPY")
+  # Sharpe = r_stock - rf / (sd of returns)
+  test = 2
+  return str(test)
+
 if __name__ == "__main__":
   app.run(host="0.0.0.0", port=os.getenv(key="PORT", default=4000))

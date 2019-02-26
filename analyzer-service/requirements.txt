@@ -3,4 +3,4 @@ pymongo
 requests
 pandas
 scipy
-sklearn
+statsmodels

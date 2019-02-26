@@ -2,7 +2,7 @@
 import numpy as np
 import pandas as pd
 from scipy.stats import norm
-from sklearn import linear_model
+import statsmodels.api as sm
 
 from DBInterface import DBInterface
 
@@ -93,7 +93,7 @@ class Var:
     numerator = bReturns.cov(pReturns)
     denominator = np.std(bReturns) ** 2
 
-    return {"Beta" : float(numerator/denominator)}
+    return {"Beta" : round(float(numerator/denominator), 4)}
 
   @staticmethod
   def calculateSD(tName, tData):
@@ -110,7 +110,7 @@ class Var:
 
     pr_std = np.std(pReturns)
 
-    return {"Standard Deviation of percent returns" : float(pr_std)}
+    return {"Standard Deviation of percent returns" : round(float(pr_std), 4)}
 
 
   @staticmethod
@@ -126,6 +126,7 @@ class Var:
 
     # calculate percent returns per day for stock
     pReturns = pd.to_numeric(df.iloc[:, 4]).pct_change()
+    pReturns = pReturns[1:]
 
     # get the benchmark percentage returns per day and get the std + variance
     df2 = pd.DataFrame.from_dict(bData)
@@ -133,13 +134,11 @@ class Var:
     df2 = df2.iloc[::-1]
 
     bReturns = pd.to_numeric(df2.iloc[:, 4]).pct_change()
+    bReturns = bReturns[1:]
 
-    lm = linear_model.LinearRegression()
+    model = sm.OLS(pReturns, bReturns).fit()
 
-    # Train the model
-    lm.fit(bReturns, pReturns)
-
-    return lm
+    return {"{} R-Squared: {}".format(tName, round(model.rsquared, 4))}
 
 
 
