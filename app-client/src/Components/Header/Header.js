@@ -67,6 +67,9 @@ export default class Header extends Component {
                 <NavItem className={styles.navitem}>
                   <NavLink to="/team" activeClassName="selected" tag={RRNavLink} className={styles.navlink}>Meet The Team</NavLink>
                 </NavItem>
+                <NavItem className={styles.navitem}>
+                  <NavLink to="/contactUs" activeClassName="selected" tag={RRNavLink} className={styles.navlink}>Contact Us</NavLink>
+                </NavItem>
                 {!isAuthenticated &&
                   <React.Fragment>
                     <NavItem className={styles.navitem}>
