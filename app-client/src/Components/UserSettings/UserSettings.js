@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import styles from "./Methodology.css";
+// import styles from "./UserSettings.css";
 
 export default class UserSettings extends Component {
   render() {

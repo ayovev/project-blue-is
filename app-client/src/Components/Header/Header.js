@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { NavLink as RRNavLink,Link } from 'react-router-dom';
+import { NavLink as RRNavLink, Link } from 'react-router-dom';
 import { Collapse, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Nav, Navbar, NavbarBrand, NavItem, NavLink, NavbarToggler } from 'reactstrap';
 import axios from 'axios';
 import { AuthenticationConsumer, AuthenticationContext } from "../../Contexts/AuthenticationContext/AuthenticationContext";
@@ -96,15 +96,14 @@ export default class Header extends Component {
                     <img src={this.state.profilePicture} alt="profile initials"></img>
                   </DropdownToggle>
                   <DropdownMenu right>
-                    <DropdownItem tag={Link} to="userSettings">User Settings</DropdownItem>
-                    <DropdownItem>Settings</DropdownItem>
+                    <DropdownItem tag={Link} to="/userSettings">My Account</DropdownItem>
                     <DropdownItem onClick={logout}>Logout</DropdownItem>
                   </DropdownMenu>
                 </Dropdown>
               </NavbarBrand>
             }
           </Navbar>
-        )} 
+        )}
       </AuthenticationConsumer>
     );
   }

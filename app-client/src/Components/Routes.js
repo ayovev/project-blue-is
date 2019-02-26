@@ -7,9 +7,9 @@ import Team from "./Team/Team";
 import Methodology from "./Methodology/Methodology";
 import CS426 from "./CS426/CS426";
 import Login from "./Login/Login";
-import NotFoundPage from "./NotFoundPage/NotFound"
-import UserSettings from "./UserSettings/UserSettings"
-import ProtectedRoute from "./ProtectedRoute/ProtectedRoute"
+import NotFoundPage from "./NotFoundPage/NotFound";
+import UserSettings from "./UserSettings/UserSettings";
+import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
 
 export default () =>
   <Switch>
