@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css?family=Fira+Mono');
+
+:local(.ButtonStyle) {
+  -moz-box-shadow:inset 0px 1px 0px 0px #97c4fe;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #97c4fe;
+	box-shadow:inset 0px 1px 0px 0px #97c4fe;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #3c6abd), color-stop(1, #12bed8));
+	background:-moz-linear-gradient(180deg, #3c6abd, #12bed8);
+	background:-webkit-linear-gradient(180deg, #3c6abd, #12bed8);
+	background:-o-linear-gradient(180deg, #3c6abd, #12bed8);
+	background:-ms-linear-gradient(180deg, #3c6abd, #12bed8);
+	background:linear-gradient(180deg, #3c6abd, #12bed8);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#3c6abd', endColorstr='#12bed8',GradientType=0);
+	background-color:#3d94f6;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #337fed;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #1570cd;
+}
