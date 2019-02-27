@@ -15,7 +15,6 @@ router.route(`/`)
     // const testTransporter = nodemailer.createTestAccount();
 
     const transporter = nodemailer.createTransport(transport);
-
     const ready = await transporter.verify();
 
     if (ready) {
@@ -24,7 +23,7 @@ router.route(`/`)
 
       const mail = {
         from: `IEEN`,
-        to: `ayovev511@gmail.com`,
+        to: process.env.EMAIL,
         subject: `New Message from Contact Form | ${subject}`,
         text: content
       };
