@@ -28,6 +28,7 @@ export default class ContactUs extends Component {
 
       alertVisible: true,
       buttonDisabled: false,
+      response: undefined,
       statusCode: undefined
       // still debating on whether to use a status state for rendering...
       // status: undefined
@@ -65,11 +66,20 @@ export default class ContactUs extends Component {
       data
     };
 
-    const response = await axios(options);
+    let response;
 
-    this.setState({
-      statusCode: response.status
-    });
+    try {
+      response = await axios(options);
+    }
+    catch (error) {
+      response = error.response;
+    }
+    finally {
+      this.setState({
+        response,
+        statusCode: response.status
+      });
+    }
   }
 
   validateForm = () => {
@@ -77,16 +87,15 @@ export default class ContactUs extends Component {
   }
 
   renderAlert = () => {
-    const { statusCode } = this.state;
+    const { response, statusCode } = this.state;
 
-    if (!statusCode) {
+    if (!response || !statusCode) {
       return;
     }
 
     const alertConfiguration = {
       color: statusCode === 202 ? `success` : `danger`,
-      // TODO @Nate: modify this to use some better more specific verbiage
-      message: statusCode === 202 ? `Message sent successfully 👍` : `There was a problem sending your message 👎`
+      message: response.data || response.statusText
     };
 
     return (
