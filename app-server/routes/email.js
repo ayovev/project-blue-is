@@ -20,26 +20,26 @@ router.route(`/`)
     const ready = await transporter.verify();
 
     if (ready) {
-      const { email, subject, message } = request.body;
-      const content = `email: ${email}\nsubject: ${subject}\nmessage: ${message}`;
+      const { email, inquiryType, subject, message } = request.body;
 
       const mail = {
-        from: `IEEN`,
         to: process.env.EMAIL,
         subject: `New Message from Contact Form | ${subject}`,
-        text: content
+        text: `email: ${email}\ninquiryType: ${inquiryType}\nsubject: ${subject}\nmessage: ${message}`
       };
 
       const result = await transporter.sendMail(mail);
 
-      // fail case?
-
-      console.log(result);
-
-      // TODO @Nate: modify this to use some good, specific verbiage
-      response.status(202).send(`Email successfully sent`);
+      if (result.accepted.length === 1 && result.rejected.length === 0) {
+        response.status(202).send(`Thank you for contacting IEEN. Your email has been successfully sent. Our dedicated team will respond to all inquiries within 1-2 business days.`);
+      }
+      else {
+        response.status(400).send(`Error: Your message could not be sent. Please try again later.`);
+      }
     }
-    // fail case?
+    else {
+      response.status(503).send(`Error: Your message could not be sent. Please try again later.`);
+    }
   });
 
 module.exports = router;
