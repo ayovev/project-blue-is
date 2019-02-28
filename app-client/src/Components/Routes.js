@@ -7,13 +7,10 @@ import Team from "./Team/Team";
 import Methodology from "./Methodology/Methodology";
 import CS426 from "./CS426/CS426";
 import Login from "./Login/Login";
-<<<<<<< HEAD
 import NotFoundPage from "./NotFoundPage/NotFound";
 import UserSettings from "./UserSettings/UserSettings";
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
-=======
 import ContactUs from "./ContactUs/ContactUs";
->>>>>>> master
 
 export default () =>
   <Switch>
@@ -24,10 +21,7 @@ export default () =>
     <Route path="/signup" exact component={Signup} />
     <Route path="/status" exact component={Status} />
     <Route path="/team" exact component={Team} />
-<<<<<<< HEAD
     <ProtectedRoute path="/userSettings" exact component={UserSettings} />
     <Route path="" component={NotFoundPage} />
-=======
     <Route patch="/contactUs" exact component={ContactUs} />
->>>>>>> master
   </Switch>;
