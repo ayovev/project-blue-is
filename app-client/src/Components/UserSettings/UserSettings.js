@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Container, Media, Row, Col,Form, FormGroup, Input, Button, Label } from 'reactstrap';
+import { Container, Media, Row, Col, Form, FormGroup, Input, Button, Label } from 'reactstrap';
 import styles from "./UserSettings.css";
 
 export default class UserSettings extends Component {
@@ -9,33 +9,40 @@ export default class UserSettings extends Component {
     this.state = {
       firstName: ``,
       lastName: ``,
+      birthdate: ``,
+      email: ``,
       newEmail: ``,
       newPassword: ``,
-      DOB: ``,
-      investorStyle: ``
+      confirmNewPassword: ``,
+      investmentStyle: ``
     };
   }
 
-  testVar = true;
+  handleChange = (event) => {
+    this.setState({
+      [event.target.id]: event.target.value
+    });
+  }
+
   handleSubmit = async (event) => {
     event.preventDefault();
-  
+
     const data = {
-      
-      //Look into handleChange in the login component and adapt for here. 
-      /*if(conditionTrue)
-      {
-        newEmail: this.state.newEmail
-      },
-      newPassword: md5(this.state.newPassword)*/
+      email: this.state.newEmail
+      // Look into handleChange in the login component and adapt for here.
     };
-  
+
     const options = {
       method: `POST`,
       url: `/api/updatePreferences`,
       data
     };
   }
+
+  validateForm = () => {
+    return this.state.newEmail.length > 6 && this.state.newPassword.length > 6 && (this.state.newPassword === this.state.confirmNewPassword);
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -59,24 +66,22 @@ export default class UserSettings extends Component {
               </Media>
             </Media>
           </Row>
-          <Row>
-            <Col md={5}>
-              <Form>
+          <Form>
+            <Row>
+              <Col md={5}>
                 <FormGroup>
-                  <Label for="FNAME">First Name</Label>
-                  <Input/>
+                  <Label for="firstName">First Name</Label>
+                  <Input autoComplete="first name" type="name" id="firstName" value={this.state.firstName} onChange={this.handleChange}/>
                 </FormGroup>
-              </Form>
-            </Col>
-            <Col md={5}>
-              <Form>
+              </Col>
+              <Col md={5}>
                 <FormGroup>
-                  <Label for="LNAME">Last Name</Label>
-                  <Input/>
+                  <Label for="lastName">Last Name</Label>
+                  <Input autoComplete="last name" type="name" id="lastName" value={this.state.lastName} onChange={this.handleChange}/>
                 </FormGroup>
-              </Form>
-            </Col>
-          </Row>
+              </Col>
+            </Row>
+          </Form>
         </Container>
       </React.Fragment>
     );
