@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form, FormGroup, Input, Button, Label } from 'reactstrap';
-import { LineChart, Line } from 'recharts';
+import { Line, LineChart } from 'recharts';
 import md5 from "md5";
 import axios from "axios";
 import styles from './Signup.css';
