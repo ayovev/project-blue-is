@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { NavLink as RRNavLink, Link } from 'react-router-dom';
-import { Collapse, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Nav, Navbar, NavbarBrand, NavItem, NavLink, NavbarToggler } from 'reactstrap';
+import { Collapse, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import axios from 'axios';
 import { AuthenticationConsumer, AuthenticationContext } from "../../Contexts/AuthenticationContext/AuthenticationContext";
 import styles from "./Header.css";
@@ -69,6 +69,9 @@ export default class Header extends Component {
                 </NavItem>
                 <NavItem className={styles.navitem}>
                   <NavLink to="/team" activeClassName="selected" tag={RRNavLink} className={styles.navlink}>Meet The Team</NavLink>
+                </NavItem>
+                <NavItem className={styles.navitem}>
+                  <NavLink to="/contactUs" activeClassName="selected" tag={RRNavLink} className={styles.navlink}>Contact Us</NavLink>
                 </NavItem>
                 {!isAuthenticated &&
                   <React.Fragment>

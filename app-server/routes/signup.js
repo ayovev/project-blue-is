@@ -1,3 +1,5 @@
+`use strict`;
+
 const express = require(`express`);
 const router = express.Router();
 
@@ -8,7 +10,8 @@ router.route(`/`)
     let user = await UsersCollection.findOne({ email: request.body.email });
 
     if (user) {
-      response.sendStatus(422);
+      // TODO @Nate: modify this to use some better more specific verbiage
+      response.status(422).send(`User already exists`);
       return;
     }
 
@@ -26,7 +29,8 @@ router.route(`/`)
 
     await UsersCollection.insertOne(user);
 
-    response.sendStatus(201);
+    // TODO @Nate: modify this to use some better more specific verbiage
+    response.status(201).send();
   });
 
 module.exports = router;
