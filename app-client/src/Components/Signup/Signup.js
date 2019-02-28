@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, FormGroup, Input, Button, Label } from 'reactstrap';
+import { Alert, Form, FormGroup, Input, Button, Label } from 'reactstrap';
 import { Line, LineChart } from 'recharts';
 import md5 from "md5";
 import axios from "axios";
@@ -29,8 +29,21 @@ export default class Signup extends Component {
       email: ``,
       password: ``,
       confirmPassword: ``,
-      investmentStyle: ``
+      investmentStyle: ``,
+
+      alertVisible: true,
+      buttonDisabled: false,
+      response: undefined,
+      statusCode: undefined
+      // still debating on whether to use a status state for rendering...
+      // status: undefined
     };
+  }
+
+  dismissAlert = () => {
+    this.setState({
+      alertVisible: false
+    });
   }
 
   handleChange = (event) => {
@@ -41,6 +54,10 @@ export default class Signup extends Component {
 
   handleSubmit = async (event) => {
     event.preventDefault();
+
+    this.setState({
+      buttonDisabled: true
+    });
 
     const data = {
       firstName: this.state.firstName,
@@ -57,19 +74,19 @@ export default class Signup extends Component {
       data
     };
 
-    const response = await axios(options);
+    let response;
 
-    switch (response.status) {
-      case 201:
-        alert(`Signed Up`);
-        window.location.assign(`/`);
-        break;
-      case 422:
-        alert(`User Already Exists`);
-        break;
-      default:
-        alert(`Unknown Error ${response.status}`);
-        break;
+    try {
+      response = await axios(options);
+    }
+    catch (error) {
+      response = error.response;
+    }
+    finally {
+      this.setState({
+        response,
+        statusCode: response.status
+      });
     }
   }
 
@@ -78,9 +95,29 @@ export default class Signup extends Component {
     return this.state.email.length > 6 && this.state.password.length > 6 && (this.state.password === this.state.confirmPassword);
   }
 
+  renderAlert = () => {
+    const { response, statusCode } = this.state;
+
+    if (!response || !statusCode) {
+      return;
+    }
+
+    const alertConfiguration = {
+      color: statusCode === 201 ? `success` : `danger`,
+      message: response.data || response.statusText
+    };
+
+    return (
+      <Alert className={styles.alert} color={alertConfiguration.color} isOpen={this.state.alertVisible} toggle={this.dismissAlert}>
+        {alertConfiguration.message}
+      </Alert>
+    );
+  }
+
   render() {
     return (
       <React.Fragment>
+        {this.renderAlert()}
         <div>
           {/* Possibly include some kind of chart here before the text to add a dynamic branding component to the page? */}
           <LineChart className={styles.chart} width={75} height={75} data={data}>
@@ -133,7 +170,7 @@ export default class Signup extends Component {
               </Input>
             </FormGroup>
             <br/>
-            <Button type="submit" color="primary" block disabled={!this.validateForm()}>
+            <Button type="submit" color="primary" block disabled={!this.validateForm() || this.state.buttonDisabled}>
               Create Account
             </Button>
           </Form>
