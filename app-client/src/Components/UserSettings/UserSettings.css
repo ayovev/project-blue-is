@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Fira+Mono');
 
+
 :local(.ButtonStyle) {
   -moz-box-shadow:inset 0px 1px 0px 0px #97c4fe;
 	-webkit-box-shadow:inset 0px 1px 0px 0px #97c4fe;
@@ -26,3 +27,21 @@
 	text-decoration:none;
 	text-shadow:0px 1px 0px #1570cd;
 }
+
+:local(.memberDisplay) {
+	text-align:left;
+}
+
+hr.dark {
+	width: 10%;
+	border-top: 4px solid #4286f4;
+	padding-bottom:30px;
+	margin-top:15px;
+  }
+  
+.FrameTitleText {
+	font-size:20px;
+	color:black;
+	text-align:center;
+}
+  
