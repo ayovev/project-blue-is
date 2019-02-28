@@ -28,8 +28,21 @@
 	text-shadow:0px 1px 0px #1570cd;
 }
 
+:local(.accountFormRow) {
+  justify-content: center;
+
+}
+
 :local(.memberDisplay) {
 	text-align:left;
+}
+
+:local(.hrSeperator) {
+  border: none;
+  height: 3px;
+  /* Set the hr color */
+  color: #333; /* old IE */
+  background-color: #333; /* Modern Browsers */
 }
 
 hr.dark {
@@ -38,10 +51,11 @@ hr.dark {
 	padding-bottom:30px;
 	margin-top:15px;
   }
-  
+
 .FrameTitleText {
 	font-size:20px;
 	color:black;
 	text-align:center;
 }
-  
+
+

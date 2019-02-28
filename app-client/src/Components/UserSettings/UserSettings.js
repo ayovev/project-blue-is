@@ -66,8 +66,9 @@ export default class UserSettings extends Component {
               </Media>
             </Media>
           </Row>
+          <hr className={styles.hrSeperator}></hr>
           <Form>
-            <Row>
+            <Row className={styles.accountFormRow}>
               <Col md={5}>
                 <FormGroup>
                   <Label for="firstName">First Name</Label>
