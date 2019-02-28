@@ -21,7 +21,7 @@ router.route(`/`)
 
     if (ready) {
       const { email, subject, message } = request.body;
-      const content = `email: ${email} \n subject: ${subject} \n message: ${message} `;
+      const content = `email: ${email}\nsubject: ${subject}\nmessage: ${message}`;
 
       const mail = {
         from: `IEEN`,
