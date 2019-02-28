@@ -23,6 +23,7 @@ export default class ContactUs extends Component {
 
     this.state = {
       email: ``,
+      inquiryType: ``,
       subject: ``,
       message: ``,
 
@@ -56,6 +57,7 @@ export default class ContactUs extends Component {
 
     const data = {
       email: this.state.email,
+      inquiryType: this.state.inquiryType,
       subject: this.state.subject,
       message: this.state.message
     };
@@ -121,17 +123,28 @@ export default class ContactUs extends Component {
           <Form onSubmit={this.handleSubmit}>
             <FormGroup>
               <Label for="email">Email</Label>
-              <Input type="email" id="email" value={this.state.email} placeholder="Enter your email address" onChange={this.handleChange}/>
+              <Input required={true} type="email" id="email" value={this.state.email} placeholder="Enter your email address" onChange={this.handleChange}/>
+            </FormGroup>
+            <br/>
+            <FormGroup>
+              <Label for="inquiryType">Inquiry Type</Label>
+              <Input required={true} type="select" id="inquiryType" value={this.state.investmentStyle} onChange={this.handleChange}>
+                <option></option>
+                <option value="bugReporting">Bug Reporting</option>
+                <option value="generalInquiry">General Inquiry</option>
+                <option value="salesQuestion">Sales Question</option>
+                <option value="technicalSupport">Technical Support</option>
+              </Input>
             </FormGroup>
             <br/>
             <FormGroup>
               <Label for="subject">Subject</Label>
-              <Input type="text" id="subject" value={this.state.subject} placeholder="Enter the subject of your message" onChange={this.handleChange}/>
+              <Input required={true} type="text" id="subject" value={this.state.subject} placeholder="Enter the subject of your message" onChange={this.handleChange}/>
             </FormGroup>
             <br/>
             <FormGroup>
               <Label for="message">Message</Label>
-              <Input type="textarea" id="message" value={this.state.message} placeholder="Enter your message" onChange={this.handleChange} rows={5}/>
+              <Input required={true} type="textarea" id="message" value={this.state.message} placeholder="Enter your message" onChange={this.handleChange} rows={5}/>
             </FormGroup>
             <br/>
             <Button type="submit" color="primary" block disabled={!this.validateForm() || this.state.buttonDisabled}>

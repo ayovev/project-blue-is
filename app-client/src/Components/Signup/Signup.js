@@ -130,37 +130,37 @@ export default class Signup extends Component {
           <Form onSubmit={this.handleSubmit}>
             <FormGroup>
               <Label for="firstName">First Name</Label>
-              <Input autoComplete="first name" type="name" id="firstName" value={this.state.firstName} onChange={this.handleChange} placeholder="Enter your first name" />
+              <Input required={true} autoComplete="first name" type="name" id="firstName" value={this.state.firstName} onChange={this.handleChange} placeholder="Enter your first name" />
             </FormGroup>
             <br/>
             <FormGroup>
               <Label for="lastName">Last Name</Label>
-              <Input autoComplete="last name" type="name" id="lastName" value={this.state.lastName} onChange={this.handleChange} placeholder="Enter your last name" />
+              <Input required={true} autoComplete="last name" type="name" id="lastName" value={this.state.lastName} onChange={this.handleChange} placeholder="Enter your last name" />
             </FormGroup>
             <br/>
             <FormGroup>
               <Label for="birthdate">Date of Birth</Label>
-              <Input type="datetime" id="birthdate" value={this.state.birthdate} onChange={this.handleChange} placeholder="mm/dd/yyyy" />
+              <Input required={true} type="datetime" id="birthdate" value={this.state.birthdate} onChange={this.handleChange} placeholder="mm/dd/yyyy" />
             </FormGroup>
             <br/>
             <FormGroup>
               <Label for="email">Email</Label>
-              <Input autoComplete="username email" type="email" id="email" value={this.state.email} onChange={this.handleChange} placeholder="Enter your email address" />
+              <Input required={true} autoComplete="username email" type="email" id="email" value={this.state.email} onChange={this.handleChange} placeholder="Enter your email address" />
             </FormGroup>
             <br/>
             <FormGroup>
               <Label for="password">Password</Label>
-              <Input autoComplete="new-password" type="password" id="password" value={this.state.password} onChange={this.handleChange} placeholder="Create a password" />
+              <Input required={true} autoComplete="new-password" type="password" id="password" value={this.state.password} onChange={this.handleChange} placeholder="Create a password" />
             </FormGroup>
             <br/>
             <FormGroup>
               <Label for="confirmPassword">Confirm Password</Label>
-              <Input autoComplete="new-password" type="password" id="confirmPassword" value={this.state.confirmPassword} onChange={this.handleChange} placeholder="Confirm your password" />
+              <Input required={true} autoComplete="new-password" type="password" id="confirmPassword" value={this.state.confirmPassword} onChange={this.handleChange} placeholder="Confirm your password" />
             </FormGroup>
             <br/>
             <FormGroup>
               <Label for="investmentStyle">Investment Style</Label>
-              <Input type="select" id="investmentStyle" value={this.state.investmentStyle} onChange={this.handleChange}>
+              <Input required={true} type="select" id="investmentStyle" value={this.state.investmentStyle} onChange={this.handleChange}>
                 <option></option>
                 <option value="scalper">Scalper</option>
                 <option value="dayTrader">Day Trader</option>
