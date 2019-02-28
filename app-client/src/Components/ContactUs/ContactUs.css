@@ -7,6 +7,12 @@
   padding: 4%;
 }
 
+:local(.alert) {
+  margin-top: 1%;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
 :local(.preFormText) {
   margin: -2% auto 0% auto;
   text-align: center;
@@ -18,4 +24,3 @@
   margin: 1% auto 0% auto;
   text-align: center;
 }
-

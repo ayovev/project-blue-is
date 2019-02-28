@@ -1,3 +1,5 @@
+`use strict`;
+
 const jwt = require(`jsonwebtoken`);
 const express = require(`express`);
 const { ObjectID } = require(`mongodb`);

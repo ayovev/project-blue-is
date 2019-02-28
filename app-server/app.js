@@ -12,6 +12,7 @@ const statusRouter = require(`./routes/status`);
 const loginRouter = require(`./routes/login`);
 const signupRouter = require(`./routes/signup`);
 const userRouter = require(`./routes/user`);
+const emailRouter = require(`./routes/email`);
 
 const app = express();
 
@@ -32,5 +33,6 @@ app.use(`/api/status`, statusRouter);
 app.use(`/api/login`, loginRouter);
 app.use(`/api/signup`, signupRouter);
 app.use(`/api/user`, userRouter);
+app.use(`/api/email`, emailRouter);
 
 module.exports = app;
