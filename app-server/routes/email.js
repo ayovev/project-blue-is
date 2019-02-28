@@ -32,10 +32,14 @@ router.route(`/`)
 
       const result = await transporter.sendMail(mail);
 
+      // fail case?
+
       console.log(result);
 
-      response.sendStatus(202);
+      // TODO @Nate: modify this to use some good, specific verbiage
+      response.status(202).send(`Email successfully sent`);
     }
+    // fail case?
   });
 
 module.exports = router;
