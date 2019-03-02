@@ -17,4 +17,4 @@ HEALTHCHECK --interval=1m \
             --retries=3 \
             CMD curl --fail --silent http://localhost:4000/status || exit 1
 
-CMD ["python","app.py"]
+ENTRYPOINT ["python","app.py"]
