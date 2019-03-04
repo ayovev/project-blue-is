@@ -28,6 +28,8 @@ services:
       DATABASE_PASSWORD:
       DATABASE_HOST:
       DATABASE_NAME:
+      EMAIL:
+      EMAIL_PASSWORD:
       NODE_ENV: production
       TOKEN_SECRET:
     restart: on-failure
