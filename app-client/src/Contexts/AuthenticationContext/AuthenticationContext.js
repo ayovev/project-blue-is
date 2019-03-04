@@ -41,7 +41,7 @@ class AuthenticationProvider extends Component {
     finally {
       let isAuthenticated;
 
-      if (response === 200) {
+      if (response.status === 200) {
         isAuthenticated = true;
         sessionStorage.setItem(IS_AUTHENTICATED, `true`);
       }
