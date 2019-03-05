@@ -128,7 +128,7 @@ class Var:
     pReturns = pd.to_numeric(df.iloc[:, 4]).pct_change()
     pReturns = pReturns[1:]
 
-    # get the benchmark percentage returns per day and get the std + variance
+    # get the benchmark percentage returns per day
     df2 = pd.DataFrame.from_dict(bData)
     df2 = df2.T
     df2 = df2.iloc[::-1]
@@ -140,6 +140,28 @@ class Var:
 
     return {"{} R-Squared: {}".format(tName, round(model.rsquared, 4))}
 
+  @staticmethod
+  def calculateER(tName, tData, bData):
+    '''
+    Class methodo to calculate the CAPM expected return
+    '''
+    rf = 2.5
 
+    # get the benchmark percentage returns per day
+    df2 = pd.DataFrame.from_dict(bData)
+    df2 = df2.T
+    df2 = df2.iloc[::-1]
+
+    bReturns = pd.to_numeric(df2.iloc[:, 4]).pct_change()
+    bReturns = bReturns[1:]
+
+    # find market return
+
+    # find Beta of tName
+    tBeta = Var.calculateBeta(tName, tData, bData)
+
+    #CAPM = rf + B(rm - rf)
+
+    return {"{} CAPM E(R): {}".format(tName, round(CAPM, 4))}
 
 
