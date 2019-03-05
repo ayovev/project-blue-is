@@ -14,6 +14,8 @@ class AuthenticationProvider extends Component {
     const isAuthenticated = sessionStorage.getItem(IS_AUTHENTICATED) !== null ? sessionStorage.getItem(IS_AUTHENTICATED).toLowerCase() === `true` : false;
 
     if (isAuthenticated) {
+      this.validateJWT();
+
       setInterval(() => {
         this.validateJWT();
       }, 60000);
