@@ -31,14 +31,14 @@ router.route(`/`)
       const result = await transporter.sendMail(mail);
 
       if (result.accepted.length === 1 && result.rejected.length === 0) {
-        response.status(202).send(`Thank you for contacting IEEN. Your email has been successfully sent. Our dedicated team will respond to all inquiries within 1-2 business days.`);
+        response.status(202).send(`Thank You For Contacting IEEN. Your Email Has Been Successfully Sent. Our Dedicated Team Will Respond To All Inquiries Within 1-2 Business Days.`);
       }
       else {
-        response.status(400).send(`Error: Your message could not be sent. Please try again later.`);
+        response.status(400).send(`Error: Your Message Could Not Be Sent. Please Try Again Later.`);
       }
     }
     else {
-      response.status(503).send(`Error: Your message could not be sent. Please try again later.`);
+      response.status(503).send(`Error: Your Message Could Not Be Sent. Please Try Again Later.`);
     }
   });
 

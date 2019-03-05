@@ -16,5 +16,5 @@ export default () =>
     <Route path="/signup" exact component={Signup} />
     <Route path="/status" exact component={Status} />
     <Route path="/team" exact component={Team} />
-    <Route patch="/contactUs" exact component={ContactUs} />
+    <Route path="/contactUs" exact component={ContactUs} />
   </Switch>;
