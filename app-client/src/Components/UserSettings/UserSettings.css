@@ -32,6 +32,10 @@
   justify-content: center;
 
 }
+:local(.submitButtonCol) {
+	margin-top:32px
+	
+}
 
 :local(.memberDisplay) {
 	text-align:left;
