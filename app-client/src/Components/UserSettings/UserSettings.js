@@ -53,16 +53,34 @@ export default class UserSettings extends Component {
   handleSubmit = async (event) => {
     event.preventDefault();
 
+    this.setState({
+      buttonDisabled: true
+    });
+
     const data = {
-      email: this.state.newEmail
-      // Look into handleChange in the login component and adapt for here.
+
     };
 
     const options = {
-      method: `POST`,
-      url: `/api/updatePreferences`,
+      method: `PUT`,
+      url: `/api/user/userSettings`,
       data
     };
+
+    let response;
+
+    try {
+      response = await axios(options);
+    }
+    catch (error) {
+      response = error.response;
+    }
+    finally {
+      this.setState({
+        response,
+        statusCode: response.status
+      });
+    }
   }
 
   //This needs to be fine tuned based on the current states of the fields. DOB could potentially be the only thing modified.
