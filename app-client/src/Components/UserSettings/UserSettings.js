@@ -43,11 +43,11 @@ export default class UserSettings extends Component {
     const investmentStyle = userData['investmentStyle'];
     
 
-    var dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    //var dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const createdDate = Date(userData['createdAt']);
-    var createdDate2 = new Date(createdDate);
-    var createdDate2 = createdDate.toLocaleDateString("en-US",dateOptions);
-    console.log(createdDate2);
+    // var createdDate2 = new Date(createdDate);
+    // var createdDate2 = createdDate.toLocaleDateString("en-US",dateOptions);
+    // console.log(createdDate2);
     
     //Manipulate String...
     this.setState({
