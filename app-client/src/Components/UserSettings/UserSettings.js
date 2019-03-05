@@ -18,7 +18,7 @@ export default class UserSettings extends Component {
       newPassword: ``,
       confirmNewPassword: ``,
       investmentStyle: ``,
-      profilePicture:``,
+      formattedProfilePicture:``,
       createdDate:``
     };
   }
@@ -35,29 +35,13 @@ export default class UserSettings extends Component {
 
     const response = await axios(options);
     const userData = response.data;
-    // console.log("Response Data: " + userData['profilePicture']);
-    const profilePicture = userData['profilePicture'];
-    const firstName = userData['firstName'];
-    const lastName = userData['lastName'];
-    const email = userData['email'];
-    const investmentStyle = userData['investmentStyle'];
-    
+    const { profilePicture, firstName, lastName, email, investmentStyle } = userData;
+    const createdDate = new Date(userData['createdAt']).toLocaleDateString("en-US",{month: 'long',year: 'numeric'});
+    var formattedProfilePicture = profilePicture.replace("32", "128");
 
-    //var dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    const createdDate = Date(userData['createdAt']);
-    // var createdDate2 = new Date(createdDate);
-    // var createdDate2 = createdDate.toLocaleDateString("en-US",dateOptions);
-    // console.log(createdDate2);
-    
-    //Manipulate String...
     this.setState({
-      profilePicture,email,firstName,lastName,investmentStyle,createdDate
+      formattedProfilePicture,email,firstName,lastName,investmentStyle,createdDate
     });
-  }
-
-  profilePicFormat = (inputString) => {
-    inputString ="hi!";
-
   }
 
   handleChange = (event) => {
@@ -81,7 +65,7 @@ export default class UserSettings extends Component {
     };
   }
 
-  //This needs to be fine tuned based on the current states of the fields. DOB could potentially be the only thing modified. 
+  //This needs to be fine tuned based on the current states of the fields. DOB could potentially be the only thing modified.
   validateForm = () => {
     return this.state.newEmail.length > 6 && this.state.newPassword.length > 6 && (this.state.newPassword === this.state.confirmNewPassword);
   }
@@ -97,9 +81,9 @@ export default class UserSettings extends Component {
             </Col>
           </Row>
           <Row className={styles.memberDisplay}>
-            <Media>
+            <Media middle>
               <Media left href="#">
-                <Media object src={this.state.profilePicture} alt="User Profile Picture" />
+                <Media object src={this.state.formattedProfilePicture} alt="User Profile Picture" />
               </Media>
               <Media body>
                 <Media heading>

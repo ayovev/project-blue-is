@@ -34,11 +34,12 @@
 }
 :local(.submitButtonCol) {
 	margin-top:32px
-	
+
 }
 
 :local(.memberDisplay) {
-	text-align:left;
+  text-align:center;
+  justify-content: center;
 }
 
 :local(.hrSeperator) {
@@ -62,4 +63,8 @@ hr.dark {
 	text-align:center;
 }
 
+
+.media-body {
+  margin-top: 20px;
+}
 
