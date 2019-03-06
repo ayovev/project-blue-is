@@ -21,7 +21,7 @@ router.route(`/profilePicture`)
   });
 
   //put a .post in here too.
-  router.route(`/userSettings`)
+  router.route(`/`)
   .get(async (request, response, next) => {
     // still thinking about whether or not to allow authorization via header or just cookie...
     let token = request.header(`Authorization`) || request.cookies[`pbiToken`];
@@ -29,8 +29,7 @@ router.route(`/profilePicture`)
     const userID = token.data;
 
     const { UsersCollection } = request.app.locals;
-    const user = await UsersCollection.findOne({ _id: ObjectID(userID) }, { projection: { profilePicture: 1, email: 1, firstName:1, lastName:1, investmentStyle:1, createdAt:1, _id: 0 } });
-    const { profilePicture } = user;
+    const user = await UsersCollection.findOne({ _id: ObjectID(userID) }, { projection: { birthdate: 1, profilePicture: 1, email: 1, firstName:1, lastName:1, investmentStyle:1, createdAt:1, _id: 0 } });
 
     response.send(user);
   })
@@ -38,12 +37,17 @@ router.route(`/profilePicture`)
     // still thinking about whether or not to allow authorization via header or just cookie...
     let token = request.header(`Authorization`) || request.cookies[`pbiToken`];
     token = await jwt.verify(token, process.env.TOKEN_SECRET);
-    const userID = token.data;
 
-    const { UsersCollection } = request.app.locals;
-    const user = await UsersCollection.findOne({ _id: ObjectID(userID) }, { projection: { profilePicture: 1, email: 1, firstName:1, lastName:1, investmentStyle:1, createdAt:1, _id: 0 } });
+    console.log(request.body);
 
-    response.send(user);
+    // const userID = token.data;
+
+    // const { UsersCollection } = request.app.locals;
+    // const user = await UsersCollection.findOne({ _id: ObjectID(userID) }, { projection: { profilePicture: 1, email: 1, firstName:1, lastName:1, investmentStyle:1, createdAt:1, _id: 0 } });
+
+    // response.send(user);
+
+    response.sendStatus(200);
   });
 
 

@@ -1,29 +1,30 @@
 import React, { Component } from "react";
-import { Container, Media, Row, Col, Form, FormGroup, Input, Button, Label,Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
+import { Container, Media, Row, Col, Form, FormGroup, Input, Button, Label } from 'reactstrap';
 import axios from 'axios';
 import styles from "./UserSettings.css";
-import Login from "../Login/Login";
 
 export default class UserSettings extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      firstName: ``,
-      lastName: ``,
-      birthdate: ``,
-      email: ``,
-      newEmail: ``,
-      confirmNewEmail:``,
-      newPassword: ``,
-      confirmNewPassword: ``,
-      investmentStyle: ``,
-      formattedProfilePicture:``,
-      createdDate:``
+      formattedProfilePicture: ``,
+      createdAt: ``,
+
+      current: {
+        firstName: ``,
+        lastName: ``,
+        birthdate: ``,
+        email: ``,
+        investmentStyle: ``
+      },
+
+      new: {}
     };
   }
+
   async componentDidMount() {
-      await this.getUserInfo();
+    await this.getUserInfo();
   }
 
   getUserInfo = async () => {
@@ -35,19 +36,34 @@ export default class UserSettings extends Component {
 
     const response = await axios(options);
     const userData = response.data;
-    const { profilePicture, firstName, lastName, email, investmentStyle } = userData;
-    const createdDate = new Date(userData['createdAt']).toLocaleDateString("en-US",{month: 'long',year: 'numeric'});
-    var formattedProfilePicture = profilePicture.replace("32", "128");
+    const { profilePicture, firstName, lastName, email, investmentStyle, birthdate } = userData;
+    const createdAt = new Date(userData[`createdAt`]).toLocaleDateString(`en-US`, { month: `long`, year: `numeric` });
+    const formattedProfilePicture = profilePicture.replace(`32`, `128`);
 
     this.setState({
-      formattedProfilePicture,email,firstName,lastName,investmentStyle,createdDate
+      createdAt,
+      formattedProfilePicture,
+      current: {
+        email, firstName, lastName, investmentStyle, birthdate
+      }
     });
   }
 
-  handleChange = (event) => {
+  handleChange = async (event) => {
     this.setState({
-      [event.target.id]: event.target.value
+      new: {
+        ...this.state.new,
+        [event.target.id]: event.target.value
+      }
     });
+  }
+
+  preprocessData = (data) => {
+    for (const key in data) {
+      if (data[key] === `` || data[key] === undefined || data[key === null]) {
+        delete data[key];
+      }
+    }
   }
 
   handleSubmit = async (event) => {
@@ -57,36 +73,39 @@ export default class UserSettings extends Component {
       buttonDisabled: true
     });
 
-    const data = {
+    const data = this.state.new;
+    this.preprocessData(data);
 
-    };
+    // const options = {
+    //   method: `PUT`,
+    //   url: `/api/user`,
+    //   data
+    // };
 
-    const options = {
-      method: `PUT`,
-      url: `/api/user/userSettings`,
-      data
-    };
+    // let response;
 
-    let response;
-
-    try {
-      response = await axios(options);
-    }
-    catch (error) {
-      response = error.response;
-    }
-    finally {
-      this.setState({
-        response,
-        statusCode: response.status
-      });
-    }
+    // try {
+    //   response = await axios(options);
+    // }
+    // catch (error) {
+    //   response = error.response;
+    // }
+    // finally {
+    //   this.setState({
+    //     response,
+    //     statusCode: response.status
+    //   });
+    // }
   }
 
-  //This needs to be fine tuned based on the current states of the fields. DOB could potentially be the only thing modified.
-  validateForm = () => {
-    return this.state.newEmail.length > 6 && this.state.newPassword.length > 6 && (this.state.newPassword === this.state.confirmNewPassword);
+  getValue = (key) => {
+    return this.state.new[key] === undefined ? this.state.current[key] : this.state.new[key];
   }
+
+  // This needs to be fine tuned based on the current states of the fields. DOB could potentially be the only thing modified.
+  // validateForm = () => {
+  //   return this.state.newEmail.length > 6 && this.state.newPassword.length > 6 && (this.state.newPassword === this.state.confirmNewPassword);
+  // }
 
   render() {
     return (
@@ -100,30 +119,30 @@ export default class UserSettings extends Component {
           </Row>
           <Row className={styles.memberDisplay}>
             <Media middle>
-              <Media left href="#">
+              <Media left>
                 <Media object src={this.state.formattedProfilePicture} alt="User Profile Picture" />
               </Media>
               <Media body>
                 <Media heading>
-                  {this.state.firstName} {this.state.lastName}
+                  {this.state.current.firstName} {this.state.current.lastName}
                 </Media>
-                  Member Since: {this.state.createdDate}
+                  Member Since: {this.state.createdAt}
               </Media>
             </Media>
           </Row>
           <hr className={styles.hrSeperator}></hr>
-          <Form>
+          <Form onSubmit={this.handleSubmit}>
             <Row className={styles.accountFormRow}>
               <Col md={5}>
                 <FormGroup>
                   <Label for="firstName">First Name</Label>
-                  <Input autoComplete="first name" type="name" id="firstName" value={this.state.firstName} onChange={this.handleChange}/>
+                  <Input autoComplete="first name" type="name" id="firstName" value={this.getValue(`firstName`)} onChange={this.handleChange}/>
                 </FormGroup>
               </Col>
               <Col md={5}>
                 <FormGroup>
                   <Label for="lastName">Last Name</Label>
-                  <Input autoComplete="last name" type="name" id="lastName" value={this.state.lastName} onChange={this.handleChange}/>
+                  <Input autoComplete="last name" type="name" id="lastName" value={this.getValue(`lastName`)} onChange={this.handleChange}/>
                 </FormGroup>
               </Col>
             </Row>
@@ -131,13 +150,13 @@ export default class UserSettings extends Component {
               <Col md={5}>
                 <FormGroup>
                   <Label for="email">Current Email</Label>
-                  <Input type="email" id="email" value={this.state.email} disabled/>
+                  <Input type="email" value={this.state.current.email} disabled/>
                 </FormGroup>
               </Col>
               <Col md={5}>
                 <FormGroup>
                   <Label for="newPassword">New Password</Label>
-                  <Input type="password" id="newPassword" value={this.state.newPassword} onChange={this.handleChange}/>
+                  <Input type="password" id="password" onChange={this.handleChange}/>
                 </FormGroup>
               </Col>
             </Row>
@@ -145,13 +164,13 @@ export default class UserSettings extends Component {
               <Col md={5}>
                 <FormGroup>
                   <Label for="newEmail">New Email</Label>
-                  <Input valid={(something)=>console.log(something)} type="email" id="newEmail" value={this.state.newEmail} onChange={this.handleChange}/>
+                  <Input type="email" id="email" onChange={this.handleChange}/>
                 </FormGroup>
               </Col>
               <Col md={5}>
                 <FormGroup>
                   <Label for="confirmNewPassword" required>Confirm New Password</Label>
-                  <Input type="password" id="confirmNewPassword" value={this.state.confirmNewPassword} onChange={this.handleChange}/>
+                  <Input type="password" id="confirmPassword" onChange={this.handleChange}/>
                 </FormGroup>
               </Col>
             </Row>
@@ -159,34 +178,34 @@ export default class UserSettings extends Component {
               <Col md={5}>
                 <FormGroup>
                   <Label for="confirmNewEmail">Confirm New Email</Label>
-                  <Input type="email" id="confirmNewEmail" value={this.state.confirmNewEmail} onChange={this.handleChange}/>
+                  <Input type="email" id="confirmEmail" onChange={this.handleChange}/>
                 </FormGroup>
               </Col>
               <Col md={5}>
                 <FormGroup>
-                  <Label for="birthdate" required>Date of Birth</Label>
-                  <Input type="date" id="birthdate" value={this.state.birthdate} onChange={this.handleChange}/>
+                  <Label for="birthdate">Date of Birth</Label>
+                  <Input type="datetime" id="birthdate" value={this.getValue(`birthdate`)} onChange={this.handleChange} placeholder="mm/dd/yyyy"/>
                 </FormGroup>
               </Col>
             </Row>
             <Row className={styles.accountFormRow}>
               <Col md={5}>
                 <FormGroup>
-                <Label for="investmentStyle" required>Investment Style</Label>
-                <Input type="select" id="investmentStyle" value={this.state.investmentStyle} onChange={this.handleChange}>
-                <option></option>
-                <option value="scalper">Scalper</option>
-                <option value="dayTrader">Day Trader</option>
-                <option value="swingTrader">Swing Trader</option>
-                <option value="investor">Investor</option>
-                <option value="economist">Economist</option>
-              </Input>
+                  <Label for="investmentStyle" required>Investment Style</Label>
+                  <Input type="select" id="investmentStyle" value={this.getValue(`investmentStyle`)} onChange={this.handleChange}>
+                    <option></option>
+                    <option value="scalper">Scalper</option>
+                    <option value="dayTrader">Day Trader</option>
+                    <option value="swingTrader">Swing Trader</option>
+                    <option value="investor">Investor</option>
+                    <option value="economist">Economist</option>
+                  </Input>
                 </FormGroup>
               </Col>
               <Col md={5} className={styles.submitButtonCol}>
-              <Button type="submit" color="primary" block disabled={!this.validateForm() || this.state.buttonDisabled}>
+                <Button type="submit" color="primary" block /* disabled={!this.validateForm() || this.state.buttonDisabled }*/>
                 Update Account
-              </Button>
+                </Button>
               </Col>
             </Row>
           </Form>
