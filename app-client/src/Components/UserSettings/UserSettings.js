@@ -145,7 +145,7 @@ export default class UserSettings extends Component {
               <Col md={5}>
                 <FormGroup>
                   <Label for="newEmail">New Email</Label>
-                  <Input type="email" id="newEmail" value={this.state.newEmail} onChange={this.handleChange}/>
+                  <Input valid={(something)=>console.log(something)} type="email" id="newEmail" value={this.state.newEmail} onChange={this.handleChange}/>
                 </FormGroup>
               </Col>
               <Col md={5}>
