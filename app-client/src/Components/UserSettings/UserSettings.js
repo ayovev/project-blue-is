@@ -30,7 +30,7 @@ export default class UserSettings extends Component {
   getUserInfo = async () => {
     const options = {
       method: `GET`,
-      url: `/api/user/userSettings`,
+      url: `/api/user/`,
       resolveWithFullResponse: true
     };
 
@@ -76,26 +76,26 @@ export default class UserSettings extends Component {
     const data = this.state.new;
     this.preprocessData(data);
 
-    // const options = {
-    //   method: `PUT`,
-    //   url: `/api/user`,
-    //   data
-    // };
+    const options = {
+       method: `PUT`,
+       url: `/api/user`,
+       data
+     };
 
-    // let response;
+     let response;
 
-    // try {
-    //   response = await axios(options);
-    // }
-    // catch (error) {
-    //   response = error.response;
-    // }
-    // finally {
-    //   this.setState({
-    //     response,
-    //     statusCode: response.status
-    //   });
-    // }
+     try {
+       response = await axios(options);
+     }
+     catch (error) {
+       response = error.response;
+     }
+     finally {
+       this.setState({
+         response,
+         statusCode: response.status
+       });
+     }
   }
 
   getValue = (key) => {
@@ -103,14 +103,30 @@ export default class UserSettings extends Component {
   }
 
   // This needs to be fine tuned based on the current states of the fields. DOB could potentially be the only thing modified.
-  // validateForm = () => {
-  //   return this.state.newEmail.length > 6 && this.state.newPassword.length > 6 && (this.state.newPassword === this.state.confirmNewPassword);
-  // }
+  validateForm = () => {
+    console.log("hello!")
+    var passVal = true,emailVal = true,miscEntry = false;
+    if(this.state.new.password || this.state.confirmPassword) {
+      passVal = (this.state.new.password === this.state.new.confirmPassword) && this.state.new.password.length > 6;
+      console.log("passVal: " + passVal)
+    }
+    if(this.state.new.email || this.state.new.confirmEmail) {
+      emailVal = this.state.new.email === this.state.new.confirmEmail;
+      console.log("emailVal: " + emailVal)
+    }
+    if(this.state.new.firstName || this.state.new.lastName || this.state.new.birthdate ||this.state.new.investmentStyle) {
+      miscEntry = true;
+      console.log("miscEntry: " + miscEntry)
+    }
+
+    //return this.state.newEmail.length > 6 && this.state.newPassword.length > 6 && (this.state.newPassword === this.state.confirmNewPassword);
+    return passVal && emailVal && miscEntry;
+   }
 
   render() {
     return (
       <React.Fragment>
-        <Container className={styles.containerFrame2}>
+        <Container className={styles.securitiesContainer}>
           <Row className={`FrameTitleText`}>
             <Col>
               <h2>User Preferences</h2>
@@ -203,7 +219,7 @@ export default class UserSettings extends Component {
                 </FormGroup>
               </Col>
               <Col md={5} className={styles.submitButtonCol}>
-                <Button type="submit" color="primary" block /* disabled={!this.validateForm() || this.state.buttonDisabled }*/>
+                <Button type="submit" color="primary" block  disabled={!this.validateForm()}>
                 Update Account
                 </Button>
               </Col>

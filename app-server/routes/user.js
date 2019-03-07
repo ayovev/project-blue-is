@@ -39,15 +39,21 @@ router.route(`/profilePicture`)
     token = await jwt.verify(token, process.env.TOKEN_SECRET);
 
     console.log(request.body);
+    userUpdateData = request.body;
+    console.log(userUpdateData);
+    const userID = token.data;
 
-    // const userID = token.data;
+    const { UsersCollection } = request.app.locals;
 
-    // const { UsersCollection } = request.app.locals;
-    // const user = await UsersCollection.findOne({ _id: ObjectID(userID) }, { projection: { profilePicture: 1, email: 1, firstName:1, lastName:1, investmentStyle:1, createdAt:1, _id: 0 } });
-
-    // response.send(user);
-
-    response.sendStatus(200);
+    await UsersCollection.update({ _id: ObjectID(userID) },{ $set: userUpdateData },function(err,result){
+      if(err) {
+        console.log("error:" + err);
+        response.sendStatus(505);
+      }
+      else {
+        console.log("Success: " + result);
+        response.sendStatus(201);
+      }});
   });
 
 
