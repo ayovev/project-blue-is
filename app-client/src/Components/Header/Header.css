@@ -13,6 +13,13 @@
 :local(.navlink) {
   color: #ffffff;
   text-align: center;
+  padding-top:0;
+  padding-bottom:0;
+}
+
+:local(.navLinkExternal) {
+  color: #ffffff;
+  text-align: center;
 }
 
 :local(.navlink:hover) {
