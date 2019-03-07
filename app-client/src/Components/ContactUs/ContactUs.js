@@ -128,7 +128,7 @@ export default class ContactUs extends Component {
             <br/>
             <FormGroup>
               <Label for="inquiryType">Inquiry Type</Label>
-              <Input required={true} type="select" id="inquiryType" value={this.state.investmentStyle} onChange={this.handleChange}>
+              <Input required={true} type="select" id="inquiryType" value={this.state.inquiryType} onChange={this.handleChange}>
                 <option></option>
                 <option value="bugReporting">Bug Reporting</option>
                 <option value="generalInquiry">General Inquiry</option>

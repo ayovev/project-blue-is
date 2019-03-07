@@ -6,7 +6,8 @@
     "rSquared": 0.84,
     "expectedReturn": 12.09,
     "sharpeRatio": 0.71,
-    "standardDeviation": 13.21
+    "standardDeviation": 13.21,
+    "investabilityIndex" : 75
   },
   {
     "symbol": "SPY",
@@ -15,7 +16,8 @@
     "rSquared": 1.00,
     "expectedReturn": 8.37,
     "sharpeRatio": 0.91,
-    "standardDeviation": 10.32
+    "standardDeviation": 10.32,
+    "investabilityIndex" : 0
   },
   {
     "symbol": "MU",
@@ -24,7 +26,8 @@
     "rSquared": 0.23,
     "expectedReturn": 18.54,
     "sharpeRatio": 0.74,
-    "standardDeviation": 19.67
+    "standardDeviation": 19.67,
+    "investabilityIndex" : 45
   },
   {
     "symbol": "AAPL",
@@ -33,6 +36,7 @@
     "rSquared": 0.79,
     "expectedReturn": 10.11,
     "sharpeRatio": 0.81,
-    "standardDeviation": 12.13
+    "standardDeviation": 12.13,
+    "investabilityIndex" : 59
   }
 ]

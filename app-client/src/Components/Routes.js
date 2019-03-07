@@ -7,6 +7,7 @@ import Team from "./Team/Team";
 import Methodology from "./Methodology/Methodology";
 import Login from "./Login/Login";
 import ContactUs from "./ContactUs/ContactUs";
+import Securities from "./Securities/Securities";
 
 export default () =>
   <Switch>
@@ -17,4 +18,5 @@ export default () =>
     <Route path="/status" exact component={Status} />
     <Route path="/team" exact component={Team} />
     <Route path="/contactUs" exact component={ContactUs} />
+    <Route path="/securities" exact component={Securities} />
   </Switch>;
