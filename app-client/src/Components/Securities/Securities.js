@@ -33,7 +33,7 @@ export default class Securities extends Component {
     const response = await axios(options);
     const analysisData = response.data;
 
-    const {beta, rSquared, sharpeRatio, standardDeviation, expectedReturn, valueAtRisk, symbol, investabilityIndex} = analysisData;
+    const { beta, rSquared, sharpeRatio, standardDeviation, expectedReturn, valueAtRisk, symbol, investabilityIndex } = analysisData;
 
     this.setState({
       beta,
@@ -53,17 +53,17 @@ export default class Securities extends Component {
       <React.Fragment>
         <Container>
           <Row className="Row">
-              <h3>Security Results</h3>
+            <h3>Security Results</h3>
           </Row>
           <Row className="Row">
-          <hr id = "hr1"/>
+            <hr className={styles.hr1}/>
           </Row>
           <Row className="Row">
-              <h1>{this.state.symbol}</h1>
+            <h1>{this.state.symbol}</h1>
           </Row>
           <Row className="Row">
               Micron
-          <hr/>
+            <hr className={styles.hr2}/>
           </Row>
           <Row className="Row">
             <p id="graphic">[Insert investabilityIndex graphic here]</p>

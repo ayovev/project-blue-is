@@ -16,13 +16,13 @@ td {
   text-align: center;
 }
 
-hr {
+:local(.hr2) {
   border: 1px solid black;
   width: 100%;
   margin-top: 1px;
 }
 
-#hr1 {
+:local(.hr1) {
   border: 1px solid black;
   width: 4%;
   margin-top: 1px;
