@@ -4,6 +4,8 @@ const jwt = require(`jsonwebtoken`);
 const express = require(`express`);
 const router = express.Router();
 
+const _30_MINUTES = 1800000;
+
 router.route(`/login`)
   .post(async (request, response, next) => {
     const { UsersCollection } = request.app.locals;
@@ -18,9 +20,9 @@ router.route(`/login`)
     }
     else {
       response.clearCookie(`pbiToken`);
-      const token = await jwt.sign({ data: user._id }, process.env.TOKEN_SECRET, { expiresIn: `30m` });
+      const token = await jwt.sign({ data: user._id }, process.env.TOKEN_SECRET, { expiresIn: _30_MINUTES });
 
-      response.cookie(`pbiToken`, token.toString(), { httpOnly: true });
+      response.cookie(`pbiToken`, token.toString(), { httpOnly: true, expires: new Date(Date.now() + _30_MINUTES) });
       return response.sendStatus(200);
     }
   });
