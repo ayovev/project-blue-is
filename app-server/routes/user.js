@@ -34,10 +34,10 @@ router.route(`/`)
   .put(async (request, response, next) => {
     let token = request.header(`Authorization`) || request.cookies[`pbiToken`];
     token = await jwt.verify(token, process.env.TOKEN_SECRET);
+    const userID = token.data;
 
     // we should add validation here to ensure that nothing bad is being pushed to the DB.
-    updatedUserData = request.body;
-    const userID = token.data;
+    const updatedUserData = request.body;
 
     const { UsersCollection } = request.app.locals;
     const { result } = await UsersCollection.updateOne({ _id: ObjectID(userID) }, { $set: updatedUserData });
