@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Form, FormGroup, Input, Button, Label } from "reactstrap";
 import { LineChart, Line } from "recharts";
 import md5 from "md5";
-import axios from "axios";
 import { AuthenticationContext } from "../../Contexts/AuthenticationContext/AuthenticationContext";
 import styles from './Login.css';
 
@@ -43,29 +42,7 @@ export default class Login extends Component {
       password: md5(this.state.password)
     };
 
-    const options = {
-      method: `POST`,
-      url: `/api/login`,
-      data
-    };
-
-    const response = await axios(options);
-
-    switch (response.status) {
-      case 401:
-        alert(`Incorrect Credentials`);
-        break;
-      case 404:
-        alert(`User Does Not Exist`);
-        break;
-      case 200:
-        alert(`Successfully Authenticated`);
-        this.context.login();
-        break;
-      default:
-        alert(`Unkown Error ${response.status}`);
-        break;
-    }
+    this.context.login(data);
   }
 
   // might need to have more validation here but it"s a start

@@ -9,7 +9,7 @@ const DATABASE_URI = require(`./database`);
 
 const indexRouter = require(`./routes/index`);
 const statusRouter = require(`./routes/status`);
-const loginRouter = require(`./routes/login`);
+const authenticationRouter = require(`./routes/authentication`);
 const signupRouter = require(`./routes/signup`);
 const userRouter = require(`./routes/user`);
 const emailRouter = require(`./routes/email`);
@@ -30,7 +30,7 @@ app.use(express.static(path.join(__dirname, `../..`, `app-server/build`)));
 
 app.use(`/api`, indexRouter);
 app.use(`/api/status`, statusRouter);
-app.use(`/api/login`, loginRouter);
+app.use(`/api/authentication`, authenticationRouter);
 app.use(`/api/signup`, signupRouter);
 app.use(`/api/user`, userRouter);
 app.use(`/api/email`, emailRouter);

@@ -22,6 +22,6 @@ export default () =>
     <Route path="/status" exact component={Status} />
     <Route path="/team" exact component={Team} />
     <ProtectedRoute path="/userSettings" exact component={UserSettings} />
-    <Route path="" component={NotFoundPage} />
-    <Route patch="/contactUs" exact component={ContactUs} />
+    <Route path="/contactUs" exact component={ContactUs} />
+    <Route component={NotFoundPage} />
   </Switch>;

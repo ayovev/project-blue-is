@@ -4,13 +4,13 @@ let DATABASE_URI;
 
 if (process.env.NODE_ENV === `production`) {
   const PREFIX = `mongodb+srv`;
-  const USER = process.env.DATABASE_USER;
+  const USERNAME = process.env.DATABASE_USERNAME;
   const PASSWORD = process.env.DATABASE_PASSWORD;
-  const HOST = ``;
-  const NAME = `ieen`;
+  const HOST = process.env.DATABASE_HOST;
+  const NAME = process.env.DATABASE_NAME;
   const PARAMETERS = `retryWrites=true`;
 
-  DATABASE_URI = `${PREFIX}://${USER}:${PASSWORD}@${HOST}/${NAME}?${PARAMETERS}`;
+  DATABASE_URI = `${PREFIX}://${USERNAME}:${PASSWORD}@${HOST}/${NAME}?${PARAMETERS}`;
 }
 else {
   const PREFIX = `mongodb`;
