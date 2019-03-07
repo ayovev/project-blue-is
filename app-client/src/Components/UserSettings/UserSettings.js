@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { Container, Media, Row, Col, Form, FormGroup, Input, Button, Label } from 'reactstrap';
+import { Button, Col, Container, Form, FormGroup, Input, Label, Media, Row } from 'reactstrap';
 import axios from 'axios';
+import md5 from 'md5';
 import styles from "./UserSettings.css";
 
 export default class UserSettings extends Component {
@@ -35,8 +36,9 @@ export default class UserSettings extends Component {
     };
 
     const response = await axios(options);
+
     const userData = response.data;
-    const { profilePicture, firstName, lastName, email, investmentStyle, birthdate } = userData;
+    const { firstName, lastName, birthdate, email, investmentStyle, profilePicture } = userData;
     const createdAt = new Date(userData[`createdAt`]).toLocaleDateString(`en-US`, { month: `long`, year: `numeric` });
     const formattedProfilePicture = profilePicture.replace(`32`, `128`);
 
@@ -44,7 +46,11 @@ export default class UserSettings extends Component {
       createdAt,
       formattedProfilePicture,
       current: {
-        email, firstName, lastName, investmentStyle, birthdate
+        firstName,
+        lastName,
+        birthdate,
+        email,
+        investmentStyle
       }
     });
   }
@@ -58,10 +64,13 @@ export default class UserSettings extends Component {
     });
   }
 
-  preprocessData = (data) => {
+  preprocessRequestData = (data) => {
     for (const key in data) {
-      if (data[key] === `` || data[key] === undefined || data[key === null]) {
+      if (data[key] === `` || data[key] === undefined || data[key] === null || key.includes(`confirm`)) {
         delete data[key];
+      }
+      if (key.includes(`password`)) {
+        data[key] = md5(data[key]);
       }
     }
   }
@@ -74,28 +83,28 @@ export default class UserSettings extends Component {
     });
 
     const data = this.state.new;
-    this.preprocessData(data);
+    this.preprocessRequestData(data);
 
     const options = {
-       method: `PUT`,
-       url: `/api/user`,
-       data
-     };
+      method: `PUT`,
+      url: `/api/user`,
+      data
+    };
 
-     let response;
+    let response;
 
-     try {
-       response = await axios(options);
-     }
-     catch (error) {
-       response = error.response;
-     }
-     finally {
-       this.setState({
-         response,
-         statusCode: response.status
-       });
-     }
+    try {
+      response = await axios(options);
+    }
+    catch (error) {
+      response = error.response;
+    }
+    finally {
+      this.setState({
+        response,
+        statusCode: response.status
+      });
+    }
   }
 
   getValue = (key) => {
@@ -103,44 +112,46 @@ export default class UserSettings extends Component {
   }
 
   validateForm = () => {
-    //passVal & emailVal => check and confirm that new passwords and emails are valid. one keystroke on password will set this flag to false until the other field matches or all is erased.
-    //miscEntry => if any of the fields are edited that don't require a confirm field, set to true as the form can be submited.
-    var passVal = true,emailVal = true,miscEntry = false;
-    
-    if(this.state.new.password || this.state.confirmPassword) {
+    // passVal & emailVal => check and confirm that new passwords and emails are valid. one keystroke on password will set this flag to false until the other field matches or all is erased.
+    // miscEntry => if any of the fields are edited that don't require a confirm field, set to true as the form can be submited.
+    let passVal = true;
+    let emailVal = true;
+    let miscEntry = false;
+
+    if (this.state.new.password || this.state.confirmPassword) {
       passVal = (this.state.new.password === this.state.new.confirmPassword) && this.state.new.password.length > 6;
-      //You need to set the miscEntry to true to cover the case if password was the only field changed.
-      if(passVal) {
+      // You need to set the miscEntry to true to cover the case if password was the only field changed.
+      if (passVal) {
         miscEntry = true;
       }
       else {
         miscEntry = false;
       }
     }
-    if(this.state.new.email || this.state.new.confirmEmail) {
+    if (this.state.new.email || this.state.new.confirmEmail) {
       emailVal = this.state.new.email === this.state.new.confirmEmail;
-      //Same for the reasons above.
-      if(emailVal) {
+      // Same for the reasons above.
+      if (emailVal) {
         miscEntry = true;
       }
       else {
         miscEntry = false;
       }
     }
-    if(this.state.new.firstName || this.state.new.lastName || this.state.new.birthdate ||this.state.new.investmentStyle) {
+    if (this.state.new.firstName || this.state.new.lastName || this.state.new.birthdate ||this.state.new.investmentStyle) {
       miscEntry = true;
     }
     return passVal && emailVal && miscEntry;
-   }
+  }
 
   render() {
     return (
       <React.Fragment>
         <Container className={styles.userSettingsContainer}>
-          <Row className={`FrameTitleText`}>
+          <Row className="FrameTitleText">
             <Col>
               <h2>User Preferences</h2>
-              <hr className={`dark`}></hr>
+              <hr className="dark"></hr>
             </Col>
           </Row>
           <Row className={styles.memberDisplay}>
@@ -229,8 +240,8 @@ export default class UserSettings extends Component {
                 </FormGroup>
               </Col>
               <Col md={5} className={styles.submitButtonCol}>
-                <Button type="submit" color="primary" block  disabled={!this.validateForm()}>
-                Update Account
+                <Button type="submit" color="primary" block disabled={!this.validateForm()}>
+                  Update Account
                 </Button>
               </Col>
             </Row>
