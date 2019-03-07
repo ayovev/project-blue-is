@@ -102,31 +102,41 @@ export default class UserSettings extends Component {
     return this.state.new[key] === undefined ? this.state.current[key] : this.state.new[key];
   }
 
-  // This needs to be fine tuned based on the current states of the fields. DOB could potentially be the only thing modified.
   validateForm = () => {
-    console.log("hello!")
+    //passVal & emailVal => check and confirm that new passwords and emails are valid. one keystroke on password will set this flag to false until the other field matches or all is erased.
+    //miscEntry => if any of the fields are edited that don't require a confirm field, set to true as the form can be submited.
     var passVal = true,emailVal = true,miscEntry = false;
+    
     if(this.state.new.password || this.state.confirmPassword) {
       passVal = (this.state.new.password === this.state.new.confirmPassword) && this.state.new.password.length > 6;
-      console.log("passVal: " + passVal)
+      //You need to set the miscEntry to true to cover the case if password was the only field changed.
+      if(passVal) {
+        miscEntry = true;
+      }
+      else {
+        miscEntry = false;
+      }
     }
     if(this.state.new.email || this.state.new.confirmEmail) {
       emailVal = this.state.new.email === this.state.new.confirmEmail;
-      console.log("emailVal: " + emailVal)
+      //Same for the reasons above.
+      if(emailVal) {
+        miscEntry = true;
+      }
+      else {
+        miscEntry = false;
+      }
     }
     if(this.state.new.firstName || this.state.new.lastName || this.state.new.birthdate ||this.state.new.investmentStyle) {
       miscEntry = true;
-      console.log("miscEntry: " + miscEntry)
     }
-
-    //return this.state.newEmail.length > 6 && this.state.newPassword.length > 6 && (this.state.newPassword === this.state.confirmNewPassword);
     return passVal && emailVal && miscEntry;
    }
 
   render() {
     return (
       <React.Fragment>
-        <Container className={styles.securitiesContainer}>
+        <Container className={styles.userSettingsContainer}>
           <Row className={`FrameTitleText`}>
             <Col>
               <h2>User Preferences</h2>

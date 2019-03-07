@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Fira+Mono');
 
-
 :local(.ButtonStyle) {
   -moz-box-shadow:inset 0px 1px 0px 0px #97c4fe;
 	-webkit-box-shadow:inset 0px 1px 0px 0px #97c4fe;
@@ -28,7 +27,7 @@
 	text-shadow:0px 1px 0px #1570cd;
 }
 
-:local(.securitiesContainer) {
+:local(.userSettingsContainer) {
 	margin-bottom:40px;
 }
 
@@ -67,7 +66,6 @@ hr.dark {
 	color:black;
 	text-align:center;
 }
-
 
 .media-body {
   margin-top: 20px;

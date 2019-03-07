@@ -20,10 +20,8 @@ router.route(`/profilePicture`)
     response.send(profilePicture);
   });
 
-  //put a .post in here too.
   router.route(`/`)
   .get(async (request, response, next) => {
-    // still thinking about whether or not to allow authorization via header or just cookie...
     let token = request.header(`Authorization`) || request.cookies[`pbiToken`];
     token = await jwt.verify(token, process.env.TOKEN_SECRET);
     const userID = token.data;
@@ -33,25 +31,21 @@ router.route(`/profilePicture`)
 
     response.send(user);
   })
+  //we could add validation here to ensure that nothing bad is being pushed to the DB.
   .put(async (request, response, next) => {
-    // still thinking about whether or not to allow authorization via header or just cookie...
     let token = request.header(`Authorization`) || request.cookies[`pbiToken`];
     token = await jwt.verify(token, process.env.TOKEN_SECRET);
 
-    console.log(request.body);
     userUpdateData = request.body;
-    console.log(userUpdateData);
     const userID = token.data;
 
     const { UsersCollection } = request.app.locals;
 
     await UsersCollection.update({ _id: ObjectID(userID) },{ $set: userUpdateData },function(err,result){
       if(err) {
-        console.log("error:" + err);
         response.sendStatus(505);
       }
       else {
-        console.log("Success: " + result);
         response.sendStatus(201);
       }});
   });
