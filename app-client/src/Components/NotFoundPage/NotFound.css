@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css?family=Fira+Mono');
+
+:local(.Frame1) {
+  margin:10px;
+  font-size:20px;
+  text-align:center;
+  margin:auto;
+
+}
+:local(.headerText) {
+  margin-bottom: 10px;
+  margin-top:10vh;
+}
+
+
+:local(.notFoundText) {
+  font-size:80px;
+  font-weight:600;
+  font-family:'Fira Mono', monospace;
+}

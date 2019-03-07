@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { NavLink as RRNavLink } from 'react-router-dom';
+import { NavLink as RRNavLink, Link } from 'react-router-dom';
 import { Collapse, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import axios from 'axios';
 import { AuthenticationConsumer, AuthenticationContext } from "../../Contexts/AuthenticationContext/AuthenticationContext";
@@ -62,6 +62,10 @@ export default class Header extends Component {
                   <NavLink to="/" activeClassName="selected" tag={RRNavLink} className={styles.navlink} exact>Home</NavLink>
                 </NavItem>
                 <NavItem className={styles.navitem}>
+                  {/* <NavLink to="https://www.cse.unr.edu/~nathanaelf/" activeClassName="selected" tag={RRNavLink} className={styles.navlink}>Senior Project</NavLink> */}
+                  <a className={styles.navLinkExternal}href="https://www.cse.unr.edu/~nathanaelf/" target="_blank" rel="noopener noreferrer">Senior Project</a>
+                </NavItem>
+                <NavItem className={styles.navitem}>
                   <NavLink to="/methodology" activeClassName="selected" tag={RRNavLink} className={styles.navlink}>Methodology</NavLink>
                 </NavItem>
                 <NavItem className={styles.navitem}>
@@ -96,8 +100,7 @@ export default class Header extends Component {
                     <img src={this.state.profilePicture} alt="profile initials"></img>
                   </DropdownToggle>
                   <DropdownMenu right>
-                    <DropdownItem>Profile</DropdownItem>
-                    <DropdownItem>Settings</DropdownItem>
+                    <DropdownItem tag={Link} to="/userSettings">My Account</DropdownItem>
                     <DropdownItem onClick={logout}>Logout</DropdownItem>
                   </DropdownMenu>
                 </Dropdown>

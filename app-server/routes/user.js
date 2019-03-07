@@ -20,4 +20,35 @@ router.route(`/profilePicture`)
     response.send(profilePicture);
   });
 
+router.route(`/`)
+  .get(async (request, response, next) => {
+    let token = request.header(`Authorization`) || request.cookies[`pbiToken`];
+    token = await jwt.verify(token, process.env.TOKEN_SECRET);
+    const userID = token.data;
+
+    const { UsersCollection } = request.app.locals;
+    const user = await UsersCollection.findOne({ _id: ObjectID(userID) }, { projection: { firstName: 1, lastName: 1, birthdate: 1, email: 1, investmentStyle: 1, profilePicture: 1, createdAt: 1, _id: 0 } });
+
+    response.send(user);
+  })
+  .put(async (request, response, next) => {
+    let token = request.header(`Authorization`) || request.cookies[`pbiToken`];
+    token = await jwt.verify(token, process.env.TOKEN_SECRET);
+    const userID = token.data;
+
+    // we should add validation here to ensure that nothing bad is being pushed to the DB.
+    const updatedUserData = request.body;
+
+    const { UsersCollection } = request.app.locals;
+    const { result } = await UsersCollection.updateOne({ _id: ObjectID(userID) }, { $set: updatedUserData });
+
+    if (result.ok) {
+      response.sendStatus(200);
+    }
+    else {
+      response.sendStatus(400);
+    }
+  });
+
+
 module.exports = router;
