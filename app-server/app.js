@@ -13,6 +13,7 @@ const authenticationRouter = require(`./routes/authentication`);
 const signupRouter = require(`./routes/signup`);
 const userRouter = require(`./routes/user`);
 const emailRouter = require(`./routes/email`);
+const securityRouter = require(`./routes/security`);
 
 const app = express();
 
@@ -20,6 +21,8 @@ require(`mongodb`).MongoClient.connect(DATABASE_URI, { useNewUrlParser: true, po
   app.locals.MongoClient = client;
   app.locals.Database = app.locals.MongoClient.db(`ieen`);
   app.locals.UsersCollection = app.locals.Database.collection(`users`);
+  app.locals.PricedataCollection = app.locals.Database.collection(`pricedata`);
+  app.locals.AnalysisCollection = app.locals.Database.collection(`analysis`);
 });
 
 app.use(logger(`combined`));
@@ -34,5 +37,6 @@ app.use(`/api/authentication`, authenticationRouter);
 app.use(`/api/signup`, signupRouter);
 app.use(`/api/user`, userRouter);
 app.use(`/api/email`, emailRouter);
+app.use(`/api/security`, securityRouter);
 
 module.exports = app;
