@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import styles from './Securities.css';
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Row } from 'reactstrap';
 
 export default class Securities extends Component {
   constructor(props) {
