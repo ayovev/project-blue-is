@@ -1,0 +1,36 @@
+$jsonSchema: {
+  bsonType: "object",
+  required: [ "firstName", "lastName", "birthdate", "email", "password", "role", "createdAt" ],
+  properties: {
+    firstName: {
+      bsonType: "string",
+      minLength: 2
+    },
+    lastName: {
+      bsonType: "string",
+      minLength: 2
+    },
+    birthdate: {
+      bsonType: "string"
+    },
+    email: {
+      bsonType: "string"
+    },
+    password: {
+      bsonType: "string",
+      minLength: 6
+    },
+    investmentStyle: {
+      enum: [ "scalper", "dayTrader", "swingTrader", "investor", "economist" ]
+    },
+    profilePicture: {
+      bsonType: "string"
+    },
+    role: {
+      enum: [ "administrator", "user" ]
+    },
+    createdAt: {
+      bsonType: "string"
+    }
+  }
+}
