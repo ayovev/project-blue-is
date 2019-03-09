@@ -1,6 +1,6 @@
 $jsonSchema: {
   bsonType: "object",
-  required: [ "symbol", "investabilityIndex", "beta", "valueAtRisk", "expectedReturn", "sharpeRatio", "standardDeviation", "rSquared" ],
+  required: [ "symbol", "investabilityIndex", "beta", "expectedReturn", "rSquared", "sharpeRatio", "standardDeviation", "valueAtRisk" ],
   properties: {
     symbol: {
       bsonType: "string",
@@ -15,6 +15,9 @@ $jsonSchema: {
       bsonType: "double"
     },
     expectedReturn: {
+      bsonType: "double"
+    },
+    rSquared: {
       bsonType: "double"
     },
     sharpeRatio: {
