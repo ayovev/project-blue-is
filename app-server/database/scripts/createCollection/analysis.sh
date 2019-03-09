@@ -5,7 +5,7 @@ schema=`cat /root/database/schemas/analysis`;
 validationLevel="strict";
 validationAction="warn";
 
-bash -c "mongo ieen --host mongo --eval 'db.createCollection( \"$collectionName\", {
+bash -c "mongo --verbose ieen --host mongo --eval 'db.createCollection( \"$collectionName\", {
   validator: { $schema },
   validationLevel: \"$validationLevel\",
   validationAction: \"$validationAction\"
