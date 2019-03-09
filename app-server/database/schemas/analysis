@@ -1,0 +1,30 @@
+$jsonSchema: {
+  bsonType: "object",
+  required: [ "symbol", "investabilityIndex", "beta", "valueAtRisk", "expectedReturn", "sharpeRatio", "standardDeviation", "rSquared" ],
+  properties: {
+    symbol: {
+      bsonType: "string",
+      minLength: 1
+    },
+    investabilityIndex: {
+      bsonType: "int",
+      minimum: 1,
+      maximum: 99
+    },
+    beta: {
+      bsonType: "double"
+    },
+    expectedReturn: {
+      bsonType: "double"
+    },
+    sharpeRatio: {
+      bsonType: "double"
+    },
+    standardDeviation: {
+      bsonType: "double"
+    },
+    valueAtRisk: {
+      bsonType: "double"
+    }
+  }
+}

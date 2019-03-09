@@ -1,0 +1,34 @@
+$jsonSchema: {
+  bsonType: "object",
+  required: [ "symbol", "companyName" ],
+  properties: {
+    symbol: {
+      bsonType: "string",
+      minLength: 1
+    },
+    companyName: {
+      bsonType: "string"
+    },
+    logo: {
+      bsonType: "string"
+    },
+    description: {
+      bsonType: "string"
+    },
+    sector: {
+      bsonType: "string"
+    },
+    industry: {
+      bsonType: "string"
+    },
+    tags: {
+      bsonType: "array"
+    },
+    news: {
+      bsonType: "array"
+    },
+    peers: {
+      bsonType: "array"
+    }
+  }
+}

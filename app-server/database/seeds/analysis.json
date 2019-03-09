@@ -1,0 +1,42 @@
+[
+  {
+    "symbol": "MSFT",
+    "investabilityIndex" : 75,
+    "beta": 1.43,
+    "expectedReturn": 12.09,
+    "rSquared": 0.84,
+    "sharpeRatio": 0.71,
+    "standardDeviation": 13.21,
+    "valueAtRisk": 13.26
+  },
+  {
+    "symbol": "SPY",
+    "investabilityIndex" : 1,
+    "beta": 1.00,
+    "valueAtRisk": 10.43,
+    "expectedReturn": 8.37,
+    "sharpeRatio": 0.91,
+    "standardDeviation": 10.32,
+    "rSquared": 1.00
+  },
+  {
+    "symbol": "MU",
+    "investabilityIndex" : 45,
+    "beta": 2.54,
+    "expectedReturn": 18.54,
+    "rSquared": 0.23,
+    "sharpeRatio": 0.74,
+    "standardDeviation": 19.67,
+    "valueAtRisk": 21.34
+  },
+  {
+    "symbol": "AAPL",
+    "investabilityIndex" : 59,
+    "beta": 1.12,
+    "expectedReturn": 10.11,
+    "rSquared": 0.79,
+    "sharpeRatio": 0.81,
+    "standardDeviation": 12.13,
+    "valueAtRisk": 8.97
+  }
+]
