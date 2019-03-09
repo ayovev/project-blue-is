@@ -1,21 +1,21 @@
 import React, { Component } from "react";
-import axios from "axios";
-import styles from './Securities.css';
 import { Container, Row } from 'reactstrap';
+import axios from "axios";
+import styles from './Security.css';
 
-export default class Securities extends Component {
+export default class Security extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      symbol: ``,
+      symbol: props.match.params.symbol,
       beta: ``,
+      expectedReturn: ``,
+      investabilityIndex: ``,
       rSquared: ``,
       sharpeRatio: ``,
       standardDeviation: ``,
-      expectedReturn: ``,
-      valueAtRisk: ``,
-      investabilityIndex: ``
+      valueAtRisk: ``
     };
   }
 
@@ -26,27 +26,26 @@ export default class Securities extends Component {
   getAnalysisData = async () => {
     const options = {
       method: `GET`,
-      url: `/api/security/MU`,
+      url: `/api/security/${this.state.symbol}`,
       resolveWithFullResponse: true
     };
 
     const response = await axios(options);
     const analysisData = response.data;
 
-    const { beta, rSquared, sharpeRatio, standardDeviation, expectedReturn, valueAtRisk, symbol, investabilityIndex } = analysisData;
+    const { symbol, beta, expectedReturn, investabilityIndex, rSquared, sharpeRatio, standardDeviation, valueAtRisk } = analysisData;
 
     this.setState({
+      symbol,
       beta,
+      expectedReturn,
+      investabilityIndex,
       rSquared,
       sharpeRatio,
       standardDeviation,
-      expectedReturn,
-      valueAtRisk,
-      symbol,
-      investabilityIndex
+      valueAtRisk
     });
   }
-
 
   render() {
     return (
@@ -62,7 +61,7 @@ export default class Securities extends Component {
             <h1>{this.state.symbol}</h1>
           </Row>
           <Row className="Row">
-              Micron
+              companyName
             <hr className={styles.hr2}/>
           </Row>
           <Row className="Row">
