@@ -3,7 +3,7 @@
 const express = require(`express`);
 const path = require(`path`);
 const cookieParser = require(`cookie-parser`);
-const logger = require(`morgan`);
+const morgan = require(`morgan`);
 
 const DATABASE_URI = require(`./database`);
 
@@ -19,13 +19,13 @@ const app = express();
 
 require(`mongodb`).MongoClient.connect(DATABASE_URI, { useNewUrlParser: true, poolSize: 10 }, (error, client) => {
   app.locals.MongoClient = client;
-  app.locals.Database = app.locals.MongoClient.db(`ieen`);
+  app.locals.Database = app.locals.MongoClient.db();
   app.locals.UsersCollection = app.locals.Database.collection(`users`);
   app.locals.PricedataCollection = app.locals.Database.collection(`pricedata`);
   app.locals.AnalysisCollection = app.locals.Database.collection(`analysis`);
 });
 
-app.use(logger(`combined`));
+app.use(morgan(`combined`));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());

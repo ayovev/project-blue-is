@@ -41,9 +41,6 @@ module.exports = {
 
       "react/display-name": ["off"],
 
-      // still debating on this rule
-      "react/jsx-curly-spacing": ["warn", "never"],
-
       "react/no-unescaped-entities": ["off"],
 
       // potentially fix at some point, still debating on this rule

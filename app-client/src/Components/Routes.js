@@ -11,7 +11,7 @@ import NotFoundPage from "./NotFoundPage/NotFound";
 import UserSettings from "./UserSettings/UserSettings";
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
 import ContactUs from "./ContactUs/ContactUs";
-import Securities from "./Securities/Securities";
+import Security from "./Security/Security";
 
 export default () =>
   <Switch>
@@ -22,8 +22,8 @@ export default () =>
     <Route path="/signup" exact component={Signup} />
     <Route path="/status" exact component={Status} />
     <Route path="/team" exact component={Team} />
-    <ProtectedRoute path="/userSettings" exact component={UserSettings} />
     <Route path="/contactUs" exact component={ContactUs} />
-    <Route path="/securities" exact component={Securities} />
+    <ProtectedRoute path="/userSettings" exact component={UserSettings} />
+    <ProtectedRoute path="/security/:symbol" exact component={Security} />
     <Route component={NotFoundPage} />
   </Switch>;
