@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-// import styles from "./Methodology.css";
+// import styles from "./CS426.css";
 
-export default class Methodology extends Component {
+export default class CS426 extends Component {
   render() {
     return (
       <React.Fragment>
