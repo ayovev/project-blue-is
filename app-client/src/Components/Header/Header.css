@@ -2,6 +2,7 @@
   background-color: rgba(0,0,0,0.98);
   padding-left: 10%;
   padding-right: 10%;
+  min-height: 65px;
 }
 
 :local(.navitem) {
