@@ -17,13 +17,9 @@
   padding-bottom:0;
 }
 
-:local(.navLinkExternal) {
-  color: #ffffff;
-  text-align: center;
-}
-
 :local(.navlink:hover) {
   color: #4286f4;
+  text-decoration: none;
 }
 
 .selected {
