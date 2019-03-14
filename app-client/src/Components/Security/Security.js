@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import { Container, Row } from 'reactstrap';
 import axios from "axios";
 import styles from './Security.css';
@@ -20,6 +21,12 @@ export default class Security extends Component {
   }
 
   async componentDidMount() {
+    const symbols = await this.getListOfSecurities();
+
+    if (!symbols.includes(this.state.symbol)) {
+      this.setState({ redirect: true });
+    }
+
     await this.getAnalysisData();
   }
 
@@ -47,7 +54,25 @@ export default class Security extends Component {
     });
   }
 
+  getListOfSecurities = async () => {
+    const options = {
+      method: `GET`,
+      url: `/api/security/`,
+      resolveWithFullResponse: true
+    };
+
+    const response = await axios(options);
+
+    return response.data.map((item) => {
+      return item.symbol;
+    });
+  }
+
   render() {
+    if (this.state.redirect) {
+      return <Redirect to="/404" />;
+    }
+
     return (
       <React.Fragment>
         <Container>
