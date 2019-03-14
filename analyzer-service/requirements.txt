@@ -3,3 +3,5 @@ pymongo
 requests
 pandas
 scipy
+
+pylint
