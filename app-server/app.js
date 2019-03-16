@@ -35,8 +35,11 @@ app.use(`/api`, indexRouter);
 app.use(`/api/status`, statusRouter);
 app.use(`/api/authentication`, authenticationRouter);
 app.use(`/api/signup`, signupRouter);
-app.use(`/api/user`, userRouter);
-app.use(`/api/email`, emailRouter);
-app.use(`/api/security`, securityRouter);
+app.use(`/api/users`, userRouter);
+app.use(`/api/emails`, emailRouter);
+app.use(`/api/securities`, securityRouter);
+app.use((error, request, response, next) => {
+  response.status(500).send(error);
+});
 
 module.exports = app;
