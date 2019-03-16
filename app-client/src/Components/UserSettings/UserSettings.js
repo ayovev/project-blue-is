@@ -31,7 +31,7 @@ export default class UserSettings extends Component {
   getUserInfo = async () => {
     const options = {
       method: `GET`,
-      url: `/api/user/`,
+      url: `/api/users/`,
       resolveWithFullResponse: true
     };
 
