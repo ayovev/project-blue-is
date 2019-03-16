@@ -33,7 +33,7 @@ export default class Security extends Component {
   getAnalysisData = async () => {
     const options = {
       method: `GET`,
-      url: `/api/security/${this.state.symbol}`,
+      url: `/api/securities/${this.state.symbol}`,
       resolveWithFullResponse: true
     };
 
@@ -57,7 +57,7 @@ export default class Security extends Component {
   getListOfSecurities = async () => {
     const options = {
       method: `GET`,
-      url: `/api/security/`,
+      url: `/api/securities/`,
       resolveWithFullResponse: true
     };
 

@@ -87,7 +87,7 @@ export default class UserSettings extends Component {
 
     const options = {
       method: `PUT`,
-      url: `/api/user`,
+      url: `/api/users`,
       data
     };
 

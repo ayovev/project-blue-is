@@ -35,7 +35,7 @@ export default class SecuritySearch extends Component {
   getListOfSecurities = async () => {
     const options = {
       method: `GET`,
-      url: `/api/security/`,
+      url: `/api/securities/`,
       resolveWithFullResponse: true
     };
 
