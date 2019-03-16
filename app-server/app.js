@@ -41,5 +41,8 @@ app.use(`/api/securities`, securityRouter);
 app.use((error, request, response, next) => {
   response.status(500).send(error);
 });
+app.use((request, response, next) => {
+  response.sendStatus(404);
+});
 
 module.exports = app;
