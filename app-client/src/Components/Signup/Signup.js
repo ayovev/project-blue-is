@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Alert, Form, FormGroup, Input, Button, Label } from 'reactstrap';
+import { Alert, Button, Form, FormGroup, Input, Label } from 'reactstrap';
 import { Line, LineChart } from 'recharts';
 import md5 from "md5";
 import axios from "axios";
