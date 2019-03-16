@@ -39,6 +39,7 @@ app.use(`/api/users`, userRouter);
 app.use(`/api/emails`, emailRouter);
 app.use(`/api/securities`, securityRouter);
 app.use((error, request, response, next) => {
+  console.error(error);
   response.status(500).send(error);
 });
 app.use((request, response, next) => {

@@ -25,7 +25,7 @@ router.route(`/`)
         investmentStyle: request.body.investmentStyle,
         profilePicture: `https://ui-avatars.com/api/?name=${request.body.firstName}+${request.body.lastName}&background=4286f4&color=000&rounded=true&size=32`,
         role: `user`,
-        createdAt: new Date()
+        createdAt: new Date().toISOString()
       };
 
       await UsersCollection.insertOne(user);
