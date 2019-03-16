@@ -46,10 +46,18 @@ router.route(`/`)
       token = await jwt.verify(token, process.env.TOKEN_SECRET);
       const userID = token.data;
 
+      const { UsersCollection } = request.app.locals;
+
+      const user = await UsersCollection.findOne({ email: request.body.email });
+
+      if (user) {
+        response.status(422).send(`User already exists`);
+        return;
+      }
+
       // we should add validation here to ensure that nothing bad is being pushed to the DB.
       const updatedUserData = request.body;
 
-      const { UsersCollection } = request.app.locals;
       const { result } = await UsersCollection.updateOne({ _id: ObjectID(userID) }, { $set: updatedUserData });
 
       if (result.ok) {
