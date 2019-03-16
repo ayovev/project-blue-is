@@ -20,13 +20,14 @@
     "Alex Yovev"
   ],
   "scripts": {
+    "install:analyzer-service": "cd analyzer-service && pip3 install -r ./requirements.txt && cd ..",
     "install:app-client": "cd app-client && npm install && cd ..",
     "install:app-server": "cd app-server && npm install && cd ..",
     "install": "npm run install:app-client && npm run install:app-server",
+    "lint:analyzer-service": "cd analyzer-service && python3 -m pylint *.py && cd ..",
     "lint:app-client": "cd app-client && npm run lint && cd ..",
     "lint:app-server": "cd app-server && npm run lint && cd ..",
-    "lint:analyzer-service": "cd analyzer-service && pylint *.py && cd ..",
-    "lint": "npm run lint:app-client && npm run lint:app-server && npm run lint:analyzer-service",
+    "lint": "npm run lint:app-client && npm run lint:app-server",
     "start:dev": "docker-compose -f docker-compose.override.yml up --build",
     "start:prod": "docker-compose -f docker-compose.yml up",
     "test": "echo \"Error: no test specified\" && exit 1"

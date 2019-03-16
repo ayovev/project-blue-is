@@ -1,10 +1,8 @@
 import React, { Component } from "react";
-import { Container, Row, Col } from 'reactstrap';
-
+import { Col, Container, Row } from 'reactstrap';
 import styles from "./NotFound.css";
 
-
-export default class Home extends Component {
+export default class NotFound extends Component {
   render() {
     return (
       <React.Fragment>

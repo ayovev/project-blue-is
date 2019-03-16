@@ -62,8 +62,7 @@ export default class Header extends Component {
                   <NavLink to="/" activeClassName="selected" tag={RRNavLink} className={styles.navlink} exact>Home</NavLink>
                 </NavItem>
                 <NavItem className={styles.navitem}>
-                  {/* <NavLink to="https://www.cse.unr.edu/~nathanaelf/" activeClassName="selected" tag={RRNavLink} className={styles.navlink}>Senior Project</NavLink> */}
-                  <a className={styles.navLinkExternal}href="https://www.cse.unr.edu/~nathanaelf/" target="_blank" rel="noopener noreferrer">Senior Project</a>
+                  <a className={styles.navlink} href="https://www.cse.unr.edu/~nathanaelf/" target="_blank" rel="noopener noreferrer">Senior Project</a>
                 </NavItem>
                 <NavItem className={styles.navitem}>
                   <NavLink to="/methodology" activeClassName="selected" tag={RRNavLink} className={styles.navlink}>Methodology</NavLink>
@@ -71,6 +70,13 @@ export default class Header extends Component {
                 <NavItem className={styles.navitem}>
                   <NavLink to="/team" activeClassName="selected" tag={RRNavLink} className={styles.navlink}>Meet The Team</NavLink>
                 </NavItem>
+                {isAuthenticated &&
+                  <React.Fragment>
+                    <NavItem className={styles.navitem}>
+                      <NavLink to="/search" activeClassName="selected" tag={RRNavLink} className={styles.navlink}>Securities</NavLink>
+                    </NavItem>
+                  </React.Fragment>
+                }
                 <NavItem className={styles.navitem}>
                   <NavLink to="/contactUs" activeClassName="selected" tag={RRNavLink} className={styles.navlink}>Contact Us</NavLink>
                 </NavItem>
@@ -84,17 +90,10 @@ export default class Header extends Component {
                     </NavItem>
                   </React.Fragment>
                 }
-                {isAuthenticated &&
-                  <React.Fragment>
-                    <NavItem className={styles.navitem}>
-                      <NavLink to="/securities" activeClassName="selected" tag={RRNavLink} className={styles.navlink}>Securities</NavLink>
-                    </NavItem>
-                  </React.Fragment>
-                }
               </Nav>
             </Collapse>
             {isAuthenticated && this.state.profilePicture &&
-              <NavbarBrand className={styles.navlink}>
+              <NavbarBrand tag="span" className={styles.navlink}>
                 <Dropdown className={styles.dropdown} isOpen={this.state.dropdownOpen} toggle={this.toggleDropdown}>
                   <DropdownToggle color="link" className={styles.dropdownToggle}>
                     <img src={this.state.profilePicture} alt="profile initials"></img>
