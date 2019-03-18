@@ -64,7 +64,7 @@ export default class ContactUs extends Component {
 
     const options = {
       method: `POST`,
-      url: `/api/email`,
+      url: `/api/emails`,
       data
     };
 

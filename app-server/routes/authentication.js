@@ -8,43 +8,52 @@ const _30_MINUTES = 1800000;
 
 router.route(`/login`)
   .post(async (request, response, next) => {
-    const { UsersCollection } = request.app.locals;
+    try {
+      const { UsersCollection } = request.app.locals;
 
-    const user = await UsersCollection.findOne({ email: request.body.email });
+      const user = await UsersCollection.findOne({ email: request.body.email });
 
-    if (!user) {
-      return response.status(404).send(`User Does Not Exist`);
+      if (!user) {
+        return response.status(404).send(`User Does Not Exist`);
+      }
+      else if (user.password !== request.body.password) {
+        return response.status(401).send(`Incorrect Credentials`);
+      }
+      else {
+        response.clearCookie(`pbiToken`);
+        const token = await jwt.sign({ data: user._id }, process.env.TOKEN_SECRET, { expiresIn: _30_MINUTES });
+
+        response.cookie(`pbiToken`, token.toString(), { httpOnly: true, expires: new Date(Date.now() + _30_MINUTES) });
+        return response.sendStatus(200);
+      }
     }
-    else if (user.password !== request.body.password) {
-      return response.status(401).send(`Incorrect Credentials`);
-    }
-    else {
-      response.clearCookie(`pbiToken`);
-      const token = await jwt.sign({ data: user._id }, process.env.TOKEN_SECRET, { expiresIn: _30_MINUTES });
-
-      response.cookie(`pbiToken`, token.toString(), { httpOnly: true, expires: new Date(Date.now() + _30_MINUTES) });
-      return response.sendStatus(200);
+    catch (error) {
+      next(error);
     }
   });
 
 router.route(`/logout`)
   .get(async (request, response, next) => {
-    response.clearCookie(`pbiToken`);
-    return response.sendStatus(200);
+    try {
+      response.clearCookie(`pbiToken`);
+      return response.sendStatus(200);
+    }
+    catch (error) {
+      next(error);
+    }
   });
 
 router.route(`/validate`)
   .get(async (request, response, next) => {
-    const token = request.cookies[`pbiToken`] || request.headers[`authorization`];
-
     try {
+      const token = request.cookies[`pbiToken`] || request.headers[`authorization`];
       await jwt.verify(token, process.env.TOKEN_SECRET);
+
+      return response.sendStatus(200);
     }
     catch (error) {
-      return response.status(401).send(error);
+      next(error);
     }
-
-    return response.sendStatus(200);
   });
 
 module.exports = router;

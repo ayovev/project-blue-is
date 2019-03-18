@@ -25,7 +25,7 @@ export default class Header extends Component {
   getUserLetter = async () => {
     const options = {
       method: `GET`,
-      url: `/api/user/profilePicture`,
+      url: `/api/users/profilePicture`,
       resolveWithFullResponse: true
     };
 

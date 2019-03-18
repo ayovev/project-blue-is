@@ -6,13 +6,18 @@ const router = express.Router();
 
 router.route(`/`)
   .get(async (request, response, next) => {
-    const token = request.header(`Authorization`) || request.cookies[`pbiToken`];
-    await jwt.verify(token, process.env.TOKEN_SECRET);
+    try {
+      const token = request.header(`Authorization`) || request.cookies[`pbiToken`];
+      await jwt.verify(token, process.env.TOKEN_SECRET);
 
-    const { AnalysisCollection } = request.app.locals;
-    const symbols = await AnalysisCollection.find({}, { projection: { symbol: 1, _id: 0 } }).toArray();
+      const { AnalysisCollection } = request.app.locals;
+      const symbols = await AnalysisCollection.find({}, { projection: { symbol: 1, _id: 0 } }).toArray();
 
-    response.status(200).send(symbols);
+      response.status(200).send(symbols);
+    }
+    catch (error) {
+      next(error);
+    }
   });
 
 router.route(`/:symbol`)
@@ -29,15 +34,20 @@ router.route(`/:symbol`)
 // })
 
   .get(async (request, response, next) => {
-    const token = request.header(`Authorization`) || request.cookies[`pbiToken`];
-    await jwt.verify(token, process.env.TOKEN_SECRET);
+    try {
+      const token = request.header(`Authorization`) || request.cookies[`pbiToken`];
+      await jwt.verify(token, process.env.TOKEN_SECRET);
 
-    const symbol = request.params[`symbol`].toUpperCase();
+      const symbol = request.params[`symbol`].toUpperCase();
 
-    const { AnalysisCollection } = request.app.locals;
-    const analysisData = await AnalysisCollection.findOne({ symbol });
+      const { AnalysisCollection } = request.app.locals;
+      const analysisData = await AnalysisCollection.findOne({ symbol });
 
-    response.status(200).send(analysisData);
+      response.status(200).send(analysisData);
+    }
+    catch (error) {
+      next(error);
+    }
   });
 
 module.exports = router;
