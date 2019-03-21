@@ -6,6 +6,7 @@ const cookieParser = require(`cookie-parser`);
 const morgan = require(`morgan`);
 
 const DATABASE_URI = require(`./database`);
+const logger = require(`./logging`);
 
 const indexRouter = require(`./routes/index`);
 const statusRouter = require(`./routes/status`);
@@ -39,7 +40,7 @@ app.use(`/api/users`, userRouter);
 app.use(`/api/emails`, emailRouter);
 app.use(`/api/securities`, securityRouter);
 app.use((error, request, response, next) => {
-  console.error(error);
+  logger.error(error);
   response.status(500).send(error);
 });
 app.use((request, response, next) => {
