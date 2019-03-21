@@ -3,10 +3,9 @@
 const express = require(`express`);
 const path = require(`path`);
 const cookieParser = require(`cookie-parser`);
-const morgan = require(`morgan`);
 
 const DATABASE_URI = require(`./database`);
-const logger = require(`./logging`);
+const { morgan, winston } = require(`./logging`);
 
 const indexRouter = require(`./routes/index`);
 const statusRouter = require(`./routes/status`);
@@ -15,6 +14,8 @@ const signupRouter = require(`./routes/signup`);
 const userRouter = require(`./routes/user`);
 const emailRouter = require(`./routes/email`);
 const securityRouter = require(`./routes/security`);
+const errorRouter = require(`./routes/errors`);
+const notFoundRouter = require(`./routes/notFound`);
 
 const app = express();
 
@@ -25,8 +26,10 @@ require(`mongodb`).MongoClient.connect(DATABASE_URI, { useNewUrlParser: true, po
   app.locals.PricedataCollection = app.locals.Database.collection(`pricedata`);
   app.locals.AnalysisCollection = app.locals.Database.collection(`analysis`);
 });
+app.locals.winston = winston;
 
-app.use(morgan(`combined`));
+initializeMorgan();
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -39,12 +42,13 @@ app.use(`/api/signup`, signupRouter);
 app.use(`/api/users`, userRouter);
 app.use(`/api/emails`, emailRouter);
 app.use(`/api/securities`, securityRouter);
-app.use((error, request, response, next) => {
-  logger.error(error);
-  response.status(500).send(error);
-});
-app.use((request, response, next) => {
-  response.sendStatus(404);
-});
+app.use(errorRouter);
+app.use(notFoundRouter);
+
+function initializeMorgan() {
+  for (const medium in morgan) {
+    app.use(morgan[medium]);
+  }
+}
 
 module.exports = app;
