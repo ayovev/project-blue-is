@@ -1,8 +1,8 @@
 `use strict`;
 
-module.exports = (error, request, response, next) => {
-  const { winston } = request.app.locals;
+const { winston } = require(`../logging`);
 
+module.exports = (error, request, response, next) => {
   winston.error(error);
-  response.status(500).send(error);
-}
+  return response.status(500).send(error);
+};
