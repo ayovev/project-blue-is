@@ -133,7 +133,7 @@ class Var:
 
     model = sm.OLS(pReturns, bReturns).fit()
 
-    return {"{} R-Squared: {}".format(tName, round(model.rsquared, 4))}
+    return {"R-Squared: {}".format(tName, round(model.rsquared, 4))}
 
   @staticmethod
   def calculateER(tName, tData, bData):
@@ -164,5 +164,14 @@ class Var:
     #CAPM = rf + B(rm - rf)
     CAPM = rf + tBeta["Beta"] * (rm - rf)
 
-    return {"{} CAPM E(R): {}%".format(tName, (round(CAPM, 4) * 100))}
+    return {"CAPM E(R)" : round(CAPM, 4)}
+
+  @staticmethod
+  def calculateSharpeRatio(tName, tData, bData):
+    # Sharpe = r_stock - rf / (sd of returns)
+    rf = 0.025
+    r_stock = Var.calculateER(tName, tData, bData)
+    sd = Var.calculateSD(tName, tData)
+    sharpe = (r_stock["CAPM E(R)"] - rf) / sd["Standard Deviation of percent returns"]
+    return {"Sharpe Ratio" : round(sharpe,2)}
 

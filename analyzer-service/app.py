@@ -110,8 +110,7 @@ def calculateSharpe(ticker):
   '''Sharpe Ratio'''
   ticker, data = Var.loadHistorical(ticker)
   bTicker, bData = Var.loadHistorical("SPY")
-  # Sharpe = r_stock - rf / (sd of returns)
-  test = 2
+  test = Var.calculateSharpeRatio(ticker, data, bData)
   return str(test)
 
 if __name__ == "__main__":
