@@ -63,53 +63,52 @@ def redeploy():
 
   Seeder.redeploy()
 
-@app.route("/analyzer/var")
-def valueAtRisk():
+@app.route("/analyzer/var/<ticker>")
+def valueAtRisk(ticker):
   '''value at risk'''
-  ticker, data = Var.loadHistorical("")
+  ticker, data = Var.loadHistorical(ticker)
   test = Var.calculateVar(ticker, data)
 
   return str(test)
 
-@app.route("/analyzer/beta")
-def calculateBeta():
+@app.route("/analyzer/beta/<ticker>")
+def calculateBeta(ticker):
   '''beta'''
-  ticker, data = Var.loadHistorical("")
+  ticker, data = Var.loadHistorical(ticker)
   bTicker, bData = Var.loadHistorical("SPY")
   test = Var.calculateBeta(ticker, data, bData)
 
   return str(test)
 
-@app.route("/analyzer/sd")
-def calculateSD():
+@app.route("/analyzer/sd/<ticker>")
+def calculateSD(ticker):
   '''sd of returns'''
-  ticker, data = Var.loadHistorical("")
+  ticker, data = Var.loadHistorical(ticker)
   test = Var.calculateSD(ticker, data)
 
   return str(test)
 
-@app.route("/analyzer/r2")
-def calculateR2():
+@app.route("/analyzer/r2/<ticker>")
+def calculateR2(ticker):
   '''r2 of returns'''
-  ticker, data = Var.loadHistorical("")
+  ticker, data = Var.loadHistorical(ticker)
   bTicker, bData = Var.loadHistorical("SPY")
   test = Var.calculateR2(ticker, data, bData)
 
   return str(test)
 
-@app.route("/analyzer/CAPM")
-def calculateCAPM():
+@app.route("/analyzer/CAPM/<ticker>")
+def calculateCAPM(ticker):
   '''CAPM E(r)'''
-  ticker, data = Var.loadHistorical("")
+  ticker, data = Var.loadHistorical(ticker)
   bTicker, bData = Var.loadHistorical("SPY")
-  # CAPM = rf + B(rm - rf)
-  test = 1
+  test = Var.calculateER(ticker, data, bData)
   return str(test)
 
-@app.route("/analyzer/sharpe")
-def calculateSharpe():
+@app.route("/analyzer/sharpe/<ticker>")
+def calculateSharpe(ticker):
   '''Sharpe Ratio'''
-  ticker, data = Var.loadHistorical("")
+  ticker, data = Var.loadHistorical(ticker)
   bTicker, bData = Var.loadHistorical("SPY")
   # Sharpe = r_stock - rf / (sd of returns)
   test = 2

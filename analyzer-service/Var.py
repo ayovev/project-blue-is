@@ -29,14 +29,9 @@ class Var:
 
     @return bool set to true if functions completes
     '''
-    if (ticker == ""):
-      cursor = Var.collection.find_one()
-      tName = cursor['MetaData']['2Symbol']
-      tData = cursor['TimeSeries(Daily)']
-    else:
-      cursor = Var.collection.find_one({"MetaData.2Symbol" : "SPY"}) # Query for SPY
-      tName = cursor['MetaData']['2Symbol']
-      tData = cursor['TimeSeries(Daily)']
+    cursor = Var.collection.find_one({"MetaData.2Symbol" : "{}".format(ticker)})
+    tName = cursor['MetaData']['2Symbol']
+    tData = cursor['TimeSeries(Daily)']
 
     return (tName, tData)
 
@@ -145,8 +140,12 @@ class Var:
     '''
     Class methodo to calculate the CAPM expected return
     '''
-    rf = 2.5
+    # CAPM = rf + B(rm - rf)
+    # ------------------------
+    rf = 0.025 # risk free rate of 2.5%
+    B = Var.calculateBeta(tName, tData, bData)
 
+    #########################################################
     # get the benchmark percentage returns per day
     df2 = pd.DataFrame.from_dict(bData)
     df2 = df2.T
@@ -156,12 +155,14 @@ class Var:
     bReturns = bReturns[1:]
 
     # find market return
+    rm = 0.08
+    #########################################################
 
     # find Beta of tName
     tBeta = Var.calculateBeta(tName, tData, bData)
 
     #CAPM = rf + B(rm - rf)
+    CAPM = rf + tBeta["Beta"] * (rm - rf)
 
-    return {"{} CAPM E(R): {}".format(tName, round(CAPM, 4))}
-
+    return {"{} CAPM E(R): {}%".format(tName, (round(CAPM, 4) * 100))}
 
