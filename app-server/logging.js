@@ -4,7 +4,7 @@ const { createLogger, format, transports } = require(`winston`);
 const { printf } = format;
 
 const morgan = {};
-morgan.file = _morgan(`combined`, { stream: createWriteStream('morgan.log', { flags: 'a' })});
+morgan.file = _morgan(`combined`, { stream: createWriteStream(`morgan.log`, { flags: `a` }) });
 
 let level;
 
@@ -20,10 +20,10 @@ const winston = createLogger({
   format: printf(({ level, message, stack }) => {
     const timestamp = new Date().toISOString();
 
-    let string = `${timestamp} ${level}: `
+    let string = `${timestamp} ${level}: `;
 
-    if(stack) {
-      string += `${stack}`
+    if (stack) {
+      string += `${stack}`;
     }
     else {
       string += `${message}`;

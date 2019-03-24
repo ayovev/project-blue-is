@@ -5,7 +5,7 @@ const path = require(`path`);
 const cookieParser = require(`cookie-parser`);
 
 const DATABASE_URI = require(`./database`);
-const { morgan, winston } = require(`./logging`);
+const { morgan } = require(`./logging`);
 
 const indexRouter = require(`./routes/index`);
 const statusRouter = require(`./routes/status`);
@@ -26,7 +26,6 @@ require(`mongodb`).MongoClient.connect(DATABASE_URI, { useNewUrlParser: true, po
   app.locals.PricedataCollection = app.locals.Database.collection(`pricedata`);
   app.locals.AnalysisCollection = app.locals.Database.collection(`analysis`);
 });
-app.locals.winston = winston;
 
 initializeMorgan();
 
