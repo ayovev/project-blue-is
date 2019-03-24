@@ -2,6 +2,8 @@
 
 const jwt = require(`jsonwebtoken`);
 const express = require(`express`);
+const { winston } = require(`../logging`);
+
 const router = express.Router();
 
 router.route(`/`)
@@ -13,10 +15,10 @@ router.route(`/`)
       const { AnalysisCollection } = request.app.locals;
       const symbols = await AnalysisCollection.find({}, { projection: { symbol: 1, _id: 0 } }).toArray();
 
-      response.status(200).send(symbols);
+      return response.status(200).send(symbols);
     }
     catch (error) {
-      next(error);
+      return next(error);
     }
   });
 
@@ -40,13 +42,15 @@ router.route(`/:symbol`)
 
       const symbol = request.params[`symbol`].toUpperCase();
 
+      winston.info(`getting analysis for symbol ${symbol}`);
+
       const { AnalysisCollection } = request.app.locals;
       const analysisData = await AnalysisCollection.findOne({ symbol });
 
-      response.status(200).send(analysisData);
+      return response.status(200).send(analysisData);
     }
     catch (error) {
-      next(error);
+      return next(error);
     }
   });
 

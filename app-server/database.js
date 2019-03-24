@@ -1,5 +1,7 @@
 `use strict`;
 
+const { winston } = require(`./logging`);
+
 let DATABASE_URI;
 
 if (process.env.NODE_ENV === `production`) {
@@ -20,5 +22,7 @@ else {
 
   DATABASE_URI = `${PREFIX}://${HOST}:${PORT}/${NAME}`;
 }
+
+winston.debug(`configuring database connection string ${DATABASE_URI}`);
 
 module.exports = DATABASE_URI;

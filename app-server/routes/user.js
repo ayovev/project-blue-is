@@ -3,6 +3,7 @@
 const jwt = require(`jsonwebtoken`);
 const express = require(`express`);
 const { ObjectID } = require(`mongodb`);
+const { winston } = require(`../logging`);
 
 const router = express.Router();
 
@@ -17,10 +18,10 @@ router.route(`/profilePicture`)
       const user = await UsersCollection.findOne({ _id: ObjectID(userID) }, { projection: { profilePicture: 1, _id: 0 } });
       const { profilePicture } = user;
 
-      response.send(profilePicture);
+      return response.send(profilePicture);
     }
     catch (error) {
-      next(error);
+      return next(error);
     }
   });
 
@@ -34,10 +35,10 @@ router.route(`/`)
       const { UsersCollection } = request.app.locals;
       const user = await UsersCollection.findOne({ _id: ObjectID(userID) }, { projection: { firstName: 1, lastName: 1, birthdate: 1, email: 1, investmentStyle: 1, profilePicture: 1, createdAt: 1, _id: 0 } });
 
-      response.send(user);
+      return response.send(user);
     }
     catch (error) {
-      next(error);
+      return next(error);
     }
   })
   .put(async (request, response, next) => {
@@ -46,13 +47,14 @@ router.route(`/`)
       token = await jwt.verify(token, process.env.TOKEN_SECRET);
       const userID = token.data;
 
+      winston.info(`updating user ${userID}`);
+
       const { UsersCollection } = request.app.locals;
 
       const user = await UsersCollection.findOne({ email: request.body.email });
 
       if (user) {
-        response.status(422).send(`User already exists`);
-        return;
+        return response.status(422).send(`User already exists`);
       }
 
       // we should add validation here to ensure that nothing bad is being pushed to the DB.
@@ -60,15 +62,15 @@ router.route(`/`)
 
       const { result } = await UsersCollection.updateOne({ _id: ObjectID(userID) }, { $set: updatedUserData });
 
-      if (result.ok) {
-        response.sendStatus(200);
+      if (!result.ok) {
+        winston.error(`failed to update user ${userID}`);
+        return response.sendStatus(400);
       }
-      else {
-        response.sendStatus(400);
-      }
+      winston.info(`successfully updated user ${userID}`);
+      return response.sendStatus(200);
     }
     catch (error) {
-      next(error);
+      return next(error);
     }
   });
 
