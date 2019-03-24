@@ -2,6 +2,7 @@
   background-color: rgba(0,0,0,0.98);
   padding-left: 10%;
   padding-right: 10%;
+  min-height: 65px;
 }
 
 :local(.navitem) {
@@ -13,10 +14,13 @@
 :local(.navlink) {
   color: #ffffff;
   text-align: center;
+  padding-top:0;
+  padding-bottom:0;
 }
 
 :local(.navlink:hover) {
   color: #4286f4;
+  text-decoration: none;
 }
 
 .selected {

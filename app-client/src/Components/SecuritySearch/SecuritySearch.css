@@ -1,0 +1,16 @@
+:local(.chart) {
+  margin: 1% auto 0% auto;
+  text-align: center;
+}
+
+:local(.preFormText) {
+  margin: -2% auto 0% auto;
+  text-align: center;
+  font-size: 32px;
+  font-variant: small-caps;
+}
+
+:local(.container) {
+  margin: 0% auto 1% auto;
+  width: 35%;
+}

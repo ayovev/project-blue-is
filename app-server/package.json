@@ -9,7 +9,8 @@
     "jsonwebtoken": "^8.4.0",
     "moment": "^2.24.0",
     "mongodb": "^3.1.13",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "nodemailer": "^5.1.1"
   },
   "devDependencies": {
     "eslint": "^5.14.1",
@@ -17,7 +18,7 @@
     "nodemon": "^1.18.10"
   },
   "scripts": {
-    "lint": "eslint --fix ./*.js ./routes/*.js ./bin/www",
+    "lint": "npx eslint --fix ./*.js ./routes/*.js ./bin/www",
     "start:dev": "nodemon --inspect=0.0.0.0:9229 ./bin/www",
     "start:prod": "node ./bin/www",
     "test": "echo \"Error: no test specified\" && exit 1"

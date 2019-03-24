@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { NavLink as RRNavLink } from 'react-router-dom';
-import { Collapse, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Nav, Navbar, NavbarBrand, NavItem, NavLink, NavbarToggler } from 'reactstrap';
+import { NavLink as RRNavLink, Link } from 'react-router-dom';
+import { Collapse, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import axios from 'axios';
 import { AuthenticationConsumer, AuthenticationContext } from "../../Contexts/AuthenticationContext/AuthenticationContext";
 import styles from "./Header.css";
@@ -25,7 +25,7 @@ export default class Header extends Component {
   getUserLetter = async () => {
     const options = {
       method: `GET`,
-      url: `/api/user/profilePicture`,
+      url: `/api/users/profilePicture`,
       resolveWithFullResponse: true
     };
 
@@ -62,10 +62,23 @@ export default class Header extends Component {
                   <NavLink to="/" activeClassName="selected" tag={RRNavLink} className={styles.navlink} exact>Home</NavLink>
                 </NavItem>
                 <NavItem className={styles.navitem}>
+                  <a className={styles.navlink} href="https://www.cse.unr.edu/~nathanaelf/" target="_blank" rel="noopener noreferrer">Senior Project</a>
+                </NavItem>
+                <NavItem className={styles.navitem}>
                   <NavLink to="/methodology" activeClassName="selected" tag={RRNavLink} className={styles.navlink}>Methodology</NavLink>
                 </NavItem>
                 <NavItem className={styles.navitem}>
                   <NavLink to="/team" activeClassName="selected" tag={RRNavLink} className={styles.navlink}>Meet The Team</NavLink>
+                </NavItem>
+                {isAuthenticated &&
+                  <React.Fragment>
+                    <NavItem className={styles.navitem}>
+                      <NavLink to="/search" activeClassName="selected" tag={RRNavLink} className={styles.navlink}>Securities</NavLink>
+                    </NavItem>
+                  </React.Fragment>
+                }
+                <NavItem className={styles.navitem}>
+                  <NavLink to="/contactUs" activeClassName="selected" tag={RRNavLink} className={styles.navlink}>Contact Us</NavLink>
                 </NavItem>
                 {!isAuthenticated &&
                   <React.Fragment>
@@ -77,24 +90,16 @@ export default class Header extends Component {
                     </NavItem>
                   </React.Fragment>
                 }
-                {isAuthenticated &&
-                  <React.Fragment>
-                    <NavItem className={styles.navitem}>
-                      <NavLink to="/securities" activeClassName="selected" tag={RRNavLink} className={styles.navlink}>Securities</NavLink>
-                    </NavItem>
-                  </React.Fragment>
-                }
               </Nav>
             </Collapse>
             {isAuthenticated && this.state.profilePicture &&
-              <NavbarBrand className={styles.navlink}>
+              <NavbarBrand tag="span" className={styles.navlink}>
                 <Dropdown className={styles.dropdown} isOpen={this.state.dropdownOpen} toggle={this.toggleDropdown}>
                   <DropdownToggle color="link" className={styles.dropdownToggle}>
                     <img src={this.state.profilePicture} alt="profile initials"></img>
                   </DropdownToggle>
                   <DropdownMenu right>
-                    <DropdownItem>Profile</DropdownItem>
-                    <DropdownItem>Settings</DropdownItem>
+                    <DropdownItem tag={Link} to="/userSettings">My Account</DropdownItem>
                     <DropdownItem onClick={logout}>Logout</DropdownItem>
                   </DropdownMenu>
                 </Dropdown>

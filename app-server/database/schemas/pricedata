@@ -1,0 +1,12 @@
+$jsonSchema: {
+  bsonType: "object",
+  required: [ "metadata", "data" ],
+  properties: {
+    metadata: {
+      bsonType: "object"
+    },
+    data: {
+      bsonType: "object"
+    }
+  }
+}

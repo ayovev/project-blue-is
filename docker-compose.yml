@@ -8,9 +8,11 @@ services:
     networks:
       - backend
     environment:
-      - DATABASE_USERNAME=
-      - DATABASE_PASSWORD=
-      - PYTHON_ENV=production
+      DATABASE_USERNAME:
+      DATABASE_PASSWORD:
+      DATABASE_HOST:
+      DATABASE_NAME:
+      PYTHON_ENV: production
     restart: on-failure
 
   app:
@@ -21,12 +23,15 @@ services:
     networks:
       - backend
     environment:
-      - ALPHAVANTAGE_API_KEY=
-      - DATABASE_HOST=
-      - DATABASE_PORT=
-      - DATABASE_NAME=
-      - NODE_ENV=production
-      - TOKEN_SECRET=
+      ALPHAVANTAGE_API_KEY:
+      DATABASE_USERNAME:
+      DATABASE_PASSWORD:
+      DATABASE_HOST:
+      DATABASE_NAME:
+      EMAIL:
+      EMAIL_PASSWORD:
+      NODE_ENV: production
+      TOKEN_SECRET:
     restart: on-failure
 
 networks:

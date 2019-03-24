@@ -26,6 +26,7 @@ module.exports = {
       "brace-style": ["error", "stroustrup"],
       "comma-dangle": ["warn", "never"],
       "curly": ["error", "all"],
+      "guard-for-in": ["off"],
       "indent": ["error", 2, { "SwitchCase": 1 }],
       "jsx-quotes": ["error", "prefer-double"],
       "linebreak-style": ["error", "unix"],
@@ -39,9 +40,6 @@ module.exports = {
       "space-in-parens": ["error", "never"],
 
       "react/display-name": ["off"],
-
-      // still debating on this rule
-      "react/jsx-curly-spacing": ["warn", "never"],
 
       "react/no-unescaped-entities": ["off"],
 

@@ -4,3 +4,4 @@ requests
 pandas
 scipy
 statsmodels
+pylint
