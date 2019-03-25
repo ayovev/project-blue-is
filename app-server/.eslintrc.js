@@ -15,6 +15,7 @@ module.exports = {
     "brace-style": ["error", "stroustrup"],
     "comma-dangle": ["warn", "never"],
     "curly": ["error", "all"],
+    "guard-for-in": ["off"],
     "indent": ["error", 2],
     "jsx-quotes": ["error", "prefer-double"],
     "linebreak-style": ["error", "unix"],
