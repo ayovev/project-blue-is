@@ -1,4 +1,5 @@
 Flask
+werkzeug==0.14.1
 pymongo
 requests
 pandas
