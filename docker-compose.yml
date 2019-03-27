@@ -8,6 +8,7 @@ services:
     networks:
       - backend
     environment:
+      ALPHAVANTAGE_API_KEY:
       DATABASE_USERNAME:
       DATABASE_PASSWORD:
       DATABASE_HOST:
@@ -23,7 +24,6 @@ services:
     networks:
       - backend
     environment:
-      ALPHAVANTAGE_API_KEY:
       DATABASE_USERNAME:
       DATABASE_PASSWORD:
       DATABASE_HOST:
