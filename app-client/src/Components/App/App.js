@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Header from "../Header/Header";
-import { Container} from 'reactstrap';
 import Footer from "../Footer/Footer";
 import Routes from "../Routes";
 import styles from "./App.css";

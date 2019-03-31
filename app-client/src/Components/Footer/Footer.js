@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import { NavLink as RRNavLink, Link } from 'react-router-dom';
-import { Collapse,  Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
-import axios from 'axios';
-import { AuthenticationConsumer, AuthenticationContext } from "../../Contexts/AuthenticationContext/AuthenticationContext";
+import { NavLink as RRNavLink} from 'react-router-dom';
+import { Collapse,  Nav, Navbar, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import styles from "./Footer.css";
 
 export default class Footer extends Component {
@@ -11,8 +9,6 @@ export default class Footer extends Component {
   }
   render() {
     return (
-      <AuthenticationConsumer>
-        {({ isAuthenticated}) => (
           <Navbar className={styles.navbar} expand="lg">
             <NavbarToggler className="navbar-dark" onClick={this.toggleNavbar}/>
             <Collapse navbar>
@@ -29,13 +25,6 @@ export default class Footer extends Component {
                 <NavItem className={styles.navitem}>
                   <NavLink to="/team" tag={RRNavLink} className={styles.navlink}>Meet The Team</NavLink>
                 </NavItem>
-                {isAuthenticated &&
-                  <React.Fragment>
-                    <NavItem className={styles.navitem}>
-                      <NavLink to="/search" tag={RRNavLink} className={styles.navlink}>Securities</NavLink>
-                    </NavItem>
-                  </React.Fragment>
-                }
                 <NavItem className={styles.navitem}>
                   <NavLink to="/contactUs" tag={RRNavLink} className={styles.navlink}>Contact Us</NavLink>
                 </NavItem>
@@ -47,10 +36,7 @@ export default class Footer extends Component {
               </Nav>
             </Collapse>
           </Navbar>
-        )}
-      </AuthenticationConsumer>
     );
   }
 }
 
-Footer.contextType = AuthenticationContext;

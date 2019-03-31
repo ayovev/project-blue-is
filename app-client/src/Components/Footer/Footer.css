@@ -12,6 +12,7 @@
   padding-right: 20px;
   font-variant: small-caps;
   font-size: 1rem;
+  margin:auto;
 }
 
 :local(.navlink) {
@@ -28,4 +29,5 @@
 
 :local(.testText) {
   color:white;
+  margin:auto;
 }
