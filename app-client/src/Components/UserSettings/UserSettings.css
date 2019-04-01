@@ -26,11 +26,6 @@
 	text-decoration:none;
 	text-shadow:0px 1px 0px #1570cd;
 }
-
-:local(.userSettingsContainer) {
-	margin-bottom:40px;
-}
-
 :local(.accountFormRow) {
   justify-content: center;
 

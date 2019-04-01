@@ -1,0 +1,5 @@
+:local(.appContainer) {
+    min-height: 100vh;
+    position:relative;
+    padding-bottom:65px;  /*for footer height */
+}
