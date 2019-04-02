@@ -4,9 +4,6 @@ import { Collapse,  Nav, Navbar, NavbarToggler, NavItem, NavLink } from 'reactst
 import styles from "./Footer.css";
 
 export default class Footer extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     return (
           <Navbar className={styles.navbar} expand="lg">
@@ -30,7 +27,7 @@ export default class Footer extends Component {
                 </NavItem>
                 <React.Fragment>
                   <div className={styles.navitem}>
-                    <p className={styles.testText}>Copyright <span style={{'font-size':'.7rem'}}>&copy; 2019</span> IEEN. All rights reserved.</p>
+                    <p className={styles.testText}>Copyright <span style={{fontSize: '.7rem'}}>&copy; 2019</span> IEEN. All rights reserved.</p>
                   </div>
                 </React.Fragment>
               </Nav>
