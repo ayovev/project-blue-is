@@ -113,13 +113,5 @@ def calculateSharpe(ticker):
   test = Calc.calculateSharpeRatio(ticker, data, bData)
   return str(test)
 
-@app.route("/analyzer/test")
-def testFunction():
-  tick, data = Calc.loadHistorical("MU")
-  df = Calc.filterData(data)
-  test = Calc.sixMonthReturn(df.iloc[::-1])
-
-  return str(test)
-
 if __name__ == "__main__":
   app.run(host="0.0.0.0", port=os.getenv(key="PORT", default=4000))
