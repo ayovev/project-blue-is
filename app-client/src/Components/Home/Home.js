@@ -40,8 +40,9 @@ export default class Home extends Component {
               <button onClick={() => this.scroll(this.myRef)} className={styles.learnMoreButton}>Learn More <i className={`w3-jumbo fa fa-angle-down`}></i></button>
             </div>
           </div>
+          <div style={{ marginTop: `250px` }} ref={this.myRef}/>
         </div>
-        <div ref={this.myRef}/>
+        
         <Container className={styles.containerFrame2}>
           {/* What Section */}
           <Row className={styles.homePageRow}>
@@ -55,10 +56,10 @@ export default class Home extends Component {
               </Card>
             </Col>
             <Col md={7}>
-              <p>IEEN is a FinTech-based project that combines computer science and finance to provide users with wealth-building insights that aim to strengthen an investor's
-              portfolio. Insights will be accessible through a web application that will make use of a microservice architecture based around four main services.
-              The primary goal of this project is to build an application that investors can use to make more informed investment decisions. The broader importance of this
-              project is its combination of advanced yet easily digestible analysis that would appeal to investors of all backgrounds and levels of experience.</p>
+              <p>IEEN is a FinTech-based project that combines computer science and finance to provide its users with wealth-building insights that aim to strengthen an 
+                investor's portfolio. The primary goal of this service is to provide a one stop shop that individuals can utilize in order to learn more about finance and make 
+                more informed investment decisions. The broader importance of this project is its combination of advanced yet easily digestible analysis that appeals to investors of 
+                all backgrounds and levels of experience.</p>
               <div className={styles.buttonDiv}>
                 <Button color="primary" href="#">Check out something</Button>
               </div>
@@ -69,15 +70,15 @@ export default class Home extends Component {
           <Col><h2>High quality analysis shouldn&apos;t be exlusive to firms.</h2></Col>
         </Row>
         <Container className={styles.containerFrame2}>
-          <Row>
+        {/* How Section */}
+          <Row className={styles.homePageRow}>
             <Col md={12} className={styles.informationHeader}>
               <h1 style={{ textAlign: `right`, marginRight: `80px` }}>How We Do It</h1>
             </Col>
             <Col md={7}>
-              <p>IEEN is a FinTech-based project that combines computer science and finance to provide users with wealth-building insights that aim to strengthen an investor's
-              portfolio. Insights will be accessible through a web application that will make use of a microservice architecture based around four main services.
-              The primary goal of this project is to build an application that investors can use to make more informed investment decisions. The broader importance of this
-              project is its combination of advanced yet easily digestible analysis that would appeal to investors of all backgrounds and levels of experience.</p>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sollicitudin hendrerit rhoncus. Aenean ut volutpat magna. Mauris semper blandit pellentesque. 
+                Etiam in orci eget ante vulputate lobortis non a sapien. Proin eu posuere sem. Curabitur eget dui at ligula suscipit porttitor. Morbi ac maximus libero, quis 
+                malesuada tortor. Integer lacinia condimentum velit sed lobortis. Quisque vitae rutrum nibh. Mauris imperdiet tellus ac blandit facilisis. Nam vel enim elit.</p>
               <div className={styles.buttonDiv}>
                 <Button color="primary" href="#">Learn More!</Button>
               </div>
@@ -95,7 +96,7 @@ export default class Home extends Component {
         <Container>
           <Row className="FrameTitleText">
             <Col md={12}>
-              <h2>INNOVATIVE SOLUTIONS IN A VOLATILE WORLD</h2>
+              <h1>Demo IEEN Today</h1>
               <hr className="dark"></hr>
             </Col>
             <Col md={12}>
@@ -137,9 +138,13 @@ export default class Home extends Component {
               </Card>
             </Col>
           </Row>
-          <Row>
+          <Row className={styles.homePageRow}>
             {/* Add the styling for this */}
-            <Col><Button color="primary" href="#">Check it out!</Button></Col>
+            <Col>
+              <div className={styles.buttonDiv}>
+                <Button color="primary" href="#">Check it out!</Button>
+              </div>
+            </Col>
           </Row>
         </Container>
       </React.Fragment>

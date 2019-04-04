@@ -12,7 +12,7 @@
 
 :local(.containerFrame2) {
   margin:auto;
-  margin-top:60px;
+  margin-top:20px;
 }
 
 /* Content Area might end up being global as different frames will use this */
@@ -67,7 +67,7 @@
   background-color:black;
   color:white;
   text-align:center;
-  padding:10px 0;
+  padding:20px 0;
 }
 
 :local(.mediaCardContainer) {
@@ -122,8 +122,9 @@ hr.dark {
   text-align:center;
 }
 
-h2 {
+:local(h2) {
   font-size:22px;
+  margin:0;
 }
 
 :local(p) {
