@@ -147,7 +147,7 @@ export default class UserSettings extends Component {
   render() {
     return (
       <React.Fragment>
-        <Container className={styles.userSettingsContainer}>
+        <Container>
           <Row className="FrameTitleText">
             <Col>
               <h2>User Preferences</h2>
@@ -192,13 +192,13 @@ export default class UserSettings extends Component {
               </Col>
               <Col md={5}>
                 <FormGroup>
-                  <Label for="newPassword">New Password</Label>
-                  <Input type="password" id="password" onChange={this.handleChange}/>
+                  <Label for="birthdate">Date of Birth</Label>
+                  <Input type="datetime" id="birthdate" value={this.getValue(`birthdate`)} onChange={this.handleChange} placeholder="mm/dd/yyyy"/>
                 </FormGroup>
               </Col>
             </Row>
             <Row className={styles.accountFormRow}>
-              <Col md={5}>
+            <Col md={5}>
                 <FormGroup>
                   <Label for="newEmail">New Email</Label>
                   <Input type="email" id="email" onChange={this.handleChange}/>
@@ -206,22 +206,23 @@ export default class UserSettings extends Component {
               </Col>
               <Col md={5}>
                 <FormGroup>
-                  <Label for="confirmNewPassword" required>Confirm New Password</Label>
-                  <Input type="password" id="confirmPassword" onChange={this.handleChange}/>
-                </FormGroup>
-              </Col>
-            </Row>
-            <Row className={styles.accountFormRow}>
-              <Col md={5}>
-                <FormGroup>
                   <Label for="confirmNewEmail">Confirm New Email</Label>
                   <Input type="email" id="confirmEmail" onChange={this.handleChange}/>
                 </FormGroup>
               </Col>
+              
+            </Row>
+            <Row className={styles.accountFormRow}>
+            <Col md={5}>
+                <FormGroup>
+                  <Label for="newPassword">New Password</Label>
+                  <Input type="password" id="password" onChange={this.handleChange}/>
+                </FormGroup>
+              </Col>
               <Col md={5}>
                 <FormGroup>
-                  <Label for="birthdate">Date of Birth</Label>
-                  <Input type="datetime" id="birthdate" value={this.getValue(`birthdate`)} onChange={this.handleChange} placeholder="mm/dd/yyyy"/>
+                  <Label for="confirmNewPassword" required>Confirm New Password</Label>
+                  <Input type="password" id="confirmPassword" onChange={this.handleChange}/>
                 </FormGroup>
               </Col>
             </Row>

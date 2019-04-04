@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Button, Container, Row, Col } from 'reactstrap';
+import { NavLink as RRNavLink } from 'react-router-dom';
+import { Button, Col, Container, NavLink, Row } from 'reactstrap';
 import styles from "./Team.css";
 import Alex from './assets/alex.png';
 import James from './assets/james.png';
@@ -61,7 +62,7 @@ export default class Team extends Component {
           </Row>
           <Row>
             <Col className={styles.buttonAlignment}>
-              <Button color="primary" href="#">Contact Us</Button>
+              <Button color="primary"><NavLink to="/contactUs" tag={RRNavLink} style={{color: 'white'}}>Contact Us</NavLink></Button>
             </Col>
           </Row>
         </Container>

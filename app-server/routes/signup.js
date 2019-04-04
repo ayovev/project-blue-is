@@ -1,6 +1,8 @@
 `use strict`;
 
 const express = require(`express`);
+const { winston } = require(`../logging`);
+
 const router = express.Router();
 
 router.route(`/`)
@@ -11,7 +13,8 @@ router.route(`/`)
       let user = await UsersCollection.findOne({ email: request.body.email });
 
       if (user) {
-      // TODO @Nate: modify this to use some better more specific verbiage
+        winston.error(`${request.body.email} tried to signup but already exists`);
+        // TODO @Nate: modify this to use some better more specific verbiage
         response.status(422).send(`User already exists`);
         return;
       }
@@ -30,11 +33,12 @@ router.route(`/`)
 
       await UsersCollection.insertOne(user);
 
+      winston.debug(`${request.body.email} successfully signed up`);
       // TODO @Nate: modify this to use some better more specific verbiage
-      response.status(201).send();
+      return response.status(201).send();
     }
     catch (error) {
-      next(error);
+      return next(error);
     }
   });
 
