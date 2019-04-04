@@ -25,11 +25,9 @@ export default class Footer extends Component {
             <NavItem className={styles.navitem}>
               <NavLink to="/contactUs" tag={RRNavLink} className={styles.navlink}>Contact Us</NavLink>
             </NavItem>
-            <React.Fragment>
-              <div className={styles.navitem}>
-                <p className={styles.testText}>Copyright <span style={{ fontSize: `.8rem` }}>&copy;</span> 2019 IEEN. All rights reserved.</p>
-              </div>
-            </React.Fragment>
+            <div className={styles.navitem}>
+              <p className={styles.copyright}>Copyright <span style={{ fontSize: `.9rem` }}>&copy;</span> 2019 IEEN. All rights reserved.</p>
+            </div>
           </Nav>
         </Collapse>
       </Navbar>

@@ -27,7 +27,7 @@
   text-decoration: none;
 }
 
-:local(.testText) {
+:local(.copyright) {
   color:white;
   margin:auto;
 }
