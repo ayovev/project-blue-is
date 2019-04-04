@@ -6,20 +6,19 @@
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  margin:auto;
+  margin: auto;
   height: 95vh;
 }
 
 :local(.containerFrame2) {
-  margin:auto;
-  margin-top:20px;
+  margin-top: 60px;
 }
 
 /* Content Area might end up being global as different frames will use this */
 :local(.contentArea) {
   width: 1080px;
-  margin:auto;
-  padding-top:12%;
+  margin: auto;
+  padding-top: 12%;
 }
 
 :local(.projectName) {
@@ -146,7 +145,7 @@ hr.dark {
 
   animation:
     typing 3s steps(30, end),
-    blink-caret 0.7s step-end infinite ;
+    blink-caret 1s step-end infinite ;
 }
 
 /* The typing effect */

@@ -6,7 +6,6 @@ import Search from "./assets/securitySearch.png";
 import Security from "./assets/securityResults.png";
 import What from "./assets/what.jpg";
 import How from "./assets/how.png";
-import Who from "./assets/who.png";
 
 export default class Home extends Component {
   constructor(props) {
@@ -30,19 +29,14 @@ export default class Home extends Component {
             <h3 className={styles.projectTagline}>Institutional Analysis for<br></br>the Retail Investor</h3>
 
             <hr className="light"></hr>
-            {/*
-              inline Style reference: (for anything above 2 attributes, make a class object in css.)
-              remove className and replace with style.
-              style={{margin:'auto'}}
-            */}
 
             <div className={styles.centerButtonDiv}>
               <button onClick={() => this.scroll(this.myRef)} className={styles.learnMoreButton}>Learn More <i className={`w3-jumbo fa fa-angle-down`}></i></button>
             </div>
           </div>
-          <div style={{ marginTop: `250px` }} ref={this.myRef}/>
         </div>
-        
+        <div ref={this.myRef}/>
+
         <Container className={styles.containerFrame2}>
           {/* What Section */}
           <Row className={styles.homePageRow}>
@@ -56,9 +50,9 @@ export default class Home extends Component {
               </Card>
             </Col>
             <Col md={7}>
-              <p>IEEN is a FinTech-based project that combines computer science and finance to provide its users with wealth-building insights that aim to strengthen an 
-                investor's portfolio. The primary goal of this service is to provide a one stop shop that individuals can utilize in order to learn more about finance and make 
-                more informed investment decisions. The broader importance of this project is its combination of advanced yet easily digestible analysis that appeals to investors of 
+              <p>IEEN is a FinTech-based project that combines computer science and finance to provide its users with wealth-building insights that aim to strengthen an
+                investor's portfolio. The primary goal of this service is to provide a one stop shop that individuals can utilize in order to learn more about finance and make
+                more informed investment decisions. The broader importance of this project is its combination of advanced yet easily digestible analysis that appeals to investors of
                 all backgrounds and levels of experience.</p>
               <div className={styles.buttonDiv}>
                 <Button color="primary" href="#">Check out something</Button>
@@ -76,8 +70,8 @@ export default class Home extends Component {
               <h1 style={{ textAlign: `right`, marginRight: `80px` }}>How We Do It</h1>
             </Col>
             <Col md={7}>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sollicitudin hendrerit rhoncus. Aenean ut volutpat magna. Mauris semper blandit pellentesque. 
-                Etiam in orci eget ante vulputate lobortis non a sapien. Proin eu posuere sem. Curabitur eget dui at ligula suscipit porttitor. Morbi ac maximus libero, quis 
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sollicitudin hendrerit rhoncus. Aenean ut volutpat magna. Mauris semper blandit pellentesque.
+                Etiam in orci eget ante vulputate lobortis non a sapien. Proin eu posuere sem. Curabitur eget dui at ligula suscipit porttitor. Morbi ac maximus libero, quis
                 malesuada tortor. Integer lacinia condimentum velit sed lobortis. Quisque vitae rutrum nibh. Mauris imperdiet tellus ac blandit facilisis. Nam vel enim elit.</p>
               <div className={styles.buttonDiv}>
                 <Button color="primary" href="#">Learn More!</Button>
