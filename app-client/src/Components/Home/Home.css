@@ -79,6 +79,23 @@
 :local(.mediaCard) {
   cursor: pointer;
 }
+:local(.contentSeperatorRight) {
+  margin-right:10%;
+}
+:local(.contentSeperatorLeft) {
+  margin-left:10%;
+}
+:local(.informationHeader) {
+  padding-bottom:20px;
+  margin-right:80px;
+}
+:local(.homePageRow) {
+  margin-bottom: 30px;
+}
+:local(.buttonDiv) {
+  text-align:center;
+  padding:20px;
+}
 
 hr.light {
   width: 10%;

@@ -94,7 +94,7 @@ export default class Header extends Component {
             </Collapse>
             {isAuthenticated && this.state.profilePicture &&
               <NavbarBrand tag="span" className={styles.navlink}>
-                <Dropdown className={styles.dropdown} isOpen={this.state.dropdownOpen} toggle={this.toggleDropdown}>
+                <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggleDropdown}>
                   <DropdownToggle color="link" className={styles.dropdownToggle}>
                     <img src={this.state.profilePicture} alt="profile initials"></img>
                   </DropdownToggle>
