@@ -51,7 +51,7 @@ export default class Home extends Component {
             </Col>
             <Col md={7}>
               <p>IEEN is a FinTech-based project that combines computer science and finance to provide its users with wealth-building insights that aim to strengthen an
-                investor's portfolio. The primary goal of this service is to provide a one stop shop that individuals can utilize in order to learn more about finance and make
+                investor&apos;s portfolio. The primary goal of this service is to provide a one stop shop that individuals can utilize in order to learn more about finance and make
                 more informed investment decisions. The broader importance of this project is its combination of advanced yet easily digestible analysis that appeals to investors of
                 all backgrounds and levels of experience.</p>
               <div className={styles.buttonDiv}>
