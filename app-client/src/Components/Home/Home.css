@@ -12,6 +12,7 @@
 
 :local(.containerFrame2) {
   margin-top: 60px;
+  margin-bottom:60px;
 }
 
 /* Content Area might end up being global as different frames will use this */
