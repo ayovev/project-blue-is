@@ -9,9 +9,9 @@ export default class App extends Component {
     return (
       <React.Fragment>
         <div className={styles.appContainer}>
-        <Header />
-        <Routes />
-        <Footer />
+          <Header />
+          <Routes />
+          <Footer />
         </div>
       </React.Fragment>
     );

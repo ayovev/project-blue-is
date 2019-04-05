@@ -6,20 +6,20 @@
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  margin:auto;
+  margin: auto;
   height: 95vh;
 }
 
 :local(.containerFrame2) {
-  margin:auto;
-  margin-top:30px;
+  margin-top: 60px;
+  margin-bottom:60px;
 }
 
 /* Content Area might end up being global as different frames will use this */
 :local(.contentArea) {
   width: 1080px;
-  margin:auto;
-  padding-top:12%;
+  margin: auto;
+  padding-top: 12%;
 }
 
 :local(.projectName) {
@@ -67,7 +67,7 @@
   background-color:black;
   color:white;
   text-align:center;
-  padding:10px 0;
+  padding:20px 0;
 }
 
 :local(.mediaCardContainer) {
@@ -78,6 +78,23 @@
 
 :local(.mediaCard) {
   cursor: pointer;
+}
+:local(.contentSeperatorRight) {
+  margin-right:10%;
+}
+:local(.contentSeperatorLeft) {
+  margin-left:10%;
+}
+:local(.informationHeader) {
+  padding-bottom:20px;
+  margin-right:80px;
+}
+:local(.homePageRow) {
+  margin-bottom: 30px;
+}
+:local(.buttonDiv) {
+  text-align:center;
+  padding:20px;
 }
 
 hr.light {
@@ -105,8 +122,9 @@ hr.dark {
   text-align:center;
 }
 
-h2 {
+:local(h2) {
   font-size:22px;
+  margin:0;
 }
 
 :local(p) {
@@ -128,7 +146,7 @@ h2 {
 
   animation:
     typing 3s steps(30, end),
-    blink-caret 0.7s step-end infinite ;
+    blink-caret 1s step-end infinite ;
 }
 
 /* The typing effect */
