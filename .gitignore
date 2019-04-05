@@ -22,5 +22,9 @@ docker-compose.override.yml
 # auto-generated lock file from npm install at project root
 package-lock.json
 
+# cached python stuffs
+analyzer-service/*.pyc
+
 # log files
 *.log
+
