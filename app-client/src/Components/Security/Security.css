@@ -54,3 +54,9 @@ h3 {
   margin-top: 5%;
   margin-bottom: 2%;
 }
+:local(.containerStyling) {
+  padding-bottom:30px;
+}
+:local(.chart) {
+  justify-content: center;
+}
