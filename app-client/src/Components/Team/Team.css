@@ -79,6 +79,7 @@ h2 {
 
 :local(.teamParagraph) {
   margin-top:4%;
+  text-align: justify;
 }
 
 :local(.rightTeamImage) {
