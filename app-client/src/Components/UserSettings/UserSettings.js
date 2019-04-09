@@ -198,7 +198,7 @@ export default class UserSettings extends Component {
               </Col>
             </Row>
             <Row className={styles.accountFormRow}>
-            <Col md={5}>
+              <Col md={5}>
                 <FormGroup>
                   <Label for="newEmail">New Email</Label>
                   <Input type="email" id="email" onChange={this.handleChange}/>
@@ -210,10 +210,10 @@ export default class UserSettings extends Component {
                   <Input type="email" id="confirmEmail" onChange={this.handleChange}/>
                 </FormGroup>
               </Col>
-              
+
             </Row>
             <Row className={styles.accountFormRow}>
-            <Col md={5}>
+              <Col md={5}>
                 <FormGroup>
                   <Label for="newPassword">New Password</Label>
                   <Input type="password" id="password" onChange={this.handleChange}/>
