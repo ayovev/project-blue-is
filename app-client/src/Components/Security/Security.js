@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import { Container, Row } from 'reactstrap';
+import { Container, Row } from "reactstrap";
 import axios from "axios";
-import { Line, LineChart,XAxis,YAxis,Tooltip,Legend,CartesianGrid } from 'recharts';
-import CircularProgressbar from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
-import styles from './Security.css';
+import { Line, LineChart,XAxis,YAxis,Tooltip,Legend,CartesianGrid } from "recharts";
+import CircularProgressbar from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
+import styles from "./Security.css";
 
 // test data for chart
 const data = [
@@ -147,6 +147,10 @@ export default class Security extends Component {
       return <Redirect to="/404" />;
     }
 
+    if (!this.state.investabilityIndex || this.state.favorite === undefined) {
+      return null;
+    }
+
     const starClasses = [`fa-lg`, `fa-star`];
     this.state.favorite ? starClasses.push(`fas`) : starClasses.push(`far`);
 
@@ -170,6 +174,7 @@ export default class Security extends Component {
           </Row>
           <Row className="Row">
             <CircularProgressbar className="radialAnimation"
+              initialAnimation={true}
               percentage={this.state.investabilityIndex}
               text={`${this.state.investabilityIndex}`}
             />
