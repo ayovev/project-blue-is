@@ -7,24 +7,6 @@ const { winston } = require(`../logging`);
 
 const router = express.Router();
 
-router.route(`/profilePicture`)
-  .get(async (request, response, next) => {
-    try {
-      let token = request.header(`Authorization`) || request.cookies[`pbiToken`];
-      token = await jwt.verify(token, process.env.TOKEN_SECRET);
-      const userID = token.data;
-
-      const { UsersCollection } = request.app.locals;
-      const user = await UsersCollection.findOne({ _id: ObjectID(userID) }, { projection: { profilePicture: 1, _id: 0 } });
-      const { profilePicture } = user;
-
-      return response.send(profilePicture);
-    }
-    catch (error) {
-      return next(error);
-    }
-  });
-
 router.route(`/`)
   .get(async (request, response, next) => {
     try {
@@ -74,5 +56,74 @@ router.route(`/`)
     }
   });
 
+router.route(`/favorites`)
+  .get(async (request, response, next) => {
+    try {
+      let token = request.header(`Authorization`) || request.cookies[`pbiToken`];
+      token = await jwt.verify(token, process.env.TOKEN_SECRET);
+      const userID = token.data;
+
+      const { UsersCollection } = request.app.locals;
+      const result = await UsersCollection.findOne({ _id: ObjectID(userID) }, { projection: { favorites: 1, _id: 0 } });
+
+      return response.send(result.favorites);
+    }
+    catch (error) {
+      return next(error);
+    }
+  })
+  .put(async (request, response, next) => {
+    try {
+      let token = request.header(`Authorization`) || request.cookies[`pbiToken`];
+      token = await jwt.verify(token, process.env.TOKEN_SECRET);
+      const userID = token.data;
+
+      const { UsersCollection } = request.app.locals;
+      let { favorites } = await UsersCollection.findOne({ _id: ObjectID(userID) }, { projection: { favorites: 1, _id: 0 } });
+
+      if (Object.entries(favorites).length === 0 && favorites.constructor === Object) {
+        favorites = [];
+      }
+
+      if (favorites.includes(request.body.symbol)) {
+        favorites = favorites.filter((symbol) => {
+          symbol !== request.body.symbol;
+        });
+      }
+      else {
+        favorites.push(request.body.symbol);
+      }
+
+      const { result } = await UsersCollection.updateOne({ _id: ObjectID(userID) }, { $set: { favorites } });
+
+      if (!result.ok) {
+        // winston.error(`failed to <operation> ${request.body.symbol} to favorites for user ${userID}`);
+        return response.sendStatus(400);
+      }
+      // winston.info(`successfully <operation> ${request.body.symbol} to favorites for user ${userID}`);
+      return response.sendStatus(200);
+    }
+    catch (error) {
+      return next(error);
+    }
+  });
+
+router.route(`/profilePicture`)
+  .get(async (request, response, next) => {
+    try {
+      let token = request.header(`Authorization`) || request.cookies[`pbiToken`];
+      token = await jwt.verify(token, process.env.TOKEN_SECRET);
+      const userID = token.data;
+
+      const { UsersCollection } = request.app.locals;
+      const user = await UsersCollection.findOne({ _id: ObjectID(userID) }, { projection: { profilePicture: 1, _id: 0 } });
+      const { profilePicture } = user;
+
+      return response.send(profilePicture);
+    }
+    catch (error) {
+      return next(error);
+    }
+  });
 
 module.exports = router;
