@@ -37,9 +37,9 @@ padding-top: 15px;
 }
 
 
-h2 {
+/* :local(h2) {
   margin-bottom: 5%;
-}
+} */
 
 h3 {
    margin-top: 2px;
