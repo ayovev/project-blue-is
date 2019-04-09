@@ -7,6 +7,7 @@
     "password": "fcea920f7412b5da7be0cf42b8c93759",
     "investmentStyle": "investor",
     "profilePicture": "https://ui-avatars.com/api/?name=Alex+Yovev&background=4286f4&color=000&rounded=true&size=32",
+    "favorites": ["MU", "SPY", "AAPL"],
     "role": "administrator",
     "createdAt": "2019-02-14T18:33:11.264Z"
   },
@@ -18,6 +19,7 @@
     "password": "fcea920f7412b5da7be0cf42b8c93759",
     "investmentStyle": "dayTrader",
     "profilePicture": "https://ui-avatars.com/api/?name=James+Schnebly&background=4286f4&color=000&rounded=true&size=32",
+    "favorites": ["MSFT", "SPY", "MU"],
     "role": "administrator",
     "createdAt": "2019-02-14T18:33:11.264Z"
   },
@@ -29,6 +31,7 @@
     "password": "fcea920f7412b5da7be0cf42b8c93759",
     "investmentStyle": "swingTrader",
     "profilePicture": "https://ui-avatars.com/api/?name=Nate+Fuller&background=4286f4&color=000&rounded=true&size=32",
+    "favorites": ["MSFT", "SPY"],
     "role": "administrator",
     "createdAt": "2019-02-14T18:33:11.264Z"
   }

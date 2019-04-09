@@ -65,7 +65,7 @@ export default class Home extends Component {
           <Col><h2>High quality analysis shouldn&apos;t be exlusive to firms.</h2></Col>
         </Row>
         <Container className={styles.containerFrame2}>
-        {/* How Section */}
+          {/* How Section */}
           <Row className={styles.homePageRow}>
             <Col md={12} className={styles.informationHeader}>
               <h1 style={{ textAlign: `right`, marginRight: `80px` }}>How We Do It</h1>
