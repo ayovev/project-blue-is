@@ -11,7 +11,7 @@
   },
   {
     "symbol": "SPY",
-    "investabilityIndex" : 1,
+    "investabilityIndex" : 0,
     "beta": 1.00,
     "valueAtRisk": 10.43,
     "expectedReturn": 8.37,

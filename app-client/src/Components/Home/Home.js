@@ -127,7 +127,7 @@ export default class Home extends Component {
               <Card className={styles.mediaCard} onClick={() => this.props.history.push(`/demo`)}>
                 <CardImg top width="100%" src={Search} alt="Security Search Demo" />
                 <CardBody>
-                  <CardTitle><b>Security Searches</b></CardTitle>
+                  <CardTitle><b>Security Search</b></CardTitle>
                   {/* <CardSubtitle>Some cool text to follow</CardSubtitle> */}
                   <CardText></CardText>
                 </CardBody>
