@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Container, Row } from 'reactstrap';
 import axios from "axios";
-import { Line, LineChart,XAxis,YAxis,Tooltip,Legend,CartesianGrid } from 'recharts';
+import { CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from 'recharts';
 import CircularProgressbar from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import styles from "../Security/Security.css";
@@ -10,40 +10,40 @@ import styles from "../Security/Security.css";
 const data = [
   { ticker: 45,
     SP500: 55,
-    day: "June 18"
+    day: `June 18`
   },
   { ticker: 55,
     SP500: 60,
-    day: "July 18"
-   },
+    day: `July 18`
+  },
   { ticker: 35,
     SP500: 55,
-    day: "Aug 18"
-   },
+    day: `Aug 18`
+  },
   { ticker: 45,
     SP500: 50,
-    day: "Sep 18"
-   },
+    day: `Sep 18`
+  },
   { ticker: 80,
     SP500: 70,
-    day: "Oct 18"
-   },
+    day: `Oct 18`
+  },
   { ticker: 90,
     SP500: 85,
-    day: "Nov 18"
-   },
+    day: `Nov 18`
+  },
   { ticker: 30,
     SP500: 40,
-    day: "Dec 18"
-   },
+    day: `Dec 18`
+  },
   { ticker: 90,
     SP500: 95,
-    day: "Feb 19"
-   },
+    day: `Feb 19`
+  },
   { ticker: 120,
     SP500: 115,
-    day: "Mar 19"
-   }
+    day: `Mar 19`
+  }
 ];
 
 export default class Security extends Component {
@@ -114,6 +114,9 @@ export default class Security extends Component {
             />
           </Row>
           <Row className="Row">
+            <h2>Investability Index</h2>
+          </Row>
+          <Row className="Row">
             <table>
               <tbody>
                 <tr>
@@ -168,8 +171,8 @@ export default class Security extends Component {
               <YAxis />
               <Tooltip />
               <Legend />
-              <Line type="natural" dataKey="SP500" stroke="#4286f4" strokeWidth={2}  animationDuration={1200}/>
-              <Line type="natural" dataKey="ticker" stroke="#82ca9d" strokeWidth={2}  animationDuration={1200}/>
+              <Line type="natural" dataKey="SP500" stroke="#4286f4" strokeWidth={2} animationDuration={1200}/>
+              <Line type="natural" dataKey="ticker" stroke="#82ca9d" strokeWidth={2} animationDuration={1200}/>
             </LineChart>
           </Row>
         </Container>
