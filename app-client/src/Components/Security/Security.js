@@ -100,6 +100,9 @@ export default class Security extends Component {
             />
           </Row>
           <Row className="Row">
+            <h2>Investability Index</h2>
+          </Row>
+          <Row className="Row">
             <table>
               <tbody>
                 <tr>
