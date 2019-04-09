@@ -86,13 +86,13 @@ router.route(`/favorites`)
       }
 
       if (favorites.includes(request.body.symbol)) {
-        favorites = favorites.filter((symbol) => {
-          symbol !== request.body.symbol;
-        });
+        favorites = favorites.filter((symbol) => symbol !== request.body.symbol);
       }
       else {
         favorites.push(request.body.symbol);
       }
+
+      console.log(favorites);
 
       const { result } = await UsersCollection.updateOne({ _id: ObjectID(userID) }, { $set: { favorites } });
 
