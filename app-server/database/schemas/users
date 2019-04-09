@@ -26,6 +26,9 @@ $jsonSchema: {
     profilePicture: {
       bsonType: "string"
     },
+    favorites: {
+      bsonType: "array"
+    },
     role: {
       enum: [ "administrator", "user" ]
     },
