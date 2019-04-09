@@ -147,7 +147,7 @@ export default class Security extends Component {
       return <Redirect to="/404" />;
     }
 
-    if (!this.state.investabilityIndex || this.state.favorite === undefined) {
+    if (this.state.investabilityIndex === undefined || this.state.favorite === undefined) {
       return null;
     }
 
