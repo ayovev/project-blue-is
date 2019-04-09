@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { Container, Row } from 'reactstrap';
 import axios from "axios";
-import styles from "./Security.css";
+import CircularProgressbar from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+import styles from './Security.css';
 
 export default class Security extends Component {
   constructor(props) {
@@ -74,6 +76,7 @@ export default class Security extends Component {
 
     return (
       <React.Fragment>
+
         <Container>
           <Row className="Row">
             <h3>Security Results</h3>
@@ -89,7 +92,13 @@ export default class Security extends Component {
             <hr className={styles.hr2}/>
           </Row>
           <Row className="Row">
-            <p id="graphic">[Insert investabilityIndex graphic here]</p>
+            <CircularProgressbar className="radialAnimation"
+              percentage={this.state.investabilityIndex}
+              text={`${this.state.investabilityIndex}`}
+            />
+          </Row>
+          <Row className="Row">
+            <h2>Investability Index</h2>
           </Row>
           <Row className="Row">
             <table>
