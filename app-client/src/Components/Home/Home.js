@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Card, CardBody, CardImg, CardSubtitle, CardText, CardTitle, Container, Row, Col, Button } from "reactstrap";
+import { NavLink as RRNavLink } from 'react-router-dom';
+import { Button, Card, CardBody, CardImg, CardSubtitle, CardText, CardTitle, Col, Container, NavLink, Row } from "reactstrap";
 import styles from "./Home.css";
 
 import Search from "./assets/securitySearch.png";
@@ -136,7 +137,7 @@ export default class Home extends Component {
             {/* Add the styling for this */}
             <Col>
               <div className={styles.buttonDiv}>
-                <Button color="primary" href="#">Check it out!</Button>
+                <Button color="primary"><NavLink to="/demo" tag={RRNavLink} className={styles.ctaButton}>Check it out!</NavLink></Button>
               </div>
             </Col>
           </Row>

@@ -131,6 +131,15 @@ hr.dark {
   color: grey;
 }
 
+:local(.ctaButton) {
+  color: white;
+  padding: 0;
+}
+
+:local(.ctaButton:hover) {
+  color: white;
+}
+
 /* Needed to add the px definition so the cursor border wouldn't go crazy. */
 .typewriter {
   width: 770px;
