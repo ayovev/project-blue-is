@@ -3,8 +3,9 @@ import { NavLink as RRNavLink } from 'react-router-dom';
 import { Button, Card, CardBody, CardImg, CardSubtitle, CardText, CardTitle, Col, Container, NavLink, Row } from "reactstrap";
 import styles from "./Home.css";
 
-import Search from "./assets/securitySearch.png";
-import Security from "./assets/securityResults.png";
+import Search from "./assets/securitySearchv2.png";
+import Security from "./assets/analysis.png";
+import Historical from "./assets/historicalPerformance.png"
 import What from "./assets/what.jpg";
 import How from "./assets/how.png";
 
@@ -101,33 +102,33 @@ export default class Home extends Component {
           </Row>
           <Row className={styles.mediaCardContainer}>
             <Col xs="3" >
-              <Card className={styles.mediaCard} onClick={() => this.props.history.push(`#`)}>
-                <CardImg top width="100%" src={Security} alt="What we do" />
+              <Card className={styles.mediaCard} onClick={() => this.props.history.push(`/demo`)}>
+                <CardImg top width="100%" src={Security} alt="Secuirty Analysis Demo" />
                 <CardBody>
-                  <CardTitle>Investability Index</CardTitle>
-                  <CardSubtitle>check out our super cool thing</CardSubtitle>
+                  <CardTitle><b>Investability Index</b></CardTitle>
+                  {/* <CardSubtitle>check out our super cool thing</CardSubtitle> */}
                   <CardText></CardText>
                 </CardBody>
               </Card>
             </Col>
 
             <Col xs="3" >
-              <Card className={styles.mediaCard} onClick={() => this.props.history.push(`#`)}>
-                <CardImg top width="100%" src={Security} alt="How we do it" />
+              <Card className={styles.mediaCard} onClick={() => this.props.history.push(`/demo`)}>
+                <CardImg top width="100%" src={Historical} alt="Historical Performance Demo" />
                 <CardBody>
-                  <CardTitle>Historical Performance Chart</CardTitle>
-                  <CardSubtitle>Check out how this cool thing does stuff.</CardSubtitle>
+                  <CardTitle><b>Historical Performance</b></CardTitle>
+                  {/* <CardSubtitle>Check out how this cool thing does stuff.</CardSubtitle> */}
                   <CardText></CardText>
                 </CardBody>
               </Card>
             </Col>
 
             <Col xs="3" >
-              <Card className={styles.mediaCard} onClick={() => this.props.history.push(`#`)}>
-                <CardImg top width="100%" src={Search} alt="Who are we" />
+              <Card className={styles.mediaCard} onClick={() => this.props.history.push(`/demo`)}>
+                <CardImg top width="100%" src={Search} alt="Security Search Demo" />
                 <CardBody>
-                  <CardTitle>Something Else?</CardTitle>
-                  <CardSubtitle>Some cool text to follow</CardSubtitle>
+                  <CardTitle><b>Security Searches</b></CardTitle>
+                  {/* <CardSubtitle>Some cool text to follow</CardSubtitle> */}
                   <CardText></CardText>
                 </CardBody>
               </Card>
