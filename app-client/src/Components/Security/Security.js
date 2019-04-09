@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { Container, Row } from 'reactstrap';
 import axios from "axios";
-import styles from './Security.css';
+import styles from "./Security.css";
 
 export default class Security extends Component {
   constructor(props) {
@@ -10,24 +10,36 @@ export default class Security extends Component {
 
     this.state = {
       symbol: props.match.params.symbol,
-      beta: ``,
-      expectedReturn: ``,
-      investabilityIndex: ``,
-      rSquared: ``,
-      sharpeRatio: ``,
-      standardDeviation: ``,
-      valueAtRisk: ``
+      beta: undefined,
+      expectedReturn: undefined,
+      investabilityIndex: undefined,
+      rSquared: undefined,
+      sharpeRatio: undefined,
+      standardDeviation: undefined,
+      valueAtRisk: undefined
     };
   }
 
   async componentDidMount() {
-    const symbols = await this.getListOfSecurities();
+    let symbols = await this.getListOfSecurities();
 
     if (!symbols.includes(this.state.symbol)) {
       this.setState({ redirect: true });
     }
 
-    await this.getAnalysisData();
+    const analysisData = await this.getAnalysisData();
+
+    const { beta, expectedReturn, investabilityIndex, rSquared, sharpeRatio, standardDeviation, valueAtRisk } = analysisData;
+
+    this.setState({
+      beta,
+      expectedReturn,
+      investabilityIndex,
+      rSquared,
+      sharpeRatio,
+      standardDeviation,
+      valueAtRisk
+    });
   }
 
   getAnalysisData = async () => {
@@ -38,20 +50,7 @@ export default class Security extends Component {
     };
 
     const response = await axios(options);
-    const analysisData = response.data;
-
-    const { symbol, beta, expectedReturn, investabilityIndex, rSquared, sharpeRatio, standardDeviation, valueAtRisk } = analysisData;
-
-    this.setState({
-      symbol,
-      beta,
-      expectedReturn,
-      investabilityIndex,
-      rSquared,
-      sharpeRatio,
-      standardDeviation,
-      valueAtRisk
-    });
+    return response.data;
   }
 
   getListOfSecurities = async () => {
