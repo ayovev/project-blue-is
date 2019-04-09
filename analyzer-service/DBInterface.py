@@ -6,8 +6,8 @@ from pymongo import MongoClient
 class DBInterface:
   """class used to interface with cloud mongo database instance"""
 
-  TICKERS = ["MU", "AAPL", "GPRO", "TSLA"]
-  KEY = os.getenv("ALPHAVANTAGE_API_KEY")
+  TICKERS = ["MU", "AAPL", "SPY", "TSLA"]
+  KEY = os.getenv("ALPHAVANTAGE_KEY")
 
   @staticmethod
   def connect():
@@ -52,7 +52,15 @@ class DBInterface:
       tickerJSON = requests.get(
         "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol={}&outputsize={}&apikey={}".format(ticker, "full", DBInterface.KEY))
 
-      collection.insert({"data": tickerJSON.json()}, check_keys=False)
+      tickerJSON = tickerJSON.json() #converts to a dict
+
+      tickerJSON =  {k.translate({32: None}): v for k, v in tickerJSON.items()}
+      for key in tickerJSON:
+        if type(tickerJSON[key]) == dict:
+          tickerJSON[key] =  {k.translate({32: None}): v for k, v in tickerJSON[key].items()}
+          tickerJSON[key] =  {k.translate({46: None}): v for k, v in tickerJSON[key].items()}
+
+      collection.insert(tickerJSON, check_keys=False)
       print(ticker, "historical data has been inserted.")
 
     DBInterface.disconnect(client)

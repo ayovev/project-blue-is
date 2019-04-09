@@ -1,17 +1,14 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
 import { Container, Row } from 'reactstrap';
 import axios from "axios";
-import CircularProgressbar from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
-import styles from './Security.css';
+import styles from "../Security/Security.css";
 
 export default class Security extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      symbol: props.match.params.symbol,
+      symbol: `IEEN`,
       beta: undefined,
       expectedReturn: undefined,
       investabilityIndex: undefined,
@@ -23,12 +20,6 @@ export default class Security extends Component {
   }
 
   async componentDidMount() {
-    let symbols = await this.getListOfSecurities();
-
-    if (!symbols.includes(this.state.symbol)) {
-      this.setState({ redirect: true });
-    }
-
     const analysisData = await this.getAnalysisData();
 
     const { beta, expectedReturn, investabilityIndex, rSquared, sharpeRatio, standardDeviation, valueAtRisk } = analysisData;
@@ -47,36 +38,18 @@ export default class Security extends Component {
   getAnalysisData = async () => {
     const options = {
       method: `GET`,
-      url: `/api/securities/${this.state.symbol}`,
-      resolveWithFullResponse: true
+      url: `/api/securities/MU`,
+      resolveWithFullResponse: true,
+      headers: { "X-Demo": true }
     };
 
     const response = await axios(options);
     return response.data;
   }
 
-  getListOfSecurities = async () => {
-    const options = {
-      method: `GET`,
-      url: `/api/securities/`,
-      resolveWithFullResponse: true
-    };
-
-    const response = await axios(options);
-
-    return response.data.map((item) => {
-      return item.symbol;
-    });
-  }
-
   render() {
-    if (this.state.redirect) {
-      return <Redirect to="/404" />;
-    }
-
     return (
       <React.Fragment>
-
         <Container>
           <Row className="Row">
             <h3>Security Results</h3>
@@ -88,17 +61,11 @@ export default class Security extends Component {
             <h1>{this.state.symbol}</h1>
           </Row>
           <Row className="Row">
-              companyName
+              Intelligence Equals Equals Null Inc.
             <hr className={styles.hr2}/>
           </Row>
           <Row className="Row">
-            <CircularProgressbar className="radialAnimation"
-              percentage={this.state.investabilityIndex}
-              text={`${this.state.investabilityIndex}`}
-            />
-          </Row>
-          <Row className="Row">
-            <h2>Investability Index</h2>
+            <p id="graphic">[Insert investabilityIndex graphic here]</p>
           </Row>
           <Row className="Row">
             <table>

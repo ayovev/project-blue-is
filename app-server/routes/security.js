@@ -37,8 +37,10 @@ router.route(`/:symbol`)
 
   .get(async (request, response, next) => {
     try {
-      const token = request.header(`Authorization`) || request.cookies[`pbiToken`];
-      await jwt.verify(token, process.env.TOKEN_SECRET);
+      if (!request.header(`X-Demo`)) {
+        const token = request.header(`Authorization`) || request.cookies[`pbiToken`];
+        await jwt.verify(token, process.env.TOKEN_SECRET);
+      }
 
       const symbol = request.params[`symbol`].toUpperCase();
 
