@@ -16,12 +16,15 @@ export default class Security extends Component {
       rSquared: undefined,
       sharpeRatio: undefined,
       standardDeviation: undefined,
-      valueAtRisk: undefined
+      valueAtRisk: undefined,
+
+      favorite: undefined,
+      redirect: false
     };
   }
 
   async componentDidMount() {
-    let symbols = await this.getListOfSecurities();
+    const symbols = await this.getListOfSecurities();
 
     if (!symbols.includes(this.state.symbol)) {
       this.setState({ redirect: true });
@@ -40,12 +43,27 @@ export default class Security extends Component {
       standardDeviation,
       valueAtRisk
     });
+
+    const favorites = await this.getFavorites();
+    const favorite = favorites.includes(this.state.symbol) ? true : false;
+    this.setState({ favorite });
   }
 
   getAnalysisData = async () => {
     const options = {
       method: `GET`,
       url: `/api/securities/${this.state.symbol}`,
+      resolveWithFullResponse: true
+    };
+
+    const response = await axios(options);
+    return response.data;
+  }
+
+  getFavorites = async () => {
+    const options = {
+      method: `GET`,
+      url: `/api/users/favorites`,
       resolveWithFullResponse: true
     };
 
@@ -67,10 +85,27 @@ export default class Security extends Component {
     });
   }
 
+  toggleFavorite = async () => {
+    const data = { symbol: this.state.symbol };
+
+    const options = {
+      method: `PUT`,
+      url: `/api/users/favorites`,
+      resolveWithFullResponse: true,
+      data
+    };
+
+    await axios(options);
+    this.setState({ favorite: !this.state.favorite });
+  }
+
   render() {
     if (this.state.redirect) {
       return <Redirect to="/404" />;
     }
+
+    const starClasses = [`fa-lg`, `fa-star`];
+    this.state.favorite ? starClasses.push(`fas`) : starClasses.push(`far`);
 
     return (
       <React.Fragment>
@@ -83,6 +118,7 @@ export default class Security extends Component {
           </Row>
           <Row className="Row">
             <h1>{this.state.symbol}</h1>
+            <i onClick={this.toggleFavorite} className={starClasses.join(` `)}></i>
           </Row>
           <Row className="Row">
               companyName
