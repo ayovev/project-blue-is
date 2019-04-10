@@ -2,20 +2,24 @@
   background-color: rgba(0,0,0,0.98);
   padding-left: 10%;
   padding-right: 10%;
-  min-height: 65px;
+  min-height: 70px;
 }
 
 :local(.navitem) {
   padding-right: 20px;
   font-variant: small-caps;
-  font-size: 1rem;
+  font-size: 1.05rem;
+}
+
+:local(.navitem:last-child) {
+  padding-right: 0px;
 }
 
 :local(.navlink) {
   color: #ffffff;
   text-align: center;
-  padding-top:0;
-  padding-bottom:0;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 :local(.navlink:hover) {
@@ -31,8 +35,8 @@
   content:"";
   color:#4286f4;
   border-bottom: 3px solid #4286f4;
-  padding-bottom:5px;
-  width:80%;
-  display:block;
-  margin:auto;
+  padding-bottom: 5px;
+  width: 80%;
+  display: block;
+  margin: auto;
 }
