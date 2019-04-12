@@ -6,7 +6,7 @@ const { winston } = require(`../logging`);
 
 const router = express.Router();
 
-const _30_MINUTES = 1800000;
+const _30_MINUTES = `30m`;
 
 router.route(`/login`)
   .post(async (request, response, next) => {
@@ -28,7 +28,7 @@ router.route(`/login`)
         response.clearCookie(`pbiToken`);
         const token = await jwt.sign({ data: user._id }, process.env.TOKEN_SECRET, { expiresIn: _30_MINUTES });
 
-        response.cookie(`pbiToken`, token.toString(), { httpOnly: true, expires: new Date(Date.now() + _30_MINUTES) });
+        response.cookie(`pbiToken`, token.toString(), { httpOnly: true });
         winston.info(`user ${user._id} successfully logged in`);
         return response.sendStatus(200);
       }
@@ -41,8 +41,8 @@ router.route(`/login`)
 router.route(`/logout`)
   .get(async (request, response, next) => {
     try {
-      let token = request.header(`Authorization`) || request.cookies[`pbiToken`];
-      token = await jwt.verify(token, process.env.TOKEN_SECRET);
+      let token = request.cookies[`pbiToken`] || request.header(`authorization`);
+      token = await jwt.verify(token, process.env.TOKEN_SECRET, { ignoreExpiration: true });
       const userID = token.data;
 
       winston.info(`user ${userID} successfully logged out`);

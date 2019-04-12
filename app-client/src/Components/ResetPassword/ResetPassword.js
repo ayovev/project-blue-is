@@ -1,8 +1,11 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import { Alert, Button, Form, FormGroup, Input, Label } from "reactstrap";
-import { Line, LineChart } from "recharts";
+import { LineChart, Line } from "recharts";
 import axios from "axios";
-import styles from "./ContactUs.css";
+import md5 from "md5";
+import { AuthenticationContext } from "../../Contexts/AuthenticationContext/AuthenticationContext";
+import styles from "../Login/Login.css";
 
 // test data for chart
 const data = [
@@ -17,15 +20,16 @@ const data = [
   { value: 45 }
 ];
 
-export default class ContactUs extends Component {
+export default class ResetPassword extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      email: ``,
-      inquiryType: ``,
-      subject: ``,
-      message: ``,
+      password: ``,
+      confirmPassword: ``,
+
+      token: props.match.params.token,
+      redirect: undefined,
 
       alertVisible: true,
       buttonDisabled: false,
@@ -34,10 +38,9 @@ export default class ContactUs extends Component {
     };
   }
 
-  dismissAlert = () => {
-    this.setState({
-      alertVisible: false
-    });
+  async componentDidMount() {
+    await this.validateJWT();
+    // await this.validateUnusedToken();
   }
 
   handleChange = (event) => {
@@ -49,20 +52,17 @@ export default class ContactUs extends Component {
   handleSubmit = async (event) => {
     event.preventDefault();
 
-    this.setState({
-      buttonDisabled: true
-    });
+    this.setState({ buttonDisabled: true });
 
     const data = {
-      email: this.state.email,
-      inquiryType: this.state.inquiryType,
-      subject: this.state.subject,
-      message: this.state.message
+      confirmPassword: md5(this.state.confirmPassword),
+      password: md5(this.state.password),
+      token: this.state.token
     };
 
     const options = {
-      method: `POST`,
-      url: `/api/emails/contactUs`,
+      method: `PUT`,
+      url: `/api/users/resetPassword`,
       data
     };
 
@@ -79,11 +79,41 @@ export default class ContactUs extends Component {
         response,
         statusCode: response.status
       });
+
+      if (this.state.statusCode === 200) {
+        setTimeout(() => {
+          this.setState({ redirect: true });
+        }, 3000);
+      }
     }
   }
 
   validateForm = () => {
-    return this.state.email && this.state.subject && this.state.message;
+    return this.state.password.length > 6 && (this.state.password === this.state.confirmPassword);
+  }
+
+  validateJWT = async () => {
+    const options = {
+      method: `GET`,
+      url: `/api/authentication/validate`,
+      headers: { "authorization": this.state.token }
+    };
+
+    let response;
+
+    try {
+      response = await axios(options);
+    }
+    catch (error) {
+      response = error.response;
+    }
+
+    if (response.status !== 200) {
+      this.setState({ redirect: true });
+    }
+    else {
+      this.setState({ redirect: false });
+    }
   }
 
   renderAlert = () => {
@@ -94,7 +124,7 @@ export default class ContactUs extends Component {
     }
 
     const alertConfiguration = {
-      color: statusCode === 202 ? `success` : `danger`,
+      color: statusCode === 200 ? `success` : `danger`,
       message: response.data || response.statusText
     };
 
@@ -106,6 +136,14 @@ export default class ContactUs extends Component {
   }
 
   render() {
+    if (this.state.redirect === undefined) {
+      return null;
+    }
+
+    if (this.state.redirect) {
+      return <Redirect to="/" />;
+    }
+
     return (
       <React.Fragment>
         {this.renderAlert()}
@@ -115,38 +153,22 @@ export default class ContactUs extends Component {
             <Line type="natural" dataKey="value" stroke="#4286f4" strokeWidth={2} dot={null} animationDuration={1200}/>
           </LineChart>
         </div>
-        <h1 className={styles.preFormText}>Contact Us</h1>
+        <h1 className={styles.preFormText}>Reset Password</h1>
         <br/>
         <div className={styles.container}>
           <Form onSubmit={this.handleSubmit}>
             <FormGroup>
-              <Label for="email">Email</Label>
-              <Input required={true} type="email" id="email" value={this.state.email} placeholder="Enter your email address" onChange={this.handleChange}/>
+              <Label for="password">Password</Label>
+              <Input type="password" id="password" value={this.state.password} placeholder="Enter your new password" onChange={this.handleChange}/>
             </FormGroup>
             <br/>
             <FormGroup>
-              <Label for="inquiryType">Inquiry Type</Label>
-              <Input required={true} type="select" id="inquiryType" value={this.state.inquiryType} onChange={this.handleChange}>
-                <option></option>
-                <option value="bugReporting">Bug Reporting</option>
-                <option value="generalInquiry">General Inquiry</option>
-                <option value="salesQuestion">Sales Question</option>
-                <option value="technicalSupport">Technical Support</option>
-              </Input>
-            </FormGroup>
-            <br/>
-            <FormGroup>
-              <Label for="subject">Subject</Label>
-              <Input required={true} type="text" id="subject" value={this.state.subject} placeholder="Enter the subject of your message" onChange={this.handleChange}/>
-            </FormGroup>
-            <br/>
-            <FormGroup>
-              <Label for="message">Message</Label>
-              <Input required={true} type="textarea" id="message" value={this.state.message} placeholder="Enter your message" onChange={this.handleChange} rows={5}/>
+              <Label for="confirmPassword">Confirm Password</Label>
+              <Input type="password" id="confirmPassword" value={this.state.confirmPassword} placeholder="Confirm your new password" onChange={this.handleChange}/>
             </FormGroup>
             <br/>
             <Button type="submit" color="primary" block disabled={!this.validateForm() || this.state.buttonDisabled}>
-              Send Message
+              Submit
             </Button>
           </Form>
         </div>
@@ -154,3 +176,5 @@ export default class ContactUs extends Component {
     );
   }
 }
+
+ResetPassword.contextType = AuthenticationContext;

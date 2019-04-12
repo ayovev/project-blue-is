@@ -9,7 +9,7 @@ const router = express.Router();
 router.route(`/`)
   .get(async (request, response, next) => {
     try {
-      const token = request.header(`Authorization`) || request.cookies[`pbiToken`];
+      const token = request.cookies[`pbiToken`] || request.header(`authorization`);
       await jwt.verify(token, process.env.TOKEN_SECRET);
 
       const { AnalysisCollection } = request.app.locals;
@@ -38,7 +38,7 @@ router.route(`/:symbol`)
   .get(async (request, response, next) => {
     try {
       if (!request.header(`X-Demo`)) {
-        const token = request.header(`Authorization`) || request.cookies[`pbiToken`];
+        const token = request.cookies[`pbiToken`] || request.header(`authorization`);
         await jwt.verify(token, process.env.TOKEN_SECRET);
       }
 
