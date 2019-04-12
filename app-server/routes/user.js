@@ -10,7 +10,7 @@ const router = express.Router();
 router.route(`/`)
   .get(async (request, response, next) => {
     try {
-      let token = request.header(`Authorization`) || request.cookies[`pbiToken`];
+      let token = request.cookies[`pbiToken`] || request.header(`authorization`);
       token = await jwt.verify(token, process.env.TOKEN_SECRET);
       const userID = token.data;
 
@@ -25,7 +25,7 @@ router.route(`/`)
   })
   .put(async (request, response, next) => {
     try {
-      let token = request.header(`Authorization`) || request.cookies[`pbiToken`];
+      let token = request.cookies[`pbiToken`] || request.header(`authorization`);
       token = await jwt.verify(token, process.env.TOKEN_SECRET);
       const userID = token.data;
 
@@ -59,7 +59,7 @@ router.route(`/`)
 router.route(`/favorites`)
   .get(async (request, response, next) => {
     try {
-      let token = request.header(`Authorization`) || request.cookies[`pbiToken`];
+      let token = request.cookies[`pbiToken`] || request.header(`authorization`);
       token = await jwt.verify(token, process.env.TOKEN_SECRET);
       const userID = token.data;
 
@@ -74,7 +74,7 @@ router.route(`/favorites`)
   })
   .put(async (request, response, next) => {
     try {
-      let token = request.header(`Authorization`) || request.cookies[`pbiToken`];
+      let token = request.cookies[`pbiToken`] || request.header(`authorization`);
       token = await jwt.verify(token, process.env.TOKEN_SECRET);
       const userID = token.data;
 
@@ -91,8 +91,6 @@ router.route(`/favorites`)
       else {
         favorites.push(request.body.symbol);
       }
-
-      console.log(favorites);
 
       const { result } = await UsersCollection.updateOne({ _id: ObjectID(userID) }, { $set: { favorites } });
 
@@ -111,7 +109,7 @@ router.route(`/favorites`)
 router.route(`/profilePicture`)
   .get(async (request, response, next) => {
     try {
-      let token = request.header(`Authorization`) || request.cookies[`pbiToken`];
+      let token = request.cookies[`pbiToken`] || request.header(`authorization`);
       token = await jwt.verify(token, process.env.TOKEN_SECRET);
       const userID = token.data;
 
@@ -120,6 +118,37 @@ router.route(`/profilePicture`)
       const { profilePicture } = user;
 
       return response.send(profilePicture);
+    }
+    catch (error) {
+      return next(error);
+    }
+  });
+
+router.route(`/resetPassword`)
+  .put(async (request, response, next) => {
+    try {
+      const tokenString = request.body.token;
+      const { confirmPassword, password } = request.body;
+      const { PasswordResetsCollection, UsersCollection } = request.app.locals;
+
+      const document = await PasswordResetsCollection.findOne({ token: tokenString });
+
+      if (!document || document.used === true) {
+        return response.status(400).send(`It appears that this password reset token does not exist or has already been used.`);
+      }
+
+      const token = await jwt.verify(tokenString, process.env.TOKEN_SECRET);
+
+      const updateUsersCollection  = await UsersCollection.updateOne({ email: token.data.email }, { $set: { confirmPassword, password } });
+      const updatePasswordResetsCollection = await PasswordResetsCollection.updateOne({ token: tokenString }, { $set: { used: true }});
+
+      if (!updateUsersCollection.result.ok || !updatePasswordResetsCollection.result.ok) {
+        winston.error(`failed to reset password for user ${token.data.userID}`);
+        return response.sendStatus(400);
+      }
+      winston.info(`successfully updated password for user ${token.data.userID}`);
+      return response.sendStatus(200);
+
     }
     catch (error) {
       return next(error);
