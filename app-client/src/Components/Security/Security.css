@@ -28,14 +28,21 @@ td {
   margin-top: 1px;
 }
 
-.Row {
+Row {
   justify-content: center;
 }
 
-h1 {
-padding-top: 15px;
+:local(.rowLeft) {
+  float: left;
 }
 
+:local(.rowRight) {
+  float: right;
+}
+
+h1 {
+  padding-top: 15px;
+}
 
 /* :local(h2) {
   margin-bottom: 5%;
@@ -46,13 +53,11 @@ h3 {
    padding-top: 10px;
 }
 
-#graphic {
-  padding : 20vh;
-}
-
 .radialAnimation{
   margin-top: 5%;
   margin-bottom: 2%;
+  width: 200px;
+  height: 200px;
 }
 :local(.containerStyling) {
   padding-bottom:30px;
