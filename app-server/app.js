@@ -25,6 +25,7 @@ require(`mongodb`).MongoClient.connect(DATABASE_URI, { useNewUrlParser: true, po
   app.locals.UsersCollection = app.locals.Database.collection(`users`);
   app.locals.PricedataCollection = app.locals.Database.collection(`pricedata`);
   app.locals.AnalysisCollection = app.locals.Database.collection(`analysis`);
+  app.locals.PasswordResetsCollection = app.locals.Database.collection(`passwordResets`);
 });
 
 initializeMorgan();
