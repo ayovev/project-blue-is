@@ -14,6 +14,8 @@ import ContactUs from "./ContactUs/ContactUs";
 import Security from "./Security/Security";
 import SecuritySearch from "./SecuritySearch/SecuritySearch";
 import Demo from "./Demo/Demo";
+import ForgotPassword from "./ForgotPassword/ForgotPassword";
+import ResetPassword from "./ResetPassword/ResetPassword";
 
 export default () =>
   <Switch>
@@ -26,6 +28,8 @@ export default () =>
     <Route path="/team" exact component={Team} />
     <Route path="/contactUs" exact component={ContactUs} />
     <Route path="/demo" exact component={Demo} />
+    <Route path="/forgotPassword" exact component={ForgotPassword} />
+    <Route path="/resetPassword/:token" exact component={ResetPassword} />
     <ProtectedRoute path="/search" exact component={SecuritySearch} />
     <ProtectedRoute path="/userSettings" exact component={UserSettings} />
     <ProtectedRoute path="/security/:symbol" exact component={Security} />
