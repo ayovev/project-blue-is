@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import { Form, FormGroup, Input, Button, Label } from "reactstrap";
+import { NavLink as RRNavLink } from 'react-router-dom';
+import { Button, Form, FormGroup, Input, Label, NavLink } from "reactstrap";
 import { LineChart, Line } from "recharts";
 import md5 from "md5";
 import { AuthenticationContext } from "../../Contexts/AuthenticationContext/AuthenticationContext";
-import styles from './Login.css';
+import styles from "./Login.css";
 
 // test data for chart
 const data = [
@@ -70,6 +71,7 @@ export default class Login extends Component {
             <br/>
             <FormGroup>
               <Label for="password">Password</Label>
+              <NavLink to="/forgotPassword" tag={RRNavLink} className={styles.forgotPasswordLink}>Forgot your password?</NavLink>
               <Input type="password" id="password" value={this.state.password} placeholder="Enter your password" onChange={this.handleChange}/>
             </FormGroup>
             <br/>
@@ -77,6 +79,9 @@ export default class Login extends Component {
               Login
             </Button>
           </Form>
+        </div>
+        <div className={styles.container2}>
+          New To IEEN? <NavLink to="/signup" tag={RRNavLink} className={styles.signupLink}>Sign Up.</NavLink>
         </div>
       </React.Fragment>
     );
