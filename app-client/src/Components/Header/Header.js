@@ -12,7 +12,7 @@ export default class Header extends Component {
     this.state = {
       dropdownOpen: false,
       isOpen: false,
-      profilePicture: undefined,
+      profilePicture: undefined
     };
   }
 
@@ -50,7 +50,7 @@ export default class Header extends Component {
   }
 
   render() {
-    if(this.state.profilePicture === undefined) {
+    if (this.state.profilePicture === undefined) {
       return null;
     }
 
@@ -104,7 +104,7 @@ export default class Header extends Component {
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem tag={Link} to="/userSettings">My Account</DropdownItem>
-                  <DropdownItem style={{cursor: 'pointer'}} onClick={logout}>Logout</DropdownItem>
+                  <DropdownItem onClick={logout}>Logout</DropdownItem>
                 </DropdownMenu>
               </Dropdown>
             </NavbarBrand>
