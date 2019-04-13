@@ -1,0 +1,212 @@
+[
+  {
+    "symbol": "MSFT",
+    "companyName": "Microsoft Corporation",
+    "logo": "https://storage.googleapis.com/iex/api/logos/MSFT.png",
+    "description": "Microsoft Corp is a technology company. It develop, license, and support a wide range of software products and services. Its business is organized into three segments: Productivity and Business Processes, Intelligent Cloud, and More Personal Computing.",
+    "sector": "Technology",
+    "industry": "Application Software",
+    "exchange": "Nasdaq Global Select",
+    "tags": [
+      "Technology",
+      "Software - Infrastructure",
+      "Application Software"
+    ],
+    "news": [
+      {
+        "datetime": "2019-04-12T12:00:00-04:00",
+        "headline": "Microsoft expands clean energy, connectivity investments in Washington state with Chelan Public Utility District",
+        "source": "PR Newswire",
+        "url": "https://api.iextrading.com/1.0/stock/msft/article/7064452343798060",
+        "summary": "      REDMOND , Wash.and  WENATCHEE, Wash. ,  April 12, 2019  /PRNewswire/ --Microsoft Corp. today announced new agreements to boost clean energy and connectivity in  Washington state . The two agreements with Chelan County Public Utility District (PUD) will see Microsoft receive carb…"
+      },
+      {
+        "datetime": "2019-04-11T11:20:10-04:00",
+        "headline": "Nasdaq 100 Dynamic Overwrite Fund: Goodbye Premiums",
+        "source": "SeekingAlpha",
+        "url": "https://api.iextrading.com/1.0/stock/msft/article/8456126154031048",
+        "summary": "   Source: Pexels   In the summer of 2017, I covered a set of Nuveen closed-end funds that really hit my interest check-boxes. They were low cost, unlevered, and generated meaningful income from covered call options, all while providing investors market exposure with reduced risk.   One of the fu…"
+      },
+      {
+        "datetime": "2019-04-11T10:36:31-04:00",
+        "headline": "Microsoft, Amazon named Pentagon cloud finalists",
+        "source": "SeekingAlpha",
+        "url": "https://api.iextrading.com/1.0/stock/msft/article/6811459322191288",
+        "summary": "     After hinting yesterday, the Department of Defense  confirms  that Microsoft ( MSFT ) and Amazon ( AMZN   -0.1% ) are the remaining competitors for the $10B winner-takes-all JEDI cloud contract.   More news on: Microsoft Corporation, Amazon.com, Inc., International Business Machines Corporat…"
+      }
+    ],
+    "peers": [
+      "CSCO",
+      "AAPL",
+      "SAP",
+      "RHT",
+      "IBM",
+      "ORCL",
+      "HPQ",
+      "GOOGL",
+      "XLK"
+    ]
+  },
+  {
+    "symbol": "SPY",
+    "companyName": "SPDR S&P 500",
+    "logo": "",
+    "description": "The investment seeks to provide investment results that, before expenses, correspond generally to the price and yield performance of the S&P 500® Index. The Trust seeks to achieve its investment objective by holding a portfolio of the common stocks that are included in the index (the “Portfolio”), with the weight of each stock in the Portfolio substantially corresponding to the weight of such stock in the index.",
+    "sector": "",
+    "industry": "",
+    "exchange": "Nasdaq Global Select",
+    "tags": [],
+    "news": [
+      {
+        "datetime": "2019-04-12T10:40:08-04:00",
+        "headline": "Fantastic Friday - Pre-Market Boost Turns The Week Positive",
+        "source": "SeekingAlpha",
+        "url": "https://api.iextrading.com/1.0/stock/spy/article/4666953071604736",
+        "summary": "   At 4am the week turned positive in the Futures.   A bit later, it was announced that Chevron ( CVX ) was buying Anadarko ( APC ) for $33Bn AND CVX will spend another $5Bn buying back 2% of their own stock. That's pumping up the energy sector into earnings season as APC is getting a 44% premium…"
+      },
+      {
+        "datetime": "2019-04-12T10:35:18-04:00",
+        "headline": "Is Now A Good Time To Buy The Vanguard Real Estate ETF?",
+        "source": "SeekingAlpha",
+        "url": "https://api.iextrading.com/1.0/stock/spy/article/4511498688916887",
+        "summary": "   In the context of generalized stock market weakness and growing concerns about the health of the real estate market, the Vanguard Real Estate ETF ( VNQ ) suffered serious losses in the fourth quarter of 2018.   But the recovery has been equally impressive in the past several months, and the ET…"
+      },
+      {
+        "datetime": "2019-04-12T10:18:56-04:00",
+        "headline": "A Focus On Energy: Chevron Is Paying A Fair Price For Anadarko",
+        "source": "SeekingAlpha",
+        "url": "https://api.iextrading.com/1.0/stock/spy/article/7034444420144321",
+        "summary": "     A 60:40 allocation to passive long-only equities and bonds has been a great proposition for the last 35 years We are profoundly worried that this could be a risky allocation over the next 10.  Sanford C. Bernstein &amp; Company analysts, January 2017       Bull markets are bo…"
+      },
+      {
+        "datetime": "2019-04-12T09:46:10-04:00",
+        "headline": "The Next Recession Just Got Closer",
+        "source": "SeekingAlpha",
+        "url": "https://api.iextrading.com/1.0/stock/spy/article/6315561647232665",
+        "summary": "   Introduction   The risk of a new recession increased recently, and its proximity became closer. I don't make predictions about exactly when the business cycle will turn down, other than to say that my model now tells me that it will probably happen sometime within the next six months.   This a…"
+      },
+      {
+        "datetime": "2019-04-12T09:30:00-04:00",
+        "headline": "Gamma Scalping 101 - Gamma, Theta Trading",
+        "source": "SeekingAlpha",
+        "url": "https://api.iextrading.com/1.0/stock/spy/article/8872744871608069",
+        "summary": "   OptionSellers, LJM, Catalyst are among the prominent fund managers currently facing litigation for their large option losses. Retail investors regularly lose their savings by shorting options as well. It is time to explain a few things about the short gamma and the gamma scalping&#x201…"
+      },
+      {
+        "datetime": "2019-04-12T09:13:52-04:00",
+        "headline": "Charts Implying Economic Weakness - April 2019",
+        "source": "SeekingAlpha",
+        "url": "https://api.iextrading.com/1.0/stock/spy/article/4671487040675011",
+        "summary": "    Please note: This is the latest in a series of articles, the last being \" Charts Implying Economic Weakness - March 2019.\"     U.S. Economic Indicators   Throughout this site, there are many discussions of economic indicators. At this time, the readings of various indicators are especially no…"
+      },
+      {
+        "datetime": "2019-04-12T08:36:29-04:00",
+        "headline": "Bulletproof Investing Performance Update: Week 72",
+        "source": "SeekingAlpha",
+        "url": "https://api.iextrading.com/1.0/stock/spy/article/6790862474204868",
+        "summary": "    Safety First: NASCAR driver Johanna Long and her helmet (Credit:  Gearheads )    Bulletproof Investing: Week 72 Performance   Each week since the beginning of June 2017, I have presented at least two hedged portfolios created by Portfolio Armor to my Bulletproof Investing subscribers. This is…"
+      },
+      {
+        "datetime": "2019-04-12T08:26:49-04:00",
+        "headline": "Euro Bid Above $1.13 For The First Time This Month",
+        "source": "SeekingAlpha",
+        "url": "https://api.iextrading.com/1.0/stock/spy/article/8676513613496898",
+        "summary": "    Overview:  The consolidative week in the capital markets is drawing to a close. Equity markets are narrowly mixed. In Asia, most indices outside of the greater China (China, Taiwan, and Hong Kong) edged higher, leaving the MSCI Asia Pacific Index slightly lower on the week. The MSCI Emerging …"
+      },
+      {
+        "datetime": "2019-04-12T07:40:11-04:00",
+        "headline": "Get Ready For Earnings Season (Wall Street Breakfast Podcast)",
+        "source": "SeekingAlpha",
+        "url": "https://api.iextrading.com/1.0/stock/spy/article/6870835494188542",
+        "summary": "         Today's Top Stories:  Get ready for earnings season; strategic energy combination; and Tesla now offering Model 3 leases.   If you are interested in listening to Wall Street Breakfast to start your day, look for us in the following places:       iTunes  (find  all Seeking Alpha Podcasts …"
+      },
+      {
+        "datetime": "2019-04-12T07:02:02-04:00",
+        "headline": "Wall Street Breakfast: Get Ready For Earnings Season",
+        "source": "SeekingAlpha",
+        "url": "https://api.iextrading.com/1.0/stock/spy/article/6370630734406141",
+        "summary": "        Listen on the go! A daily podcast of Wall Street Breakfast will be available by 8:00 a.m. on  Seeking Alpha ,  iTunes ,  Stitcher  and  Spotify  (click the highlighted links).         Earnings season kicks off   in earnest today, with major U.S. banks - JPMorgan (JPM), Wells Fargo (WFC) a…"
+      }
+    ],
+    "peers": []
+  },
+  {
+    "symbol": "MU",
+    "companyName": "Micron Technology Inc.",
+    "logo": "https://storage.googleapis.com/iex/api/logos/MU.png",
+    "description": "Micron Technology Inc along with its subsidiaries provide memory and storage solutions. Its product portfolio consists of memory and storage technologies such as DRAM, NAND, NOR and 3D XPoint memory.",
+    "sector": "Technology",
+    "industry": "Semiconductors",
+    "exchange": "Nasdaq Global Select",
+    "tags": [
+      "Technology",
+      "Semiconductor Memory",
+      "Semiconductors"
+    ],
+    "news": [
+      {
+        "datetime": "2019-04-12T11:27:21-04:00",
+        "headline": "Micron Technology, A Commodity Company In Its Down Cycle",
+        "source": "SeekingAlpha",
+        "url": "https://api.iextrading.com/1.0/stock/mu/article/5993174975490201",
+        "summary": "   Micron Technology, Inc. ( MU ) is a company that manufactures and markets DRAM and Flash memory products. Its has approximately 1.1B shares outstanding, trading recently at around $42 per share for a market cap of $46.2B. It has debt outstanding of $3.6B. Cash and marketable securities amount …"
+      },
+      {
+        "datetime": "2019-04-12T07:30:42-04:00",
+        "headline": "Micron: The Truth Hurts",
+        "source": "SeekingAlpha",
+        "url": "https://api.iextrading.com/1.0/stock/mu/article/5468236814052542",
+        "summary": "    Micron CEO Sanjay Mehrotra. Source: EBL News    I have been bearish on Micron ( MU ) for some time now, predicting a slowdown both in its top line and in the global economy. MU bulls have been buoyed by the fact the stock has held up rather well, despite my bearishness. It is down only 19% Y/…"
+      }
+    ],
+    "peers": [
+      "INTC",
+      "RMBS",
+      "PLAB",
+      "STM",
+      "WDC",
+      "MOSY",
+      "NLST",
+      "XLK"
+    ]
+  },
+  {
+    "symbol": "AAPL",
+    "companyName": "Apple Inc.",
+    "logo": "https://storage.googleapis.com/iex/api/logos/AAPL.png",
+    "description": "Apple Inc is designs, manufactures and markets mobile communication and media devices and personal computers, and sells a variety of related software, services, accessories, networking solutions and third-party digital content and applications.",
+    "sector": "Technology",
+    "industry": "Computer Hardware",
+    "exchange": "Nasdaq Global Select",
+    "tags": [
+      "Technology",
+      "Consumer Electronics",
+      "Computer Hardware"
+    ],
+
+    "news": [
+      {
+        "datetime": "2019-04-12T08:36:29-04:00",
+        "headline": "Bulletproof Investing Performance Update: Week 72",
+        "source": "SeekingAlpha",
+        "url": "https://api.iextrading.com/1.0/stock/aapl/article/6790862474204868",
+        "summary": "    Safety First: NASCAR driver Johanna Long and her helmet (Credit:  Gearheads )    Bulletproof Investing: Week 72 Performance   Each week since the beginning of June 2017, I have presented at least two hedged portfolios created by Portfolio Armor to my Bulletproof Investing subscribers. This is…"
+      }, {
+        "datetime": "2019-04-12T08:02:19-04:00",
+        "headline": "New Street cuts Apple on iPhone concerns",
+        "source": "SeekingAlpha",
+        "url": "https://api.iextrading.com/1.0/stock/aapl/article/5035823771558836",
+        "summary": "     New Street Research downgrades Apple (NASDAQ: AAPL ) from Neutral to Sell and raises the target from $140 to $170.   More news on: Apple Inc., Tech stocks news,     Read more …     "
+      }
+    ],
+    "peers": [
+      "MSFT",
+      "NOK",
+      "IBM",
+      "HPQ",
+      "GOOGL",
+      "BB",
+      "XLK"
+    ]
+  }
+]
