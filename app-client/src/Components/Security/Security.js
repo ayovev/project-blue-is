@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import { Container, Row } from "reactstrap";
+import { Container } from "reactstrap";
 import axios from "axios";
 import { CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from "recharts";
 import CircularProgressbar from "react-circular-progressbar";
@@ -177,17 +177,22 @@ export default class Security extends Component {
 
     return (
       <React.Fragment>
-        <Container className={styles.containerStyling}>
-          <div className={styles.informationContainer}>
-            <img className="float-right" src={this.state.information.logo} alt="company logo"/>
-            <h1 className={styles.symbol}>{this.state.symbol}<i onClick={this.toggleFavorite} title={iconTitle} className={starClasses.join(` `)}/></h1>
-            <p style={{ fontSize: "24px" }}>{this.state.information.companyName} | {this.state.information.exchange}</p>
-            <p style={{ fontSize: "18px" }}>{this.state.information.sector} | {this.state.information.industry}</p>
+        <Container className={styles.container}>
+          <div className={styles.headerContainer}>
+            <div>
+              <img className={styles.logo} src={this.state.information.logo} alt="company logo"/>
+            </div>
+            <div className={styles.informationContainer}>
+              <h1 className={styles.symbol}>{this.state.symbol}<i onClick={this.toggleFavorite} title={iconTitle} className={starClasses.join(` `)}/></h1>
+              <p className={styles.companyNameAndExchange}>{this.state.information.companyName} | {this.state.information.exchange}</p>
+              <p className={styles.sectorAndIndustry}>{this.state.information.sector} | {this.state.information.industry}</p>
+            </div>
           </div>
-          <hr className={styles.hr2}/>
+          <hr className={styles.hr}/>
           <div>
-            <div className="float-left" style={{ marginLeft: `5%` }}>
-              <CircularProgressbar className="radialAnimation"
+            <div className={styles.gaugeContainer}>
+              <CircularProgressbar
+                className={styles.gauge}
                 percentage={this.state.analysis.investabilityIndex}
                 text={`${this.state.analysis.investabilityIndex}`}
                 initialAnimation={true}
@@ -208,7 +213,7 @@ export default class Security extends Component {
                 }}
               />
             </div>
-            <div className="float-right" style={{ marginRight: `5%` }}>
+            <div className={styles.tableContainer}>
               <table>
                 <tbody>
                   <tr>
@@ -218,31 +223,31 @@ export default class Security extends Component {
                     Expected Return
                     </td>
                     <td className={styles.td2}>
-                      <b>{this.state.analysis.valueAtRisk}%</b>
+                      <b>{this.state.analysis.standardDeviation}%</b>
                       <br/><br/>
-                    Value at Risk
+                    Standard Deviation
                     </td>
                     <td className={styles.td1}>
+                      <b>{this.state.analysis.sharpeRatio}</b>
+                      <br/><br/>
+                    Sharpe Ratio
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className={styles.td3}>
                       <b>{this.state.analysis.beta}</b>
                       <br/><br/>
                     Beta
                     </td>
-                  </tr>
-                  <tr>
                     <td className={styles.td3}>
                       <b>{this.state.analysis.rSquared}</b>
                       <br/><br/>
                     R Squared
                     </td>
-                    <td className={styles.td3}>
-                      <b>{this.state.analysis.sharpeRatio}</b>
-                      <br/><br/>
-                    Sharpe Ratio
-                    </td>
                     <td>
-                      <b>{this.state.analysis.standardDeviation}%</b>
+                      <b>{this.state.analysis.valueAtRisk}%</b>
                       <br/><br/>
-                    Standard Deviation
+                    Value at Risk
                     </td>
                   </tr>
                 </tbody>
@@ -251,8 +256,8 @@ export default class Security extends Component {
           </div>
           <div style={{ clear: `both` }}/>
         </Container>
-        <Container className={styles.containerStyling}>
-          <hr className={styles.hr2}/>
+        <Container className={styles.container}>
+          <hr className={styles.hr}/>
           <h3 className={styles.chartHeader}>Historical Performance of {this.state.symbol}</h3>
           <div className={styles.chartContainer}>
             <LineChart className={styles.chart} width={900} height={400} data={data}>

@@ -35,8 +35,6 @@ export default class Signup extends Component {
       buttonDisabled: false,
       response: undefined,
       statusCode: undefined
-      // still debating on whether to use a status state for rendering...
-      // status: undefined
     };
   }
 

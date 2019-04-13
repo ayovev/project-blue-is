@@ -4,11 +4,11 @@
 
 :local(.td2) {
   border-bottom: 0.5px solid grey;
-  border-right: 1px solid grey;
+  border-right: 0.5px solid grey;
 }
 
 :local(.td3) {
-  border-right: 1px solid grey;
+  border-right: 0.5px solid grey;
 }
 
 td {
@@ -16,25 +16,43 @@ td {
   text-align: center;
 }
 
-:local(.hr2) {
+:local(.hr) {
   border: 1px solid black;
   width: 100%;
   margin-top: 1px;
 }
 
-:local(.hr1) {
-  border: 1px solid black;
-  width: 4%;
-  margin-top: 1px;
+:local(.headerContainer) {
+  display: inline-flex;
+  padding: 2% 0 2% 0;
+  overflow: hidden;
+  width: 100%;
 }
 
 :local(.informationContainer) {
-  margin: 2% auto 2% auto;
-  overflow: hidden;
+  float: left;
+  margin-left: 5%;
+}
+
+:local(.logo) {
+  float: right;
+  height: auto;
+  width: 180px;
 }
 
 :local(.symbol) {
   font-size: 48px;
+  margin-bottom: 1rem;
+}
+
+:local(.companyNameAndExchange) {
+  font-size: 24px;
+  margin-bottom: 1rem;
+}
+
+:local(.sectorAndIndustry) {
+  font-size: 18px;
+  margin-bottom: 1rem;
 }
 
 :local(.favoriteIcon) {
@@ -55,15 +73,27 @@ td {
   display: flex;
 }
 
-.radialAnimation{
+:local(.gaugeContainer) {
+  float: left;
+  margin-left: 5%;
+}
+
+:local(.tableContainer) {
+  float: right;
+  margin-right: 5%;
+}
+
+:local(.gauge) {
   margin-top: 5%;
   margin-bottom: 2%;
   width: 200px;
-  height: 200px;
+  height: auto;
 }
-:local(.containerStyling) {
-  padding-bottom: 30px
+
+:local(.container) {
+  padding-bottom: 30px;
 }
+
 :local(.chart) {
   justify-content: center;
 }
