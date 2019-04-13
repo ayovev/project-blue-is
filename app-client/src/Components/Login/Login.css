@@ -39,3 +39,9 @@
   display: initial;
   padding: 0;
 }
+
+:local(.alert) {
+  margin-top: 1%;
+  margin-left: 10%;
+  margin-right: 10%;
+}

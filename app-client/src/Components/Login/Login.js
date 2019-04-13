@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { NavLink as RRNavLink } from 'react-router-dom';
-import { Button, Form, FormGroup, Input, Label, NavLink } from "reactstrap";
+import { Alert, Button, Form, FormGroup, Input, Label, NavLink } from "reactstrap";
 import { LineChart, Line } from "recharts";
 import md5 from "md5";
 import { AuthenticationContext } from "../../Contexts/AuthenticationContext/AuthenticationContext";
@@ -25,8 +25,20 @@ export default class Login extends Component {
 
     this.state = {
       email: ``,
-      password: ``
+      password: ``,
+
+      alertVisible: true,
+      buttonDisabled: false,
+      response: undefined,
+      statusCode: undefined
     };
+  }
+
+  dismissAlert = () => {
+    this.setState({
+      alertVisible: false,
+      buttonDisabled: false
+    });
   }
 
   handleChange = (event) => {
@@ -38,12 +50,29 @@ export default class Login extends Component {
   handleSubmit = async (event) => {
     event.preventDefault();
 
+    this.setState({
+      buttonDisabled: true
+    });
+
     const data = {
       email: this.state.email,
       password: md5(this.state.password)
     };
 
-    this.context.login(data);
+    let response;
+
+    try {
+      response = await this.context.login(data);
+    }
+    catch (error) {
+      response = error.response;
+    }
+    finally {
+      this.setState({
+        response,
+        statusCode: response.status
+      });
+    }
   }
 
   // might need to have more validation here but it"s a start
@@ -51,9 +80,30 @@ export default class Login extends Component {
     return this.state.email.length > 6 && this.state.password.length > 6;
   }
 
+  renderAlert = () => {
+
+    const { response, statusCode } = this.state;
+
+    if (!response || !statusCode) {
+      return;
+    }
+
+    const alertConfiguration = {
+      color: `danger`,
+      message: response.data || response.statusText
+    };
+
+    return (
+      <Alert className={styles.alert} color={alertConfiguration.color} isOpen={this.state.alertVisible} toggle={this.dismissAlert}>
+        {alertConfiguration.message}
+      </Alert>
+    );
+  }
+
   render() {
     return (
       <React.Fragment>
+        {this.renderAlert()}
         <div>
           {/* Possibly include some kind of chart here before the text to add a dynamic branding component to the page? */}
           <LineChart className={styles.chart} width={75} height={75} data={data}>
@@ -75,7 +125,7 @@ export default class Login extends Component {
               <Input tabIndex={2} type="password" id="password" value={this.state.password} placeholder="Enter your password" onChange={this.handleChange}/>
             </FormGroup>
             <br/>
-            <Button tabIndex={3} type="submit" color="primary" block disabled={!this.validateForm()}>
+            <Button tabIndex={3} type="submit" color="primary" block disabled={!this.validateForm() || this.state.buttonDisabled}>
               Login
             </Button>
           </Form>
