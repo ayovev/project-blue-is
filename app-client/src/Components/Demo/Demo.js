@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Container, Row } from 'reactstrap';
-import axios from "axios";
 import { CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from 'recharts';
 import CircularProgressbar from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
@@ -52,103 +51,113 @@ export default class Security extends Component {
 
     this.state = {
       symbol: `IEEN`,
-      beta: undefined,
-      expectedReturn: undefined,
-      investabilityIndex: undefined,
-      rSquared: undefined,
-      sharpeRatio: undefined,
-      standardDeviation: undefined,
-      valueAtRisk: undefined
+      analysis: {
+        beta: 1.95,
+        expectedReturn: 18.54,
+        investabilityIndex: 80,
+        rSquared: 0.65,
+        sharpeRatio: 1.11,
+        standardDeviation: 16.67,
+        valueAtRisk: 11.34
+      }
     };
   }
 
-  async componentDidMount() {
-    const analysisData = await this.getAnalysisData();
+  lerpColor = (minimumColor, maximumColor, amount) => {
+    /* eslint-disable */
+    const micR = minimumColor >> 16;
+    const micG = minimumColor >> 8 & 0xff;
+    const micB = minimumColor & 0xff;
 
-    const { beta, expectedReturn, investabilityIndex, rSquared, sharpeRatio, standardDeviation, valueAtRisk } = analysisData;
+    const macR = maximumColor >> 16;
+    const macG = maximumColor >> 8 & 0xff;
+    const macB = maximumColor & 0xff;
 
-    this.setState({
-      beta,
-      expectedReturn,
-      investabilityIndex,
-      rSquared,
-      sharpeRatio,
-      standardDeviation,
-      valueAtRisk
-    });
-  }
+    const resultR = micR + amount * (macR - micR);
+    const resultG = micG + amount * (macG - micG);
+    const resultB = micB + amount * (macB - micB);
 
-  getAnalysisData = async () => {
-    const options = {
-      method: `GET`,
-      url: `/api/securities/MU`,
-      resolveWithFullResponse: true,
-      headers: { "X-Demo": true }
-    };
-
-    const response = await axios(options);
-    return response.data;
+    return ((resultR << 16) + (resultG << 8) + (resultB | 0)).toString(16);
+    /* eslint-enable */
   }
 
   render() {
+    const color = this.lerpColor(0xf48942, 0x4286f4, this.state.analysis.investabilityIndex / 100);
+
     return (
       <React.Fragment>
         <Container className={styles.containerStyling}>
-          <Row className="Row">
+          <Row>
             <h3>Security Results</h3>
           </Row>
-          <Row className="Row">
+          <Row>
             <hr className={styles.hr1}/>
           </Row>
-          <Row className="Row">
+          <Row>
             <h1>{this.state.symbol}</h1>
           </Row>
-          <Row className="Row">
+          <Row>
               Intelligence Equals Equals Null Inc.
             <hr className={styles.hr2}/>
           </Row>
-          <Row className="Row">
+          <Row>
             <CircularProgressbar className="radialAnimation"
-              percentage={this.state.investabilityIndex}
-              text={`${this.state.investabilityIndex}`}
+              percentage={this.state.analysis.investabilityIndex}
+              text={`${this.state.analysis.investabilityIndex}`}
+              initialAnimation={true}
+              strokeWidth={4}
+              styles={{
+                path: {
+                  stroke: color,
+                  strokeLinecap: `butt`,
+                  transition: `stroke-dashoffset 0.5s ease 0s`
+                },
+                trail: {
+                  stroke: `#d6d6d6`
+                },
+                text: {
+                  fill: color,
+                  fontSize: `30px`
+                }
+              }}
             />
           </Row>
-          <Row className="Row">
+          <Row>
             <h2>Investability Index</h2>
           </Row>
-          <Row className="Row">
+          <Row>
             <table>
               <tbody>
                 <tr>
                   <td className={styles.td2}>
-                    <b>{this.state.expectedReturn}%</b>
+                    <b>{this.state.analysis.expectedReturn}%</b>
                     <br/><br/>
                     Expected Return
                   </td>
                   <td className={styles.td2}>
-                    <b>{this.state.valueAtRisk}%</b>
+                    <b>{this.state.analysis.valueAtRisk}%</b>
                     <br/><br/>
                     Value at Risk
                   </td>
                   <td className={styles.td1}>
-                    <b>{this.state.beta}</b>
+                    <b>{this.state.analysis.beta}</b>
                     <br/><br/>
                     Beta
                   </td>
                 </tr>
                 <tr>
                   <td className={styles.td3}>
-                    <b>{this.state.rSquared}</b>
+                    <b>{this.state.analysis.rSquared}</b>
                     <br/><br/>
                     R Squared
                   </td>
                   <td className={styles.td3}>
-                    <b>{this.state.sharpeRatio}</b>
+                    <b>{this.state.analysis.sharpeRatio}</b>
                     <br/><br/>
                     Sharpe Ratio
                   </td>
                   <td>
-                    <b>{this.state.standardDeviation}%</b>
+                    <b>{this.state.analysis.standardDeviation}%</b>
                     <br/><br/>
                     Standard Deviation
                   </td>
@@ -158,19 +167,19 @@ export default class Security extends Component {
           </Row>
         </Container>
         <Container className={styles.containerStyling}>
-          <Row className="Row">
+          <Row>
             <hr className={styles.hr2}/>
           </Row>
-          <Row className="Row">
-            <h3>Historical Performance of {this.state.symbol} </h3>
+          <Row>
+            <h3>Historical Performance of {this.state.symbol}</h3>
           </Row>
-          <Row className="Row">
+          <Row>
             <LineChart className={styles.chart} width={900} height={400} data={data}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="day" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
+              <CartesianGrid strokeDasharray="3 3"/>
+              <XAxis dataKey="day"/>
+              <YAxis/>
+              <Tooltip/>
+              <Legend/>
               <Line type="natural" dataKey="SP500" stroke="#4286f4" strokeWidth={2} animationDuration={1200}/>
               <Line type="natural" dataKey="ticker" stroke="#82ca9d" strokeWidth={2} animationDuration={1200}/>
             </LineChart>
