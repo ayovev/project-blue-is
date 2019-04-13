@@ -58,7 +58,7 @@ export default class Header extends Component {
       <AuthenticationConsumer>
         {({ isAuthenticated, logout }) => (
           <Navbar sticky="top" className={styles.navbar} expand="lg">
-            <NavbarBrand tag={RRNavLink} to="/" className={styles.navlink}><b>ieen</b></NavbarBrand>
+            <NavbarBrand tag={RRNavLink} to="/" className={styles.navlink}><b>IEEN</b></NavbarBrand>
             <NavbarToggler className="navbar-dark" onClick={this.toggleNavbar}/>
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav navbar className="mx-auto nav">
