@@ -53,13 +53,8 @@ export default class Security extends Component {
 
     this.state = {
       symbol: props.match.params.symbol,
-      beta: undefined,
-      expectedReturn: undefined,
-      investabilityIndex: undefined,
-      rSquared: undefined,
-      sharpeRatio: undefined,
-      standardDeviation: undefined,
-      valueAtRisk: undefined,
+      analysis: undefined,
+      information: undefined,
 
       favorite: undefined,
       redirect: false
@@ -69,27 +64,20 @@ export default class Security extends Component {
   async componentDidMount() {
     const symbols = await this.getListOfSecurities();
 
-    if (!symbols.includes(this.state.symbol)) {
+    if (!symbols.includes(this.state.symbol) || this.state.symbol === `SPY`) {
       this.setState({ redirect: true });
     }
 
-    const analysisData = await this.getAnalysisData();
-
-    const { beta, expectedReturn, investabilityIndex, rSquared, sharpeRatio, standardDeviation, valueAtRisk } = analysisData;
-
-    this.setState({
-      beta,
-      expectedReturn,
-      investabilityIndex,
-      rSquared,
-      sharpeRatio,
-      standardDeviation,
-      valueAtRisk
-    });
-
+    const analysis = await this.getAnalysis();
+    const information = await this.getCompanyInformation();
     const favorites = await this.getFavorites();
+
     const favorite = favorites.includes(this.state.symbol) ? true : false;
-    this.setState({ favorite });
+    if (information.exchange === `Nasdaq Global Select`) {
+      information.exchange = `NASDAQ`;
+    }
+
+    this.setState({ analysis, favorite, information });
   }
 
   lerpColor = (minimumColor, maximumColor, amount) => {
@@ -110,10 +98,21 @@ export default class Security extends Component {
     /* eslint-enable */
   }
 
-  getAnalysisData = async () => {
+  getAnalysis = async () => {
     const options = {
       method: `GET`,
-      url: `/api/securities/${this.state.symbol}`,
+      url: `/api/securities/analysis/${this.state.symbol}`,
+      resolveWithFullResponse: true
+    };
+
+    const response = await axios(options);
+    return response.data;
+  }
+
+  getCompanyInformation = async () => {
+    const options = {
+      method: `GET`,
+      url: `/api/securities/companyInformation/${this.state.symbol}`,
       resolveWithFullResponse: true
     };
 
@@ -165,37 +164,32 @@ export default class Security extends Component {
       return <Redirect to="/404" />;
     }
 
-    if (this.state.investabilityIndex === undefined || this.state.favorite === undefined) {
+    if (this.state.analysis === undefined || this.state.favorite === undefined || this.state.information === undefined) {
       return null;
     }
 
-    const starClasses = [`fa-lg`, `fa-star`];
+    const starClasses = [`fa-star`, styles.favoriteIcon];
     this.state.favorite ? starClasses.push(`fas`) : starClasses.push(`far`);
 
-    const color = this.lerpColor(0xf48942, 0x4286f4, this.state.investabilityIndex / 100);
+    const iconTitle = this.state.favorite ? `Remove from Favorites` : `Add to Favorites`
+
+    const color = this.lerpColor(0xf48942, 0x4286f4, this.state.analysis.investabilityIndex / 100);
 
     return (
       <React.Fragment>
         <Container className={styles.containerStyling}>
-          <Row className="Row">
-            <h3>Security Results</h3>
-          </Row>
-          <Row className="Row">
-            <hr className={styles.hr1}/>
-          </Row>
-          <Row className="Row">
-            <h1>{this.state.symbol}</h1>
-              <i onClick={this.toggleFavorite} className={starClasses.join(` `)}></i>
-          </Row>
-          <Row className="Row">
-            companyName
-            <hr className={styles.hr2}/>
-          </Row>
+          <div className={styles.informationContainer}>
+            <img className="float-right" src={this.state.information.logo} alt="company logo"/>
+            <h1 className={styles.symbol}>{this.state.symbol}<i onClick={this.toggleFavorite} title={iconTitle} className={starClasses.join(` `)}/></h1>
+            <p style={{ fontSize: "24px" }}>{this.state.information.companyName} | {this.state.information.exchange}</p>
+            <p style={{ fontSize: "18px" }}>{this.state.information.sector} | {this.state.information.industry}</p>
+          </div>
+          <hr className={styles.hr2}/>
           <div>
-            <Row className="float-left" style={{ marginLeft: `5%` }}>
+            <div className="float-left" style={{ marginLeft: `5%` }}>
               <CircularProgressbar className="radialAnimation"
-                percentage={this.state.investabilityIndex}
-                text={`${this.state.investabilityIndex}`}
+                percentage={this.state.analysis.investabilityIndex}
+                text={`${this.state.analysis.investabilityIndex}`}
                 initialAnimation={true}
                 strokeWidth={4}
                 styles={{
@@ -213,58 +207,54 @@ export default class Security extends Component {
                   }
                 }}
               />
-            </Row>
-            <Row className="float-right" style={{ marginRight: `5%` }}>
+            </div>
+            <div className="float-right" style={{ marginRight: `5%` }}>
               <table>
                 <tbody>
                   <tr>
                     <td className={styles.td2}>
-                      <b>{this.state.expectedReturn}%</b>
+                      <b>{this.state.analysis.expectedReturn}%</b>
                       <br/><br/>
                     Expected Return
                     </td>
                     <td className={styles.td2}>
-                      <b>{this.state.valueAtRisk}%</b>
+                      <b>{this.state.analysis.valueAtRisk}%</b>
                       <br/><br/>
                     Value at Risk
                     </td>
                     <td className={styles.td1}>
-                      <b>{this.state.beta}</b>
+                      <b>{this.state.analysis.beta}</b>
                       <br/><br/>
                     Beta
                     </td>
                   </tr>
                   <tr>
                     <td className={styles.td3}>
-                      <b>{this.state.rSquared}</b>
+                      <b>{this.state.analysis.rSquared}</b>
                       <br/><br/>
                     R Squared
                     </td>
                     <td className={styles.td3}>
-                      <b>{this.state.sharpeRatio}</b>
+                      <b>{this.state.analysis.sharpeRatio}</b>
                       <br/><br/>
                     Sharpe Ratio
                     </td>
                     <td>
-                      <b>{this.state.standardDeviation}%</b>
+                      <b>{this.state.analysis.standardDeviation}%</b>
                       <br/><br/>
                     Standard Deviation
                     </td>
                   </tr>
                 </tbody>
               </table>
-            </Row>
+            </div>
           </div>
-          <div style={{ clear: `both` }}></div>
+          <div style={{ clear: `both` }}/>
         </Container>
         <Container className={styles.containerStyling}>
-          <Row className="Row">
-            <hr className={styles.hr2}/>
-          </Row>
-          <Row className="Row">
-            <h3>Historical Performance of {this.state.symbol}</h3>
-          </Row>
-          <Row className="Row">
+          <hr className={styles.hr2}/>
+          <h3 className={styles.chartHeader}>Historical Performance of {this.state.symbol}</h3>
+          <div className={styles.chartContainer}>
             <LineChart className={styles.chart} width={900} height={400} data={data}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="day" />
@@ -274,7 +264,7 @@ export default class Security extends Component {
               <Line type="natural" dataKey="SPY" stroke="#4286f4" strokeWidth={2} animationDuration={1200}/>
               <Line type="natural" dataKey="ticker" stroke="#82ca9d" strokeWidth={2} animationDuration={1200}/>
             </LineChart>
-          </Row>
+          </div>
         </Container>
       </React.Fragment>
     );
