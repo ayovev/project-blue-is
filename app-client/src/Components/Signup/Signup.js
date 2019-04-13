@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Alert, Button, Form, FormGroup, Input, Label } from 'reactstrap';
+import { Alert, Button, Form, FormGroup, Input, Label, NavLink } from 'reactstrap';
 import { Line, LineChart } from 'recharts';
 import md5 from "md5";
 import axios from "axios";
@@ -40,7 +40,8 @@ export default class Signup extends Component {
 
   dismissAlert = () => {
     this.setState({
-      alertVisible: false
+      alertVisible: false,
+      buttonDisabled: false
     });
   }
 

@@ -10,8 +10,8 @@
 :local(.preFormText) {
   margin: -2% auto 0% auto;
   text-align: center;
-  font-size: 32px;
-  font-variant: small-caps;
+  font-size: 24px;
+  font-weight: 300;
 }
 
 :local(.chart) {
