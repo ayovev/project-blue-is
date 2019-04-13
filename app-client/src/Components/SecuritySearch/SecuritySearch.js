@@ -23,7 +23,7 @@ export default class SecuritySearch extends Component {
     super(props);
 
     this.state = {
-      options: [],
+      symbols: [],
       selectedOption: null
     };
   }
@@ -44,11 +44,11 @@ export default class SecuritySearch extends Component {
     const symbols = response.data.map((item) => {
       return {
         value: item.symbol,
-        label: item.symbol
+        label: `${item.companyName} (${item.symbol})`,
       };
     });
 
-    this.setState({ options: symbols });
+    this.setState({ symbols });
   }
 
   handleChange = (selectedOption) => {
@@ -76,7 +76,7 @@ export default class SecuritySearch extends Component {
           className={styles.container}
           value={selectedOption}
           onChange={this.handleChange}
-          options={this.state.options}
+          options={this.state.symbols}
         />
       </React.Fragment>
 
