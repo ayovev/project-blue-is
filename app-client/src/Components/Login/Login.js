@@ -66,22 +66,22 @@ export default class Login extends Component {
           <Form onSubmit={this.handleSubmit}>
             <FormGroup>
               <Label for="email">Email</Label>
-              <Input type="email" id="email" value={this.state.email} placeholder="Enter your email address" onChange={this.handleChange}/>
+              <Input tabIndex={1} type="email" id="email" value={this.state.email} placeholder="Enter your email address" onChange={this.handleChange}/>
             </FormGroup>
             <br/>
             <FormGroup>
               <Label for="password">Password</Label>
-              <NavLink to="/forgotPassword" tag={RRNavLink} className={styles.forgotPasswordLink}>Forgot your password?</NavLink>
-              <Input type="password" id="password" value={this.state.password} placeholder="Enter your password" onChange={this.handleChange}/>
+              <NavLink tabIndex={4} to="/forgotPassword" tag={RRNavLink} className={styles.forgotPasswordLink}>Forgot your password?</NavLink>
+              <Input tabIndex={2} type="password" id="password" value={this.state.password} placeholder="Enter your password" onChange={this.handleChange}/>
             </FormGroup>
             <br/>
-            <Button type="submit" color="primary" block disabled={!this.validateForm()}>
+            <Button tabIndex={3} type="submit" color="primary" block disabled={!this.validateForm()}>
               Login
             </Button>
           </Form>
         </div>
         <div className={styles.container2}>
-          New To IEEN? <NavLink to="/signup" tag={RRNavLink} className={styles.signupLink}>Sign Up.</NavLink>
+          New To IEEN?&nbsp;<NavLink tabIndex={5} to="/signup" tag={RRNavLink} className={styles.signupLink}>Sign Up.</NavLink>
         </div>
       </React.Fragment>
     );
