@@ -1,24 +1,9 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { Alert, Button, Form, FormGroup, Input, Label } from "reactstrap";
-import { LineChart, Line } from "recharts";
 import axios from "axios";
 import md5 from "md5";
-import { AuthenticationContext } from "../../Contexts/AuthenticationContext/AuthenticationContext";
-import styles from "../Login/Login.css";
-
-// test data for chart
-const data = [
-  { value: 45 },
-  { value: 45 },
-  { value: 45 },
-  { value: 45 },
-  { value: 45 },
-  { value: 45 },
-  { value: 45 },
-  { value: 45 },
-  { value: 45 }
-];
+import styles from "../ForgotPassword/ForgotPassword.css";
 
 export default class ResetPassword extends Component {
   constructor(props) {
@@ -40,7 +25,6 @@ export default class ResetPassword extends Component {
 
   async componentDidMount() {
     await this.validateJWT();
-    // await this.validateUnusedToken();
   }
 
   handleChange = (event) => {
@@ -147,12 +131,6 @@ export default class ResetPassword extends Component {
     return (
       <React.Fragment>
         {this.renderAlert()}
-        <div>
-          {/* Possibly include some kind of chart here before the text to add a dynamic branding component to the page? */}
-          <LineChart className={styles.chart} width={75} height={75} data={data}>
-            <Line type="natural" dataKey="value" stroke="#4286f4" strokeWidth={2} dot={null} animationDuration={1200}/>
-          </LineChart>
-        </div>
         <h1 className={styles.preFormText}>Reset Password</h1>
         <br/>
         <div className={styles.container}>
@@ -176,5 +154,3 @@ export default class ResetPassword extends Component {
     );
   }
 }
-
-ResetPassword.contextType = AuthenticationContext;

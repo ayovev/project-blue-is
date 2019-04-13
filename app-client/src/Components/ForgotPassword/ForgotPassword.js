@@ -1,21 +1,7 @@
 import React, { Component } from "react";
 import { Alert, Button, Form, FormGroup, Input, Label } from "reactstrap";
-import { LineChart, Line } from "recharts";
 import axios from "axios";
-import styles from "../Login/Login.css";
-
-// test data for chart
-const data = [
-  { value: 45 },
-  { value: 45 },
-  { value: 45 },
-  { value: 45 },
-  { value: 45 },
-  { value: 45 },
-  { value: 45 },
-  { value: 45 },
-  { value: 45 }
-];
+import styles from "./ForgotPassword.css";
 
 export default class ForgotPassword extends Component {
   constructor(props) {
@@ -95,12 +81,6 @@ export default class ForgotPassword extends Component {
     return (
       <React.Fragment>
         {this.renderAlert()}
-        <div>
-          {/* Possibly include some kind of chart here before the text to add a dynamic branding component to the page? */}
-          <LineChart className={styles.chart} width={75} height={75} data={data}>
-            <Line type="natural" dataKey="value" stroke="#4286f4" strokeWidth={2} dot={null} animationDuration={1200}/>
-          </LineChart>
-        </div>
         <h1 className={styles.preFormText}>Forgot Password</h1>
         <br/>
         <div className={styles.container}>
