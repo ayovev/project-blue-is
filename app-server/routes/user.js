@@ -139,8 +139,8 @@ router.route(`/resetPassword`)
 
       const token = await jwt.verify(tokenString, process.env.TOKEN_SECRET);
 
-      const updateUsersCollection  = await UsersCollection.updateOne({ email: token.data.email }, { $set: { confirmPassword, password } });
-      const updatePasswordResetsCollection = await PasswordResetsCollection.updateOne({ token: tokenString }, { $set: { used: true }});
+      const updateUsersCollection = await UsersCollection.updateOne({ email: token.data.email }, { $set: { confirmPassword, password } });
+      const updatePasswordResetsCollection = await PasswordResetsCollection.updateOne({ token: tokenString }, { $set: { used: true } });
 
       if (!updateUsersCollection.result.ok || !updatePasswordResetsCollection.result.ok) {
         winston.error(`failed to reset password for user ${token.data.userID}`);
@@ -148,7 +148,6 @@ router.route(`/resetPassword`)
       }
       winston.info(`successfully updated password for user ${token.data.userID}`);
       return response.sendStatus(200);
-
     }
     catch (error) {
       return next(error);

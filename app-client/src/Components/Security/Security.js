@@ -171,7 +171,7 @@ export default class Security extends Component {
     const starClasses = [`fa-star`, styles.favoriteIcon];
     this.state.favorite ? starClasses.push(`fas`) : starClasses.push(`far`);
 
-    const iconTitle = this.state.favorite ? `Remove from Favorites` : `Add to Favorites`
+    const iconTitle = this.state.favorite ? `Remove from Favorites` : `Add to Favorites`;
 
     const color = this.lerpColor(0xf48942, 0x4286f4, this.state.analysis.investabilityIndex / 100);
 

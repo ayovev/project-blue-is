@@ -115,6 +115,6 @@ router.route(`/forgotPassword`)
     catch (error) {
       return next(error);
     }
-  })
+  });
 
 module.exports = router;

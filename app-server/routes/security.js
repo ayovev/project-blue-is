@@ -13,7 +13,7 @@ router.route(`/`)
       await jwt.verify(token, process.env.TOKEN_SECRET);
 
       const { CompanyInformationCollection } = request.app.locals;
-      const symbols = await CompanyInformationCollection.find({}, { projection: { symbol: 1, companyName: 1, _id: 0 }}).toArray();
+      const symbols = await CompanyInformationCollection.find({}, { projection: { symbol: 1, companyName: 1, _id: 0 } }).toArray();
 
       return response.status(200).send(symbols);
     }
@@ -47,7 +47,7 @@ router.route(`/analysis/:symbol`)
       winston.info(`getting analysis for symbol ${symbol}`);
 
       const { AnalysisCollection } = request.app.locals;
-      const analysisData = await AnalysisCollection.findOne({ symbol }, { projection: {  _id: 0 }});
+      const analysisData = await AnalysisCollection.findOne({ symbol }, { projection: { _id: 0 } });
 
       return response.status(200).send(analysisData);
     }
@@ -67,13 +67,13 @@ router.route(`/companyInformation/:symbol`)
       winston.info(`getting company information for symbol ${symbol}`);
 
       const { CompanyInformationCollection } = request.app.locals;
-      const companyInformation = await CompanyInformationCollection.findOne({ symbol }, { projection: {  _id: 0 }});
+      const companyInformation = await CompanyInformationCollection.findOne({ symbol }, { projection: { _id: 0 } });
 
       return response.status(200).send(companyInformation);
     }
     catch (error) {
       return next(error);
     }
-  })
+  });
 
 module.exports = router;

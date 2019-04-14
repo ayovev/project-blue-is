@@ -43,7 +43,7 @@ export default class SecuritySearch extends Component {
     const symbols = response.data.map((item) => {
       return {
         value: item.symbol,
-        label: `${item.companyName} (${item.symbol})`,
+        label: `${item.companyName} (${item.symbol})`
       };
     });
 
