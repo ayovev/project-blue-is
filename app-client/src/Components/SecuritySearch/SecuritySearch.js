@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Select from "react-select";
+import { Redirect } from "react-router-dom";
 import { LineChart, Line } from "recharts";
 import axios from 'axios';
 import styles from "./SecuritySearch.css";
@@ -22,7 +23,7 @@ export default class SecuritySearch extends Component {
     super(props);
 
     this.state = {
-      symbols: [],
+      symbols: undefined,
       selectedOption: null
     };
   }
@@ -55,10 +56,14 @@ export default class SecuritySearch extends Component {
   }
 
   render() {
+    if (this.state.symbols === undefined) {
+      return null;
+    }
     const { selectedOption } = this.state;
 
     if (selectedOption) {
-      return window.location.assign(`/security/${selectedOption.value}`);
+      return <Redirect to={`security/${selectedOption.value}`} />;
+      // return window.location.assign(`/security/${selectedOption.value}`);
     }
 
     return (
