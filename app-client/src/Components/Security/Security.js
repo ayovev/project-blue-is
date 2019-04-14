@@ -221,36 +221,30 @@ export default class Security extends Component {
                 <tbody>
                   <tr>
                     <td className={styles.td2}>
-                      <b>{this.state.analysis.expectedReturn}%</b>
-                      <br/><br/>
-                    Expected Return
+                      <p><b>{this.state.analysis.expectedReturn}%</b></p>
+                      <span>Expected Return</span>
                     </td>
                     <td className={styles.td2}>
-                      <b>{this.state.analysis.standardDeviation}%</b>
-                      <br/><br/>
-                    Standard Deviation
+                      <p><b>{this.state.analysis.standardDeviation}%</b></p>
+                      <span>Standard Deviation</span>
                     </td>
                     <td className={styles.td1}>
-                      <b>{this.state.analysis.sharpeRatio}</b>
-                      <br/><br/>
-                    Sharpe Ratio
+                      <p><b>{this.state.analysis.sharpeRatio}</b></p>
+                      <span>Sharpe Ratio</span>
                     </td>
                   </tr>
                   <tr>
                     <td className={styles.td3}>
-                      <b>{this.state.analysis.beta}</b>
-                      <br/><br/>
-                    Beta
+                      <p><b>{this.state.analysis.beta}</b></p>
+                      <span>Beta</span>
                     </td>
                     <td className={styles.td3}>
-                      <b>{this.state.analysis.rSquared}</b>
-                      <br/><br/>
-                    R Squared
+                      <p><b>{this.state.analysis.rSquared}</b></p>
+                      <span>R Squared</span>
                     </td>
                     <td>
-                      <b>{this.state.analysis.valueAtRisk}%</b>
-                      <br/><br/>
-                    Value at Risk
+                      <p><b>{this.state.analysis.valueAtRisk}%</b></p>
+                      <span>Value at Risk</span>
                     </td>
                   </tr>
                 </tbody>
