@@ -91,7 +91,7 @@ export default class ForgotPassword extends Component {
             </FormGroup>
             <br/>
             <Button type="submit" color="primary" block disabled={!this.validateForm() || this.state.buttonDisabled}>
-              Reset Password
+              Submit
             </Button>
           </Form>
         </div>
