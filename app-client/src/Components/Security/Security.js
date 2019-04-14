@@ -47,6 +47,9 @@ const data = [
   }
 ];
 
+const BLUE = 0x4286f4;
+const ORANGE = 0xf48942;
+
 export default class Security extends Component {
   constructor(props) {
     super(props);
@@ -173,7 +176,7 @@ export default class Security extends Component {
 
     const iconTitle = this.state.favorite ? `Remove from Favorites` : `Add to Favorites`;
 
-    const color = this.lerpColor(0xf48942, 0x4286f4, this.state.analysis.investabilityIndex / 100);
+    const color = this.lerpColor(ORANGE, BLUE, this.state.analysis.investabilityIndex / 100);
 
     return (
       <React.Fragment>
@@ -257,11 +260,11 @@ export default class Security extends Component {
           <h3 className={styles.chartHeader}>Historical Performance of {this.state.symbol}</h3>
           <div className={styles.chartContainer}>
             <LineChart className={styles.chart} width={900} height={400} data={data}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="day" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
+              <CartesianGrid strokeDasharray="3 3"/>
+              <XAxis dataKey="day"/>
+              <YAxis/>
+              <Tooltip/>
+              <Legend/>
               <Line type="natural" dataKey="SPY" stroke="#4286f4" strokeWidth={2} animationDuration={1200}/>
               <Line type="natural" dataKey="ticker" stroke="#82ca9d" strokeWidth={2} animationDuration={1200}/>
             </LineChart>

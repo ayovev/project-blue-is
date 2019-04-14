@@ -127,10 +127,6 @@ hr.dark {
   margin:0;
 }
 
-:local(p) {
-  color: grey;
-}
-
 :local(.ctaButton) {
   color: white;
   padding: 0;
