@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Alert, Button, Form, FormGroup, Input, Label, NavLink } from 'reactstrap';
+import { Alert, Button, Form, FormGroup, Input, Label } from 'reactstrap';
 import { Line, LineChart } from 'recharts';
 import md5 from "md5";
 import axios from "axios";
@@ -31,7 +31,7 @@ export default class Signup extends Component {
       confirmPassword: ``,
       investmentStyle: ``,
 
-      alertVisible: true,
+      alertVisible: false,
       buttonDisabled: false,
       response: undefined,
       statusCode: undefined
@@ -83,9 +83,16 @@ export default class Signup extends Component {
     }
     finally {
       this.setState({
+        alertVisible: true,
         response,
         statusCode: response.status
       });
+
+      window.document.body.scrollTo(0, 0);
+
+      setTimeout(() => {
+        window.location.assign(`/`);
+      }, 3000);
     }
   }
 

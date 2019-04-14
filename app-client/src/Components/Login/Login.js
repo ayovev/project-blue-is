@@ -27,7 +27,7 @@ export default class Login extends Component {
       email: ``,
       password: ``,
 
-      alertVisible: true,
+      alertVisible: false,
       buttonDisabled: false,
       response: undefined,
       statusCode: undefined
@@ -66,6 +66,8 @@ export default class Login extends Component {
     }
     catch (error) {
       response = error.response;
+
+      this.setState({ alertVisible: true });
     }
     finally {
       this.setState({
@@ -81,7 +83,6 @@ export default class Login extends Component {
   }
 
   renderAlert = () => {
-
     const { response, statusCode } = this.state;
 
     if (!response || !statusCode) {
