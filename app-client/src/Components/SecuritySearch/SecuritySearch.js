@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Redirect } from 'react-router-dom';
 import Select from "react-select";
 import { LineChart, Line } from "recharts";
 import axios from 'axios';
@@ -59,7 +58,7 @@ export default class SecuritySearch extends Component {
     const { selectedOption } = this.state;
 
     if (selectedOption) {
-      return <Redirect to={`/security/${selectedOption.value}`} />;
+      return window.location.assign(`/security/${selectedOption.value}`);
     }
 
     return (
