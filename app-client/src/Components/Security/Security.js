@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import { Container } from "reactstrap";
+import { Col, Container, Row } from "reactstrap";
 import axios from "axios";
 import { CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from "recharts";
 import CircularProgressbar from "react-circular-progressbar";
@@ -178,19 +178,22 @@ export default class Security extends Component {
     return (
       <React.Fragment>
         <Container className={styles.container}>
-          <div className={styles.headerContainer}>
-            <div>
-              <img className={styles.logo} src={this.state.information.logo} alt="company logo"/>
-            </div>
-            <div className={styles.informationContainer}>
+          <Row className={styles.row}>
+            <Col xs={9} className={styles.informationContainer}>
               <h1 className={styles.symbol}>{this.state.symbol}<i onClick={this.toggleFavorite} title={iconTitle} className={starClasses.join(` `)}/></h1>
               <p className={styles.companyNameAndExchange}>{this.state.information.companyName} | {this.state.information.exchange}</p>
               <p className={styles.sectorAndIndustry}>{this.state.information.sector} | {this.state.information.industry}</p>
-            </div>
-          </div>
+            </Col>
+            <Col xs={3} className={styles.logoContainer}>
+              <img className={styles.logo} src={this.state.information.logo} alt="company logo"/>
+            </Col>
+            <Col xs={9} className={styles.descriptionContainer}>
+              <p>{this.state.information.description}</p>
+            </Col>
+          </Row>
           <hr className={styles.hr}/>
-          <div>
-            <div className={styles.gaugeContainer}>
+          <Row className={styles.row}>
+            <Col xs={6} className={styles.gaugeContainer}>
               <CircularProgressbar
                 className={styles.gauge}
                 percentage={this.state.analysis.investabilityIndex}
@@ -212,9 +215,9 @@ export default class Security extends Component {
                   }
                 }}
               />
-            </div>
-            <div className={styles.tableContainer}>
-              <table>
+            </Col>
+            <Col xs={6} className={styles.tableContainer}>
+              <table className={styles.table}>
                 <tbody>
                   <tr>
                     <td className={styles.td2}>
@@ -252,9 +255,8 @@ export default class Security extends Component {
                   </tr>
                 </tbody>
               </table>
-            </div>
-          </div>
-          <div style={{ clear: `both` }}/>
+            </Col>
+          </Row>
         </Container>
         <Container className={styles.container}>
           <hr className={styles.hr}/>

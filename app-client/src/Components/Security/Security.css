@@ -22,22 +22,23 @@ td {
   margin-top: 1px;
 }
 
-:local(.headerContainer) {
-  display: inline-flex;
-  padding: 2% 0 2% 0;
-  overflow: hidden;
-  width: 100%;
+:local(.row) {
+  margin: 2% auto 1% auto;
 }
 
-:local(.informationContainer) {
-  float: left;
-  margin-left: 5%;
+:local(.logoContainer) {
+  text-align: right;
+  line-height: 200px;
+  max-height: 200px;
 }
 
 :local(.logo) {
-  float: right;
-  height: auto;
+  max-height: 200px;
   width: 180px;
+}
+
+:local(.descriptionContainer) {
+  text-align: left;
 }
 
 :local(.symbol) {
@@ -47,12 +48,10 @@ td {
 
 :local(.companyNameAndExchange) {
   font-size: 24px;
-  margin-bottom: 1rem;
 }
 
 :local(.sectorAndIndustry) {
   font-size: 18px;
-  margin-bottom: 1rem;
 }
 
 :local(.favoriteIcon) {
@@ -74,24 +73,25 @@ td {
 }
 
 :local(.gaugeContainer) {
-  float: left;
-  margin-left: 5%;
-}
-
-:local(.tableContainer) {
-  float: right;
-  margin-right: 5%;
+  padding-left: 60px;
 }
 
 :local(.gauge) {
-  margin-top: 5%;
-  margin-bottom: 2%;
   width: 200px;
   height: auto;
 }
 
+:local(.tableContainer) {
+  float: right;
+  padding-right: 60px;
+}
+
+:local(.table) {
+  float: right;
+}
+
 :local(.container) {
-  padding-bottom: 30px;
+  margin: auto auto 2% auto;
 }
 
 :local(.chart) {
