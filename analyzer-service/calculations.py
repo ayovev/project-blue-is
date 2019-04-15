@@ -44,7 +44,7 @@ def loadHistorical(ticker):
 
 def calculateVar(tName, tData):
   '''
-  Class method to calculate the Value at Risk using the Variance/Covaraiance method
+  Function to calculate the Value at Risk using the Variance/Covaraiance method
 
   @return dict containing ticker symbol and 3 levels of value at risk (90, 95, 99)
   '''
@@ -71,7 +71,7 @@ def calculateVar(tName, tData):
 
 def calculateBeta(tName, tData, bData):
   '''
-  Class method to calculate the Beta of a given ticker
+  Function to calculate the Beta of a given ticker
 
   @return Beta value
   '''
@@ -113,7 +113,7 @@ def calculateSD(tName, tData):
 
 def calculateR2(tName, tData, bData):
   '''
-  Class method to calculate the r2 of a stock (w/ SPY)
+  Function to calculate the r2 of a stock (w/ SPY)
   '''
 
   # make data into a pandas data frame
@@ -138,7 +138,7 @@ def calculateR2(tName, tData, bData):
 
 def calculateER(tName, tData, bData):
   '''
-  Class methodo to calculate the CAPM expected return
+  Function to calculate the CAPM expected return
   '''
   # CAPM = rf + B(rm - rf)
   # ------------------------
