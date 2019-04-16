@@ -2,50 +2,13 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { Container, Row } from "reactstrap";
 import axios from "axios";
-import { Line, LineChart,XAxis,YAxis,Tooltip,Legend,CartesianGrid } from "recharts";
+import { Line, LineChart, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from "recharts";
 import CircularProgressbar from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import styles from "./Security.css";
 
-// test data for chart
-const data = [
-  { ticker: 45,
-    SP500: 55,
-    day: "June 18"
-  },
-  { ticker: 55,
-    SP500: 60,
-    day: "July 18"
-   },
-  { ticker: 35,
-    SP500: 55,
-    day: "Aug 18"
-   },
-  { ticker: 45,
-    SP500: 50,
-    day: "Sep 18"
-   },
-  { ticker: 80,
-    SP500: 70,
-    day: "Oct 18"
-   },
-  { ticker: 90,
-    SP500: 85,
-    day: "Nov 18"
-   },
-  { ticker: 30,
-    SP500: 40,
-    day: "Dec 18"
-   },
-  { ticker: 90,
-    SP500: 95,
-    day: "Feb 19"
-   },
-  { ticker: 120,
-    SP500: 115,
-    day: "Mar 19"
-   }
-];
+const formatterNum = (value) =>`$${value.toLocaleString()}`;
+const formatterDate = (value) => `${value.toLocaleString(`en-US`, { month: `long`, year: `numeric` })}`;
 
 export default class Security extends Component {
   constructor(props) {
@@ -62,7 +25,8 @@ export default class Security extends Component {
       valueAtRisk: undefined,
 
       favorite: undefined,
-      redirect: false
+      redirect: false,
+      historicalData: undefined
     };
   }
 
@@ -74,9 +38,10 @@ export default class Security extends Component {
     }
 
     const analysisData = await this.getAnalysisData();
+    const historicalData = await this.getHistoricalData();
+    this.setState({ historicalData });
 
     const { beta, expectedReturn, investabilityIndex, rSquared, sharpeRatio, standardDeviation, valueAtRisk } = analysisData;
-
     this.setState({
       beta,
       expectedReturn,
@@ -96,6 +61,17 @@ export default class Security extends Component {
     const options = {
       method: `GET`,
       url: `/api/securities/${this.state.symbol}`,
+      resolveWithFullResponse: true
+    };
+
+    const response = await axios(options);
+    return response.data;
+  }
+
+  getHistoricalData = async () => {
+    const options = {
+      method: `GET`,
+      url: `/api/securities/${this.state.symbol}/historical`,
       resolveWithFullResponse: true
     };
 
@@ -231,15 +207,37 @@ export default class Security extends Component {
             <h3>Historical Performance of {this.state.symbol} </h3>
           </Row>
           <Row className="Row">
-            <LineChart className={styles.chart} width={900} height={400} data={data}>
+            <LineChart className={styles.chart} width={900} height={400} data={this.state.historicalData}>
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="day" />
+              <XAxis dataKey="date"/>
               <YAxis />
               <Tooltip />
               <Legend />
-              <Line type="natural" dataKey="SP500" stroke="#4286f4" strokeWidth={2}  animationDuration={1200}/>
-              <Line type="natural" dataKey="ticker" stroke="#82ca9d" strokeWidth={2}  animationDuration={1200}/>
+              <Line type="natural" dataKey="SPY" stroke="#4286f4" strokeWidth={2} animationDuration={1400}/>
+              <Line type="natural" dataKey={this.state.symbol} stroke="#82ca9d" strokeWidth={2} animationDuration={1400}/>
             </LineChart>
+          </Row>
+        </Container>
+        <Container className={styles.containerStyling}>
+          <Row className="Row">
+            <hr className={styles.hr2}/>
+          </Row>
+          <Row className="Row">
+            <h3>Portfolio Performance of {this.state.symbol} Compared To The SPY </h3>
+          </Row>
+          <Row className="Row">
+            <LineChart className={styles.chart} width={900} height={400} data={this.state.historicalData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="date" tickFormatter={formatterDate}/>
+              <YAxis type="number" domain={[40000, 120000]} tickFormatter={formatterNum}/>
+              {/* <XAxis dataKey="date" />
+          <YAxis type="number" domain={[40000,120000]} /> */}
+              <Tooltip />
+              <Legend />
+              <Line type="natural" dataKey="PortfolioSPY" stroke="#4286f4" strokeWidth={2} animationDuration={1400}/>
+              <Line type="natural" dataKey={`Portfolio`+this.state.symbol} stroke="#82ca9d" strokeWidth={2} animationDuration={1400}/>
+            </LineChart>
+            <p>The chart above depicts the return on investment if $100,000 was invested in {this.state.symbol} vs the SPY 6 months prior.</p>
           </Row>
         </Container>
       </React.Fragment>

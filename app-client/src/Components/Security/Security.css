@@ -60,3 +60,6 @@ h3 {
 :local(.chart) {
   justify-content: center;
 }
+.recharts-surface {
+  overflow:visible;
+}
