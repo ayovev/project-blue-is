@@ -7,45 +7,8 @@ import CircularProgressbar from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import styles from "./Security.css";
 
-// test data for chart
-const data = [
-  { ticker: 45,
-    SPY: 55,
-    day: `June 18`
-  },
-  { ticker: 55,
-    SPY: 60,
-    day: `July 18`
-  },
-  { ticker: 35,
-    SPY: 55,
-    day: `Aug 18`
-  },
-  { ticker: 45,
-    SPY: 50,
-    day: `Sep 18`
-  },
-  { ticker: 80,
-    SPY: 70,
-    day: `Oct 18`
-  },
-  { ticker: 90,
-    SPY: 85,
-    day: `Nov 18`
-  },
-  { ticker: 30,
-    SPY: 40,
-    day: `Dec 18`
-  },
-  { ticker: 90,
-    SPY: 95,
-    day: `Feb 19`
-  },
-  { ticker: 120,
-    SPY: 115,
-    day: `Mar 19`
-  }
-];
+const formatterNum = (value) =>`$${value.toLocaleString()}`;
+const formatterDate = (value) => `${value.toLocaleString(`en-US`, { month: `long`, year: `numeric` })}`;
 
 const BLUE = 0x4286f4;
 const ORANGE = 0xf48942;
@@ -60,7 +23,8 @@ export default class Security extends Component {
       information: undefined,
 
       favorite: undefined,
-      redirect: false
+      redirect: false,
+      historicalData: undefined
     };
   }
 
@@ -72,6 +36,8 @@ export default class Security extends Component {
     }
 
     const analysis = await this.getAnalysis();
+    const historicalData = await this.getHistoricalData();
+    this.setState({ historicalData });
     const information = await this.getCompanyInformation();
     const favorites = await this.getFavorites();
 
@@ -96,7 +62,6 @@ export default class Security extends Component {
     const resultR = micR + amount * (macR - micR);
     const resultG = micG + amount * (macG - micG);
     const resultB = micB + amount * (macB - micB);
-
     return ((resultR << 16) + (resultG << 8) + (resultB | 0)).toString(16);
     /* eslint-enable */
   }
@@ -116,6 +81,17 @@ export default class Security extends Component {
     const options = {
       method: `GET`,
       url: `/api/securities/companyInformation/${this.state.symbol}`,
+      resolveWithFullResponse: true
+    };
+
+    const response = await axios(options);
+    return response.data;
+  }
+
+  getHistoricalData = async () => {
+    const options = {
+      method: `GET`,
+      url: `/api/securities/${this.state.symbol}/historical`,
       resolveWithFullResponse: true
     };
 
@@ -269,6 +245,40 @@ export default class Security extends Component {
               <Line type="natural" dataKey="ticker" stroke="#82ca9d" strokeWidth={2} animationDuration={1200}/>
             </LineChart>
           </div>
+          <Row className="Row">
+            <hr className={styles.hr2}/>
+          </Row>
+          <Row className="Row">
+            <h3>Historical Performance of {this.state.symbol} </h3>
+          </Row>
+          <Row className="Row">
+            <LineChart className={styles.chart} width={900} height={400} data={this.state.historicalData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="date"/>
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Line type="natural" dataKey="SPY" stroke="#4286f4" strokeWidth={2} animationDuration={1400}/>
+              <Line type="natural" dataKey={this.state.symbol} stroke="#82ca9d" strokeWidth={2} animationDuration={1400}/>
+            </LineChart>
+          </Row>
+          <Row className="Row">
+            <hr className={styles.hr2}/>
+          </Row>
+          <Row className="Row">
+            <h3>Portfolio Performance of {this.state.symbol} Compared To The SPY </h3>
+          </Row>
+          <Row className="Row">
+            <LineChart className={styles.chart} width={900} height={400} data={this.state.historicalData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="date" tickFormatter={formatterDate}/>
+              <YAxis type="number" domain={[40000, 120000]} tickFormatter={formatterNum}/>
+              <Tooltip />
+              <Legend />
+              <Line type="natural" dataKey="PortfolioSPY" stroke="#4286f4" strokeWidth={2} animationDuration={1400}/>
+              <Line type="natural" dataKey={`Portfolio`+this.state.symbol} stroke="#82ca9d" strokeWidth={2} animationDuration={1400}/>
+            </LineChart>
+            <p>The chart above depicts the return on investment if $100,000 was invested in {this.state.symbol} vs the SPY 6 months prior.</p>
         </Container>
       </React.Fragment>
     );

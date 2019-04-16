@@ -4,7 +4,7 @@ from flask import Flask, Response
 
 from DBInterface import DBInterface
 from Seeder import Seeder
-from Var import Calc
+from calculations import *
 
 app = Flask("analyzer-service")
 
@@ -36,7 +36,7 @@ def statusHandler():
 @app.route("/admin/getHistoricalData")
 def historicalData():
   """
-  Seed cloud database with full set of sample data
+  Load cloud database with full set of ticker data data
 
   @return string HTML confirmation of seeding
   """
@@ -66,51 +66,51 @@ def redeploy():
 @app.route("/analyzer/var/<ticker>")
 def valueAtRisk(ticker):
   '''value at risk'''
-  ticker, data = Calc.loadHistorical(ticker)
-  test = Calc.calculateVar(ticker, data)
+  ticker, data = loadHistorical(ticker)
+  test = calculateVar(ticker, data)
 
   return str(test)
 
 @app.route("/analyzer/beta/<ticker>")
-def calculateBeta(ticker):
+def calceBeta(ticker):
   '''beta'''
-  ticker, data = Calc.loadHistorical(ticker)
-  bTicker, bData = Calc.loadHistorical("SPY")
-  test = Calc.calculateBeta(ticker, data, bData)
+  ticker, data = loadHistorical(ticker)
+  bTicker, bData = loadHistorical("SPY")
+  test = calculateBeta(ticker, data, bData)
 
   return str(test)
 
 @app.route("/analyzer/sd/<ticker>")
-def calculateSD(ticker):
+def calcSD(ticker):
   '''sd of returns'''
-  ticker, data = Calc.loadHistorical(ticker)
-  test = Calc.calculateSD(ticker, data)
+  ticker, data = loadHistorical(ticker)
+  test = calculateSD(ticker, data)
 
   return str(test)
 
 @app.route("/analyzer/r2/<ticker>")
-def calculateR2(ticker):
+def calcR2(ticker):
   '''r2 of returns'''
-  ticker, data = Calc.loadHistorical(ticker)
-  bTicker, bData = Calc.loadHistorical("SPY")
-  test = Calc.calculateR2(ticker, data, bData)
+  ticker, data = loadHistorical(ticker)
+  bTicker, bData = loadHistorical("SPY")
+  test = calculateR2(ticker, data, bData)
 
   return str(test)
 
 @app.route("/analyzer/CAPM/<ticker>")
 def calculateCAPM(ticker):
   '''CAPM E(r)'''
-  ticker, data = Calc.loadHistorical(ticker)
-  bTicker, bData = Calc.loadHistorical("SPY")
-  test = Calc.calculateER(ticker, data, bData)
+  ticker, data = loadHistorical(ticker)
+  bTicker, bData = loadHistorical("SPY")
+  test = calculateER(ticker, data, bData)
   return str(test)
 
 @app.route("/analyzer/sharpe/<ticker>")
 def calculateSharpe(ticker):
   '''Sharpe Ratio'''
-  ticker, data = Calc.loadHistorical(ticker)
-  bTicker, bData = Calc.loadHistorical("SPY")
-  test = Calc.calculateSharpeRatio(ticker, data, bData)
+  ticker, data = loadHistorical(ticker)
+  bTicker, bData = loadHistorical("SPY")
+  test = calculateSharpeRatio(ticker, data, bData)
   return str(test)
 
 if __name__ == "__main__":

@@ -97,3 +97,7 @@ td {
 :local(.chart) {
   justify-content: center;
 }
+
+.recharts-surface {
+  overflow:visible;
+}
