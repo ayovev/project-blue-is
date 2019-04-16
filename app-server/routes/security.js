@@ -37,7 +37,6 @@ router.route(`/:symbol`)
 
       const { AnalysisCollection } = request.app.locals;
       const analysisData = await AnalysisCollection.findOne({ symbol });
-      //console.log(analysisData);
       return response.status(200).send(analysisData);
     }
     catch (error) {
@@ -70,14 +69,14 @@ router.route(`/:symbol/historical`)
           //console.log("Date Check: " + dateCheck.toLocaleDateString())
         }
         dateCheck.setMonth(dateCheck.getMonth()-6);
-        dateCheckConverted = await dateConversion (dateCheck);
+        dateCheckConverted = dateConversion (dateCheck);
         tickerShares= 100000/tickerPriceData.data[dateCheckConverted].adjustedClose;
         indexShares= 100000/IndexPriceData.data[dateCheckConverted].adjustedClose;
       }
       else {
         dateCheck = new Date("2019-03-05");
         dateCheck.setMonth(dateCheck.getMonth()-6);
-        dateCheckConverted = await dateConversion (dateCheck);        
+        dateCheckConverted = dateConversion (dateCheck);        
         tickerShares = 100000/tickerPriceData.data[dateCheckConverted].adjustedClose;
         indexShares = 100000/IndexPriceData.data[dateCheckConverted].adjustedClose;
 
@@ -90,7 +89,7 @@ router.route(`/:symbol/historical`)
       const symbolDataValues = Object.values(tickerPriceData.data);
     
       const portfolioTickerName = "Portfolio"+symbol;
-      console.log(dateCheck.toLocaleDateString())
+
       for (let index = 0; ; index += 5) {
         if (new Date(symbolDataKeys[index]) <= dateCheck) {
           historicalData.push({
@@ -125,7 +124,7 @@ router.route(`/:symbol/historical`)
     }
   });
 
- async function dateConversion(input) {
+ function dateConversion(input) {
   var y = input.getFullYear().toString();
   var m = (input.getMonth() + 1).toString();
   var d = input.getDate().toString();
