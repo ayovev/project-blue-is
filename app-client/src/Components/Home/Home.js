@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { NavLink as RRNavLink } from 'react-router-dom';
-import { Button, Card, CardBody, CardImg, CardSubtitle, CardText, CardTitle, Col, Container, NavLink, Row } from "reactstrap";
+import { Button, Card, CardBody, CardImg, CardText, CardTitle, Col, Container, NavLink, Row } from "reactstrap";
 import styles from "./Home.css";
 
 import Search from "./assets/securitySearchv2.png";
 import Security from "./assets/analysis.png";
-import Historical from "./assets/historicalPerformance.png"
+import Historical from "./assets/historicalPerformance.png";
 import What from "./assets/what.jpg";
 import How from "./assets/how.png";
 

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { Container, Row } from "reactstrap";
 import axios from "axios";
-import { Line, LineChart,XAxis,YAxis,Tooltip,Legend,CartesianGrid } from "recharts";
+import { Line, LineChart, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from "recharts";
 import CircularProgressbar from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import styles from "./Security.css";
@@ -36,13 +36,13 @@ export default class Security extends Component {
     if (!symbols.includes(this.state.symbol)) {
       this.setState({ redirect: true });
     }
-  
+
     const analysisData = await this.getAnalysisData();
     const historicalData = await this.getHistoricalData();
     this.setState({ historicalData });
-      
-      const { beta, expectedReturn, investabilityIndex, rSquared, sharpeRatio, standardDeviation, valueAtRisk } = analysisData;
-      this.setState({
+
+    const { beta, expectedReturn, investabilityIndex, rSquared, sharpeRatio, standardDeviation, valueAtRisk } = analysisData;
+    this.setState({
       beta,
       expectedReturn,
       investabilityIndex,
@@ -213,34 +213,34 @@ export default class Security extends Component {
               <YAxis />
               <Tooltip />
               <Legend />
-              <Line type="natural" dataKey="SPY" stroke="#4286f4" strokeWidth={2}  animationDuration={1400}/>
-              <Line type="natural" dataKey={this.state.symbol} stroke="#82ca9d" strokeWidth={2}  animationDuration={1400}/>
+              <Line type="natural" dataKey="SPY" stroke="#4286f4" strokeWidth={2} animationDuration={1400}/>
+              <Line type="natural" dataKey={this.state.symbol} stroke="#82ca9d" strokeWidth={2} animationDuration={1400}/>
             </LineChart>
           </Row>
         </Container>
-      <Container className={styles.containerStyling}>
-      <Row className="Row">
-        <hr className={styles.hr2}/>
-      </Row>
-      <Row className="Row">
-        <h3>Portfolio Performance of {this.state.symbol} Compared To The SPY </h3>
-      </Row>
-      <Row className="Row">
-        <LineChart className={styles.chart} width={900} height={400} data={this.state.historicalData}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="date" tickFormatter={formatterDate}/>
-          <YAxis type="number" domain={[40000,120000]} tickFormatter={formatterNum}/>
-          {/* <XAxis dataKey="date" />
+        <Container className={styles.containerStyling}>
+          <Row className="Row">
+            <hr className={styles.hr2}/>
+          </Row>
+          <Row className="Row">
+            <h3>Portfolio Performance of {this.state.symbol} Compared To The SPY </h3>
+          </Row>
+          <Row className="Row">
+            <LineChart className={styles.chart} width={900} height={400} data={this.state.historicalData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="date" tickFormatter={formatterDate}/>
+              <YAxis type="number" domain={[40000, 120000]} tickFormatter={formatterNum}/>
+              {/* <XAxis dataKey="date" />
           <YAxis type="number" domain={[40000,120000]} /> */}
-          <Tooltip />
-          <Legend />
-          <Line type="natural" dataKey="PortfolioSPY" stroke="#4286f4" strokeWidth={2}  animationDuration={1400}/>
-          <Line type="natural" dataKey={"Portfolio"+this.state.symbol} stroke="#82ca9d" strokeWidth={2}  animationDuration={1400}/>
-        </LineChart>
-        <p>The chart above depicts the return on investment if $100,000 was invested in {this.state.symbol} vs the SPY 6 months prior.</p>
-      </Row>
-    </Container>
-  </React.Fragment>
+              <Tooltip />
+              <Legend />
+              <Line type="natural" dataKey="PortfolioSPY" stroke="#4286f4" strokeWidth={2} animationDuration={1400}/>
+              <Line type="natural" dataKey={`Portfolio`+this.state.symbol} stroke="#82ca9d" strokeWidth={2} animationDuration={1400}/>
+            </LineChart>
+            <p>The chart above depicts the return on investment if $100,000 was invested in {this.state.symbol} vs the SPY 6 months prior.</p>
+          </Row>
+        </Container>
+      </React.Fragment>
     );
   }
 }

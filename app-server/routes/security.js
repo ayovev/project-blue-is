@@ -50,45 +50,43 @@ router.route(`/:symbol/historical`)
     try {
       const token = request.header(`Authorization`) || request.cookies[`pbiToken`];
       await jwt.verify(token, process.env.TOKEN_SECRET);
-      
+
 
       const symbol = request.params[`symbol`].toUpperCase();
 
       winston.info(`getting historical data for symbol ${symbol}`);
 
       const { PricedataCollection } = request.app.locals;
-      const tickerPriceData = await PricedataCollection.findOne({"metadata.symbol":symbol}, { projection: { data: 1} });
-      const IndexPriceData = await PricedataCollection.findOne({"metadata.symbol":"SPY"}, { projection: { data: 1} });
+      const tickerPriceData = await PricedataCollection.findOne({ "metadata.symbol": symbol }, { projection: { data: 1 } });
+      const IndexPriceData = await PricedataCollection.findOne({ "metadata.symbol": `SPY` }, { projection: { data: 1 } });
       let dateCheck;
-      let tickerShares,indexShares;
+      let tickerShares; let indexShares;
 
-      if(process.env.NODE_ENV === `production`){
+      if (process.env.NODE_ENV === `production`) {
         dateCheck = new Date();
-        while(!businessDays(dateCheck.toLocaleDateString(),'MM/DD/YYYY').isBusinessDay()) {
-          dateCheck.setDate( dateCheck.getDate() - 1);
-          //console.log("Date Check: " + dateCheck.toLocaleDateString())
+        while (!businessDays(dateCheck.toLocaleDateString(), `MM/DD/YYYY`).isBusinessDay()) {
+          dateCheck.setDate(dateCheck.getDate() - 1);
         }
         dateCheck.setMonth(dateCheck.getMonth()-6);
-        dateCheckConverted = dateConversion (dateCheck);
+        dateCheckConverted = dateConversion(dateCheck);
         tickerShares= 100000/tickerPriceData.data[dateCheckConverted].adjustedClose;
         indexShares= 100000/IndexPriceData.data[dateCheckConverted].adjustedClose;
       }
       else {
-        dateCheck = new Date("2019-03-05");
+        dateCheck = new Date(`2019-03-05`);
         dateCheck.setMonth(dateCheck.getMonth()-6);
-        dateCheckConverted = dateConversion (dateCheck);        
+        dateCheckConverted = dateConversion(dateCheck);
         tickerShares = 100000/tickerPriceData.data[dateCheckConverted].adjustedClose;
         indexShares = 100000/IndexPriceData.data[dateCheckConverted].adjustedClose;
-
       }
 
       let historicalData = [];
       const indexDataValues = Object.values(IndexPriceData.data);
-    
+
       const symbolDataKeys = Object.keys(tickerPriceData.data);
       const symbolDataValues = Object.values(tickerPriceData.data);
-    
-      const portfolioTickerName = "Portfolio"+symbol;
+
+      const portfolioTickerName = `Portfolio`+symbol;
 
       for (let index = 0; ; index += 5) {
         if (new Date(symbolDataKeys[index]) <= dateCheck) {
@@ -104,7 +102,7 @@ router.route(`/:symbol/historical`)
         else {
           const symbolNewPrice = symbolDataValues[index].adjustedClose;
           const symbolOldPrice = symbolDataValues[index + 1].adjustedClose;
-      
+
           const indexNewPrice = indexDataValues[index].adjustedClose;
           const indexOldPrice = indexDataValues[index + 1].adjustedClose;
           historicalData.push({
@@ -124,13 +122,13 @@ router.route(`/:symbol/historical`)
     }
   });
 
- function dateConversion(input) {
-  var y = input.getFullYear().toString();
-  var m = (input.getMonth() + 1).toString();
-  var d = input.getDate().toString();
-  (d.length == 1) && (d = '0' + d);
-  (m.length == 1) && (m = '0' + m);
-  var correctFormat = y + "-" + m + "-" + d;
+function dateConversion(input) {
+  const y = input.getFullYear().toString();
+  let m = (input.getMonth() + 1).toString();
+  let d = input.getDate().toString();
+  (d.length == 1) && (d = `0` + d);
+  (m.length == 1) && (m = `0` + m);
+  const correctFormat = y + `-` + m + `-` + d;
   return correctFormat;
- }
+}
 module.exports = router;
