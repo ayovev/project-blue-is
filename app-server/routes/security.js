@@ -62,7 +62,7 @@ router.route(`/:symbol/historical`)
       const IndexPriceData = await PricedataCollection.findOne({"metadata.symbol":"SPY"}, { projection: { data: 1} });
       let dateCheck;
       let tickerShares,indexShares;
-      //create string for price data date relative to today's date or seeded data in dev.
+
       if(process.env.NODE_ENV === `production`){
         dateCheck = new Date();
         while(!businessDays(dateCheck.toLocaleDateString(),'MM/DD/YYYY').isBusinessDay()) {
@@ -78,7 +78,6 @@ router.route(`/:symbol/historical`)
         dateCheck = new Date("2019-03-05");
         dateCheck.setMonth(dateCheck.getMonth()-6);
         dateCheckConverted = await dateConversion (dateCheck);        
-        //TODO: This does not work in a production environment. Need to get the right datecheck for the multiplier.
         tickerShares = 100000/tickerPriceData.data[dateCheckConverted].adjustedClose;
         indexShares = 100000/IndexPriceData.data[dateCheckConverted].adjustedClose;
 
