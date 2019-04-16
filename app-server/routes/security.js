@@ -90,7 +90,7 @@ router.route(`/:symbol/historical`)
       const symbolDataValues = Object.values(tickerPriceData.data);
     
       const portfolioTickerName = "Portfolio"+symbol;
-    
+      console.log(dateCheck.toLocaleDateString())
       for (let index = 0; ; index += 5) {
         if (new Date(symbolDataKeys[index]) <= dateCheck) {
           historicalData.push({
@@ -100,7 +100,6 @@ router.route(`/:symbol/historical`)
             [portfolioTickerName]: (tickerShares * symbolDataValues[index].adjustedClose).toFixed(0),
             PortfolioSPY: (indexShares * indexDataValues[index].adjustedClose).toFixed(0)
           });
-    
           break;
         }
         else {
@@ -133,7 +132,6 @@ router.route(`/:symbol/historical`)
   (d.length == 1) && (d = '0' + d);
   (m.length == 1) && (m = '0' + m);
   var correctFormat = y + "-" + m + "-" + d;
-  console.log("Correct Date Format: " + correctFormat)
   return correctFormat;
  }
 module.exports = router;
