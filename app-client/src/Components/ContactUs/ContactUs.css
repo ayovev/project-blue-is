@@ -19,8 +19,3 @@
   font-size: 24px;
   font-weight: 300;
 }
-
-:local(.chart) {
-  margin: 1% auto 0% auto;
-  text-align: center;
-}

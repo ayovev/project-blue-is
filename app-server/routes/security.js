@@ -37,7 +37,7 @@ router.route(`/analysis/:symbol`)
 
       const { AnalysisCollection } = request.app.locals;
       const analysisData = await AnalysisCollection.findOne({ symbol }, { projection: { _id: 0 } });
-      
+
       return response.status(200).send(analysisData);
     }
     catch (error) {
@@ -59,12 +59,13 @@ router.route(`/companyInformation/:symbol`)
       const companyInformation = await CompanyInformationCollection.findOne({ symbol }, { projection: { _id: 0 } });
 
       return response.status(200).send(companyInformation);
+    }
     catch (error) {
       return next(error);
     }
-    });
+  });
 
-router.route(`/:symbol/historical`)
+router.route(`/historical/:symbol`)
   .get(async (request, response, next) => {
     try {
       const token = request.header(`Authorization`) || request.cookies[`pbiToken`];

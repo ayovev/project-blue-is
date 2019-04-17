@@ -62,8 +62,12 @@ td {
 }
 
 :local(.chartHeader) {
-  margin-top: 2px;
-  padding-top: 10px;
+  margin: 2% auto 1% auto;
+  text-align: center;
+}
+
+:local(.chartFooter) {
+  margin: 1% auto 1% auto;
   text-align: center;
 }
 
@@ -99,5 +103,5 @@ td {
 }
 
 .recharts-surface {
-  overflow:visible;
+  overflow: visible;
 }

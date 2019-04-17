@@ -1,20 +1,13 @@
 import React, { Component } from "react";
 import { NavLink as RRNavLink } from "react-router-dom";
 import { Button, Col, Container, NavLink, Row } from "reactstrap";
-import { LineChart, Line } from "recharts";
+import { Line, LineChart } from "recharts";
 import styles from "./Team.css";
 import Alex from "./assets/alex.png";
 import James from "./assets/james.png";
 import Nate from "./assets/nate.png";
 
 const data = [
-  { value: 45 },
-  { value: 45 },
-  { value: 45 },
-  { value: 45 },
-  { value: 45 },
-  { value: 45 },
-  { value: 45 },
   { value: 45 },
   { value: 45 }
 ];

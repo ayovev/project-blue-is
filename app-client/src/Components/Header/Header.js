@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { NavLink as RRNavLink, Link } from "react-router-dom";
-import { Collapse, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
+import { Collapse, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Media, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import axios from "axios";
 import { AuthenticationConsumer, AuthenticationContext } from "../../Contexts/AuthenticationContext/AuthenticationContext";
 import styles from "./Header.css";
@@ -57,7 +57,7 @@ export default class Header extends Component {
     return (
       <AuthenticationConsumer>
         {({ isAuthenticated, logout }) => (
-          <Navbar sticky="top" className={styles.navbar} expand="lg">
+          <Navbar sticky="top" className={styles.navbar} expand="xl">
             <NavbarBrand tag={RRNavLink} to="/" className={styles.navlink}><b>IEEN</b></NavbarBrand>
             <NavbarToggler className="navbar-dark" onClick={this.toggleNavbar}/>
             <Collapse isOpen={this.state.isOpen} navbar>
@@ -66,7 +66,7 @@ export default class Header extends Component {
                   <NavLink to="/" activeClassName="selected" tag={RRNavLink} className={styles.navlink} exact>Home</NavLink>
                 </NavItem>
                 <NavItem className={styles.navitem}>
-                  <a className={styles.navlink} href="https://www.cse.unr.edu/~nathanaelf/" target="_blank" rel="noopener noreferrer">Senior Project</a>
+                  <a className={[styles.navlink, "nav-link"].join(` `)} href="https://www.cse.unr.edu/~nathanaelf/" target="_blank" rel="noopener noreferrer">Senior Project</a>
                 </NavItem>
                 <NavItem className={styles.navitem}>
                   <NavLink to="/methodology" activeClassName="selected" tag={RRNavLink} className={styles.navlink}>Methodology</NavLink>
@@ -97,17 +97,17 @@ export default class Header extends Component {
               </Nav>
             </Collapse>
             {isAuthenticated && this.state.profilePicture &&
-            <NavbarBrand tag="span" className={styles.navlink}>
+            <Media>
               <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggleDropdown}>
                 <DropdownToggle color="link">
-                  <img src={this.state.profilePicture} alt="profile initials"></img>
+                  <img src={this.state.profilePicture} alt="profile initials"/>
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem tag={Link} to="/userSettings">My Account</DropdownItem>
-                  <DropdownItem onClick={logout}>Logout</DropdownItem>
+                  <DropdownItem tag={Link} to="#" onClick={logout}>Logout</DropdownItem>
                 </DropdownMenu>
               </Dropdown>
-            </NavbarBrand>
+            </Media>
             }
           </Navbar>
         )}

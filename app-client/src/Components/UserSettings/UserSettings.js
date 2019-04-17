@@ -1,8 +1,14 @@
 import React, { Component } from "react";
 import { Button, Col, Container, Form, FormGroup, Input, Label, Media, Row } from 'reactstrap';
+import { LineChart, Line } from "recharts";
 import axios from 'axios';
 import md5 from 'md5';
 import styles from "./UserSettings.css";
+
+const data = [
+  { value: 45 },
+  { value: 45 }
+];
 
 export default class UserSettings extends Component {
   constructor(props) {
@@ -148,16 +154,18 @@ export default class UserSettings extends Component {
     return (
       <React.Fragment>
         <Container>
-          <Row className="FrameTitleText">
+          <Row>
             <Col>
-              <h2>User Preferences</h2>
-              <hr className="dark"></hr>
+              <Media middle className={styles.preText}>User Preferences</Media>
+              <LineChart className={styles.chart} width={75} height={75} data={data}>
+            <Line type="natural" dataKey="value" stroke="#4286f4" strokeWidth={2} dot={null} animationDuration={1200}/>
+          </LineChart>
             </Col>
           </Row>
-          <Row className={styles.memberDisplay}>
+          <Row className={styles.memberHeaderInformation}>
             <Media middle>
-              <Media left>
-                <Media object src={this.state.formattedProfilePicture} alt="User Profile Picture" />
+              <Media middle>
+                <Media object src={this.state.formattedProfilePicture} alt="user profile Picture"/>
               </Media>
               <Media body>
                 <Media heading>
@@ -167,7 +175,7 @@ export default class UserSettings extends Component {
               </Media>
             </Media>
           </Row>
-          <hr className={styles.hrSeperator}></hr>
+          <hr className={styles.hr}></hr>
           <Form onSubmit={this.handleSubmit}>
             <Row className={styles.accountFormRow}>
               <Col md={5}>
