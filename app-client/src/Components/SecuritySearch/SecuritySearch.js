@@ -29,7 +29,22 @@ export default class SecuritySearch extends Component {
   }
 
   async componentDidMount() {
-    await this.getListOfSecurities();
+    let symbols = await this.getListOfSecurities();
+
+    symbols = symbols.filter((item) => {
+      return item.symbol !== `SPY`
+    });
+
+    symbols = symbols.sort((a, b) => a.companyName > b.companyName ? 1 : -1);
+
+    symbols = symbols.map((item) => {
+      return {
+        value: item.symbol,
+        label: `${item.companyName} (${item.symbol})`
+      };
+    });
+
+    this.setState({ symbols });
   }
 
   getListOfSecurities = async () => {
@@ -40,15 +55,7 @@ export default class SecuritySearch extends Component {
     };
 
     const response = await axios(options);
-
-    const symbols = response.data.map((item) => {
-      return {
-        value: item.symbol,
-        label: `${item.companyName} (${item.symbol})`
-      };
-    });
-
-    this.setState({ symbols });
+    return response.data;
   }
 
   handleChange = (selectedOption) => {

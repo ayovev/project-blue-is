@@ -6,15 +6,7 @@ import md5 from "md5";
 import { AuthenticationContext } from "../../Contexts/AuthenticationContext/AuthenticationContext";
 import styles from "./Login.css";
 
-// test data for chart
 const data = [
-  { value: 45 },
-  { value: 45 },
-  { value: 45 },
-  { value: 45 },
-  { value: 45 },
-  { value: 45 },
-  { value: 45 },
   { value: 45 },
   { value: 45 }
 ];
@@ -28,7 +20,6 @@ export default class Login extends Component {
       password: ``,
 
       alertVisible: false,
-      buttonDisabled: false,
       response: undefined,
       statusCode: undefined
     };
@@ -36,8 +27,7 @@ export default class Login extends Component {
 
   dismissAlert = () => {
     this.setState({
-      alertVisible: false,
-      buttonDisabled: false
+      alertVisible: false
     });
   }
 
@@ -51,7 +41,7 @@ export default class Login extends Component {
     event.preventDefault();
 
     this.setState({
-      buttonDisabled: true
+      alertVisible: false
     });
 
     const data = {
@@ -77,7 +67,6 @@ export default class Login extends Component {
     }
   }
 
-  // might need to have more validation here but it"s a start
   validateForm = () => {
     return this.state.email.length > 6 && this.state.password.length > 6;
   }
@@ -85,7 +74,7 @@ export default class Login extends Component {
   renderAlert = () => {
     const { response, statusCode } = this.state;
 
-    if (!response || !statusCode) {
+    if (!response || !statusCode || statusCode === 200) {
       return;
     }
 
@@ -126,7 +115,7 @@ export default class Login extends Component {
               <Input tabIndex={2} type="password" id="password" value={this.state.password} placeholder="Enter your password" onChange={this.handleChange}/>
             </FormGroup>
             <br/>
-            <Button tabIndex={3} type="submit" color="primary" block disabled={!this.validateForm() || this.state.buttonDisabled}>
+            <Button tabIndex={3} type="submit" color="primary" block disabled={!this.validateForm()}>
               Login
             </Button>
           </Form>
