@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import { Col, Container, Row, Media } from "reactstrap";
+import { Col, Container, Row } from "reactstrap";
 import { GridLoader } from "react-spinners";
 import axios from "axios";
 import { CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from "recharts";
