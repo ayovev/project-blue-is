@@ -1,14 +1,13 @@
-'''dependencies'''
 import numpy as np
 import pandas as pd
 from scipy.stats import norm
 import statsmodels.api as sm
 from datetime import datetime
 
-from DBInterface import DBInterface
+from app import app
 
-def filterData(tData):
-  df = pd.DataFrame.from_dict(tData)
+def filterData(symbolData):
+  df = pd.DataFrame.from_dict(symbolData)
   df = df.T
   df.reset_index(level=0, inplace=True)
   x = df.loc[:,'index']
@@ -28,28 +27,17 @@ def sixMonthReturn(df):
   return round(pctChange, 4)
 
 
-def loadHistorical(ticker):
-  '''
-  load historical data for class attribute - ticker
+def loadHistorical(symbol):
+  collection = app.PricedataCollection
+  result = collection.find_one({"metadata.symbol": "{}".format(symbol)})
+  data = result["data"]
 
-  @return bool set to true if functions completes
-  '''
-  client, collection = DBInterface.connect() #need try catch here
-  cursor = collection.find_one({"MetaData.2Symbol" : "{}".format(ticker)})
-  tName = cursor['MetaData']['2Symbol']
-  tData = cursor['TimeSeries(Daily)']
-
-  return (tName, tData)
+  return data
 
 
-def calculateVar(tName, tData):
-  '''
-  Function to calculate the Value at Risk using the Variance/Covaraiance method
-
-  @return dict containing ticker symbol and 3 levels of value at risk (90, 95, 99)
-  '''
+def calculateValueAtRisk(symbolData):
   # make data into a pandas data frame
-  df = filterData(tData)
+  df = filterData(symbolData)
   df = df.iloc[::-1]
 
   # calculate percent returns per day
@@ -64,26 +52,21 @@ def calculateVar(tName, tData):
   VaR_95 = norm.ppf(.05, pr_mean, pr_std)
   VaR_99 = norm.ppf(.01, pr_mean, pr_std)
 
-  returnDict = {"Ticker" : tName, "Value at Risk 90%" : round(VaR_90, 4), "Value at Risk 95%" : round(VaR_95, 4), "Value at Risk 99%" : round(VaR_99, 4)}
+  returnDict = {"Value at Risk 90%" : round(VaR_90, 4), "Value at Risk 95%" : round(VaR_95, 4), "Value at Risk 99%" : round(VaR_99, 4)}
 
   return returnDict
 
 
-def calculateBeta(tName, tData, bData):
-  '''
-  Function to calculate the Beta of a given ticker
-
-  @return Beta value
-  '''
+def calculateBeta(symbolData, indexData):
   # make data into a pandas data frame
-  df = filterData(tData)
+  df = filterData(symbolData)
   df = df.iloc[::-1]
 
   # calculate percent returns per day for stock
   pReturns = pd.to_numeric(df.iloc[:, 5]).pct_change()
 
   # get the benchmark percentage returns per day and get the std + variance
-  df2 = filterData(bData)
+  df2 = filterData(indexData)
   df2 = df2.iloc[::-1]
 
   bReturns = pd.to_numeric(df2.iloc[:, 5]).pct_change()
@@ -94,12 +77,9 @@ def calculateBeta(tName, tData, bData):
   return {"Beta" : round(float(numerator/denominator), 4)}
 
 
-def calculateSD(tName, tData):
-  '''
-  SD of percent returns
-  '''
+def calculateStandardDeviation(symbolData):
   # make data into a pandas data frame
-  df = filterData(tData)
+  df = filterData(symbolData)
   df = df.iloc[::-1]
 
   # calculate percent returns per day for stock
@@ -111,13 +91,9 @@ def calculateSD(tName, tData):
 
 
 
-def calculateR2(tName, tData, bData):
-  '''
-  Function to calculate the r2 of a stock (w/ SPY)
-  '''
-
+def calculateRSquared(symbolData, indexData):
   # make data into a pandas data frame
-  df = filterData(tData)
+  df = filterData(symbolData)
   df = df.iloc[::-1]
 
   # calculate percent returns per day for stock
@@ -125,7 +101,7 @@ def calculateR2(tName, tData, bData):
   pReturns = pReturns[1:]
 
   # get the benchmark percentage returns per day
-  df2 = filterData(bData)
+  df2 = filterData(indexData)
   df2 = df2.iloc[::-1]
 
   bReturns = pd.to_numeric(df2.iloc[:, 5]).pct_change()
@@ -133,26 +109,23 @@ def calculateR2(tName, tData, bData):
 
   model = sm.OLS(pReturns, bReturns).fit()
 
-  return {"R-Squared: {}".format(tName, round(model.rsquared, 4))}
+  return {"R-Squared: {}".format(round(model.rsquared, 4))}
 
 
-def calculateER(tName, tData, bData):
-  '''
-  Function to calculate the CAPM expected return
-  '''
+def calculateExpectedReturn(symbolData, indexData):
   # CAPM = rf + B(rm - rf)
   # ------------------------
   rf = 0.025 # risk free rate of 2.5%
 
   # get the benchmark percentage returns per day
-  df2 = filterData(bData)
+  df2 = filterData(indexData)
   df2 = df2.iloc[::-1]
 
   # find market return
   rm = sixMonthReturn(df2)
 
   # find Beta of tName
-  tBeta = calculateBeta(tName, tData, bData)
+  tBeta = calculateBeta(symbolData, indexData)
 
   #CAPM = rf + B(rm - rf)
   CAPM = rf + tBeta["Beta"] * (rm - rf)
@@ -160,10 +133,10 @@ def calculateER(tName, tData, bData):
   return {"CAPM E(R)" : round(CAPM, 4)}
 
 
-def calculateSharpeRatio(tName, tData, bData):
+def calculateSharpeRatio(symbolData, indexData):
   # Sharpe = r_stock - rf / (sd of returns)
   rf = 0.025
-  r_stock = calculateER(tName, tData, bData)
-  sd = calculateSD(tName, tData)
+  r_stock = calculateExpectedReturn(symbolData, indexData)
+  sd = calculateStandardDeviation(symbolData)
   sharpe = (r_stock["CAPM E(R)"] - rf) / sd["Standard Deviation of percent returns"]
   return {"Sharpe Ratio" : round(sharpe,2)}
