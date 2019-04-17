@@ -1,14 +1,12 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import { Col, Container, Row } from "reactstrap";
+import { Col, Container, Row, Media } from "reactstrap";
+import { GridLoader } from "react-spinners";
 import axios from "axios";
 import { CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from "recharts";
 import CircularProgressbar from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import styles from "./Security.css";
-
-const formatterNum = (value) =>`$${value.toLocaleString()}`;
-const formatterDate = (value) => `${value.toLocaleString(`en-US`, { month: `long`, year: `numeric` })}`;
 
 const BLUE = 0x4286f4;
 const ORANGE = 0xf48942;
@@ -37,7 +35,6 @@ export default class Security extends Component {
 
     const analysis = await this.getAnalysis();
     const historicalData = await this.getHistoricalData();
-    this.setState({ historicalData });
     const information = await this.getCompanyInformation();
     const favorites = await this.getFavorites();
 
@@ -46,7 +43,7 @@ export default class Security extends Component {
       information.exchange = `NASDAQ`;
     }
 
-    this.setState({ analysis, favorite, information });
+    this.setState({ analysis, favorite, historicalData, information });
   }
 
   lerpColor = (minimumColor, maximumColor, amount) => {
@@ -91,7 +88,7 @@ export default class Security extends Component {
   getHistoricalData = async () => {
     const options = {
       method: `GET`,
-      url: `/api/securities/${this.state.symbol}/historical`,
+      url: `/api/securities/historical/${this.state.symbol}`,
       resolveWithFullResponse: true
     };
 
@@ -143,8 +140,10 @@ export default class Security extends Component {
       return <Redirect to="/404" />;
     }
 
-    if (this.state.analysis === undefined || this.state.favorite === undefined || this.state.information === undefined) {
-      return null;
+    const loading = this.state.analysis === undefined || this.state.favorite === undefined || this.state.information === undefined;
+
+    if (loading) {
+      return <GridLoader color="#4286f4" css={{ margin: `40vh auto auto auto` }}/>
     }
 
     const starClasses = [`fa-star`, styles.favoriteIcon];
@@ -235,23 +234,6 @@ export default class Security extends Component {
           <hr className={styles.hr}/>
           <h3 className={styles.chartHeader}>Historical Performance of {this.state.symbol}</h3>
           <div className={styles.chartContainer}>
-            <LineChart className={styles.chart} width={900} height={400} data={data}>
-              <CartesianGrid strokeDasharray="3 3"/>
-              <XAxis dataKey="day"/>
-              <YAxis/>
-              <Tooltip/>
-              <Legend/>
-              <Line type="natural" dataKey="SPY" stroke="#4286f4" strokeWidth={2} animationDuration={1200}/>
-              <Line type="natural" dataKey="ticker" stroke="#82ca9d" strokeWidth={2} animationDuration={1200}/>
-            </LineChart>
-          </div>
-          <Row className="Row">
-            <hr className={styles.hr2}/>
-          </Row>
-          <Row className="Row">
-            <h3>Historical Performance of {this.state.symbol} </h3>
-          </Row>
-          <Row className="Row">
             <LineChart className={styles.chart} width={900} height={400} data={this.state.historicalData}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="date"/>
@@ -261,24 +243,20 @@ export default class Security extends Component {
               <Line type="natural" dataKey="SPY" stroke="#4286f4" strokeWidth={2} animationDuration={1400}/>
               <Line type="natural" dataKey={this.state.symbol} stroke="#82ca9d" strokeWidth={2} animationDuration={1400}/>
             </LineChart>
-          </Row>
-          <Row className="Row">
-            <hr className={styles.hr2}/>
-          </Row>
-          <Row className="Row">
-            <h3>Portfolio Performance of {this.state.symbol} Compared To The SPY </h3>
-          </Row>
-          <Row className="Row">
+          </div>
+          <h3 className={styles.chartHeader}>Portfolio Performance of {this.state.symbol} Compared To SPY </h3>
+          <div className={styles.chartContainer}>
             <LineChart className={styles.chart} width={900} height={400} data={this.state.historicalData}>
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="date" tickFormatter={formatterDate}/>
-              <YAxis type="number" domain={[40000, 120000]} tickFormatter={formatterNum}/>
+              <XAxis dataKey="date" tickFormatter={(value) => `${value.toLocaleString("en-US", { month: "long", year: "numeric" })}`}/>
+              <YAxis type="number" domain={[40000, 120000]} tickFormatter={(value) => `$${value.toLocaleString()}`}/>
               <Tooltip />
               <Legend />
               <Line type="natural" dataKey="PortfolioSPY" stroke="#4286f4" strokeWidth={2} animationDuration={1400}/>
-              <Line type="natural" dataKey={`Portfolio`+this.state.symbol} stroke="#82ca9d" strokeWidth={2} animationDuration={1400}/>
+              <Line type="natural" dataKey={`Portfolio${this.state.symbol}`} stroke="#82ca9d" strokeWidth={2} animationDuration={1400}/>
             </LineChart>
-            <p>The chart above depicts the return on investment if $100,000 was invested in {this.state.symbol} vs the SPY 6 months prior.</p>
+          </div>
+          <p className={styles.chartFooter}>The chart above depicts the return on investment if $100,000 was invested in {this.state.symbol} compared to SPY 6 months prior.</p>
         </Container>
       </React.Fragment>
     );
