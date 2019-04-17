@@ -14,7 +14,6 @@ router.route(`/`)
 
       if (user) {
         winston.error(`${request.body.email} tried to signup but already exists`);
-        // TODO @Nate: modify this to use some better more specific verbiage
         response.status(422).send(`User already exists`);
         return;
       }

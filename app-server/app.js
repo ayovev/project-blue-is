@@ -23,9 +23,11 @@ const app = express();
 require(`mongodb`).MongoClient.connect(DATABASE_URI, { useNewUrlParser: true, poolSize: 10 }, (error, client) => {
   app.locals.MongoClient = client;
   app.locals.Database = app.locals.MongoClient.db();
-  app.locals.UsersCollection = app.locals.Database.collection(`users`);
-  app.locals.PricedataCollection = app.locals.Database.collection(`pricedata`);
   app.locals.AnalysisCollection = app.locals.Database.collection(`analysis`);
+  app.locals.CompanyInformationCollection = app.locals.Database.collection(`companyInformation`);
+  app.locals.PasswordResetsCollection = app.locals.Database.collection(`passwordResets`);
+  app.locals.PricedataCollection = app.locals.Database.collection(`pricedata`);
+  app.locals.UsersCollection = app.locals.Database.collection(`users`);
 });
 
 initializeMorgan();

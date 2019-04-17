@@ -3,15 +3,15 @@
   border: 1px solid #d3d3d3;
   border-radius: 1%;
   background: #ffffff;
-  width: 35%;
+  width: 30%;
   padding: 4%;
 }
 
 :local(.preFormText) {
   margin: -2% auto 0% auto;
   text-align: center;
-  font-size: 32px;
-  font-variant: small-caps;
+  font-size: 24px;
+  font-weight: 300;
 }
 
 :local(.chart) {

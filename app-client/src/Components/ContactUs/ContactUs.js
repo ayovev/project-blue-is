@@ -1,21 +1,7 @@
 import React, { Component } from "react";
 import { Alert, Button, Form, FormGroup, Input, Label } from "reactstrap";
-import { Line, LineChart } from "recharts";
 import axios from "axios";
-import styles from './ContactUs.css';
-
-// test data for chart
-const data = [
-  { value: 45 },
-  { value: 45 },
-  { value: 45 },
-  { value: 45 },
-  { value: 45 },
-  { value: 45 },
-  { value: 45 },
-  { value: 45 },
-  { value: 45 }
-];
+import styles from "./ContactUs.css";
 
 export default class ContactUs extends Component {
   constructor(props) {
@@ -31,8 +17,6 @@ export default class ContactUs extends Component {
       buttonDisabled: false,
       response: undefined,
       statusCode: undefined
-      // still debating on whether to use a status state for rendering...
-      // status: undefined
     };
   }
 
@@ -64,7 +48,7 @@ export default class ContactUs extends Component {
 
     const options = {
       method: `POST`,
-      url: `/api/emails`,
+      url: `/api/emails/contactUs`,
       data
     };
 
@@ -111,12 +95,6 @@ export default class ContactUs extends Component {
     return (
       <React.Fragment>
         {this.renderAlert()}
-        <div>
-          {/* Possibly include some kind of chart here before the text to add a dynamic branding component to the page? */}
-          <LineChart className={styles.chart} width={75} height={75} data={data}>
-            <Line type="natural" dataKey="value" stroke="#4286f4" strokeWidth={2} dot={null} animationDuration={1200}/>
-          </LineChart>
-        </div>
         <h1 className={styles.preFormText}>Contact Us</h1>
         <br/>
         <div className={styles.container}>

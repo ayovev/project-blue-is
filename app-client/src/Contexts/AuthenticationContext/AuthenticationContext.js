@@ -18,7 +18,7 @@ class AuthenticationProvider extends Component {
 
       setInterval(() => {
         this.validateJWT();
-      }, 60000);
+      }, 30000);
     }
 
     this.state = {

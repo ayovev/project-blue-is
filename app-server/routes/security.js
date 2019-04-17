@@ -10,11 +10,11 @@ const router = express.Router();
 router.route(`/`)
   .get(async (request, response, next) => {
     try {
-      const token = request.header(`Authorization`) || request.cookies[`pbiToken`];
+      const token = request.cookies[`pbiToken`] || request.header(`authorization`);
       await jwt.verify(token, process.env.TOKEN_SECRET);
 
-      const { AnalysisCollection } = request.app.locals;
-      const symbols = await AnalysisCollection.find({}, { projection: { symbol: 1, _id: 0 } }).toArray();
+      const { CompanyInformationCollection } = request.app.locals;
+      const symbols = await CompanyInformationCollection.find({}, { projection: { symbol: 1, companyName: 1, _id: 0 } }).toArray();
 
       return response.status(200).send(symbols);
     }
@@ -23,11 +23,11 @@ router.route(`/`)
     }
   });
 
-router.route(`/:symbol`)
+router.route(`/analysis/:symbol`)
   .get(async (request, response, next) => {
     try {
       if (!request.header(`X-Demo`)) {
-        const token = request.header(`Authorization`) || request.cookies[`pbiToken`];
+        const token = request.cookies[`pbiToken`] || request.header(`authorization`);
         await jwt.verify(token, process.env.TOKEN_SECRET);
       }
 
@@ -36,7 +36,8 @@ router.route(`/:symbol`)
       winston.info(`getting analysis for symbol ${symbol}`);
 
       const { AnalysisCollection } = request.app.locals;
-      const analysisData = await AnalysisCollection.findOne({ symbol });
+      const analysisData = await AnalysisCollection.findOne({ symbol }, { projection: { _id: 0 } });
+
       return response.status(200).send(analysisData);
     }
     catch (error) {
@@ -44,13 +45,31 @@ router.route(`/:symbol`)
     }
   });
 
+router.route(`/companyInformation/:symbol`)
+  .get(async (request, response, next) => {
+    try {
+      const token = request.cookies[`pbiToken`] || request.header(`authorization`);
+      await jwt.verify(token, process.env.TOKEN_SECRET);
 
-router.route(`/:symbol/historical`)
+      const symbol = request.params[`symbol`].toUpperCase();
+
+      winston.info(`getting company information for symbol ${symbol}`);
+
+      const { CompanyInformationCollection } = request.app.locals;
+      const companyInformation = await CompanyInformationCollection.findOne({ symbol }, { projection: { _id: 0 } });
+
+      return response.status(200).send(companyInformation);
+    }
+    catch (error) {
+      return next(error);
+    }
+  });
+
+router.route(`/historical/:symbol`)
   .get(async (request, response, next) => {
     try {
       const token = request.header(`Authorization`) || request.cookies[`pbiToken`];
       await jwt.verify(token, process.env.TOKEN_SECRET);
-
 
       const symbol = request.params[`symbol`].toUpperCase();
 
@@ -131,4 +150,5 @@ function dateConversion(input) {
   const correctFormat = y + `-` + m + `-` + d;
   return correctFormat;
 }
+
 module.exports = router;

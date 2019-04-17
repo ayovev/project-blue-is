@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Redirect } from 'react-router-dom';
 import Select from "react-select";
+import { Redirect } from "react-router-dom";
 import { LineChart, Line } from "recharts";
 import axios from 'axios';
 import styles from "./SecuritySearch.css";
@@ -23,13 +23,28 @@ export default class SecuritySearch extends Component {
     super(props);
 
     this.state = {
-      options: [],
+      symbols: undefined,
       selectedOption: null
     };
   }
 
   async componentDidMount() {
-    await this.getListOfSecurities();
+    let symbols = await this.getListOfSecurities();
+
+    symbols = symbols.filter((item) => {
+      return item.symbol !== `SPY`
+    });
+
+    symbols = symbols.sort((a, b) => a.companyName > b.companyName ? 1 : -1);
+
+    symbols = symbols.map((item) => {
+      return {
+        value: item.symbol,
+        label: `${item.companyName} (${item.symbol})`
+      };
+    });
+
+    this.setState({ symbols });
   }
 
   getListOfSecurities = async () => {
@@ -40,15 +55,7 @@ export default class SecuritySearch extends Component {
     };
 
     const response = await axios(options);
-
-    const symbols = response.data.map((item) => {
-      return {
-        value: item.symbol,
-        label: item.symbol
-      };
-    });
-
-    this.setState({ options: symbols });
+    return response.data;
   }
 
   handleChange = (selectedOption) => {
@@ -56,10 +63,14 @@ export default class SecuritySearch extends Component {
   }
 
   render() {
+    if (this.state.symbols === undefined) {
+      return null;
+    }
     const { selectedOption } = this.state;
 
     if (selectedOption) {
-      return <Redirect to={`/security/${selectedOption.value}`} />;
+      return <Redirect to={`security/${selectedOption.value}`} />;
+      // return window.location.assign(`/security/${selectedOption.value}`);
     }
 
     return (
@@ -76,7 +87,7 @@ export default class SecuritySearch extends Component {
           className={styles.container}
           value={selectedOption}
           onChange={this.handleChange}
-          options={this.state.options}
+          options={this.state.symbols}
         />
       </React.Fragment>
 

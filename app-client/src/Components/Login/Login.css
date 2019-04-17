@@ -3,15 +3,25 @@
   border: 1px solid #d3d3d3;
   border-radius: 1%;
   background: #ffffff;
-  width: 35%;
+  width: 30%;
   padding: 4%;
+}
+
+:local(.container2) {
+  margin: 0% auto 1% auto;
+  border: 1px solid #d3d3d3;
+  border-radius: 1%;
+  background: transparent;
+  width: 30%;
+  padding: 1%;
+  text-align: center;
 }
 
 :local(.preFormText) {
   margin: -2% auto 0% auto;
   text-align: center;
-  font-size: 32px;
-  font-variant: small-caps;
+  font-size: 24px;
+  font-weight: 300;
 }
 
 :local(.chart) {
@@ -19,3 +29,19 @@
   text-align: center;
 }
 
+:local(.forgotPasswordLink) {
+  display: initial;
+  padding: 0;
+  float: right;
+}
+
+:local(.signupLink) {
+  display: initial;
+  padding: 0;
+}
+
+:local(.alert) {
+  margin-top: 1%;
+  margin-left: 10%;
+  margin-right: 10%;
+}

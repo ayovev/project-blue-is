@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { NavLink as RRNavLink } from 'react-router-dom';
 import { Button, Card, CardBody, CardImg, CardText, CardTitle, Col, Container, NavLink, Row } from "reactstrap";
 import styles from "./Home.css";
-
 import Search from "./assets/securitySearchv2.png";
 import Security from "./assets/analysis.png";
 import Historical from "./assets/historicalPerformance.png";
@@ -33,7 +32,7 @@ export default class Home extends Component {
             <hr className="light"></hr>
 
             <div className={styles.centerButtonDiv}>
-              <button onClick={() => this.scroll(this.myRef)} className={styles.learnMoreButton}>Learn More <i className={`w3-jumbo fa fa-angle-down`}></i></button>
+              <button onClick={() => this.scroll(this.myRef)} className={styles.learnMoreButton}>Learn More&nbsp;<i className="fa fa-angle-down"></i></button>
             </div>
           </div>
         </div>

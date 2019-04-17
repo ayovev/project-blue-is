@@ -31,18 +31,17 @@ export default class Signup extends Component {
       confirmPassword: ``,
       investmentStyle: ``,
 
-      alertVisible: true,
+      alertVisible: false,
       buttonDisabled: false,
       response: undefined,
       statusCode: undefined
-      // still debating on whether to use a status state for rendering...
-      // status: undefined
     };
   }
 
   dismissAlert = () => {
     this.setState({
-      alertVisible: false
+      alertVisible: false,
+      buttonDisabled: false
     });
   }
 
@@ -84,9 +83,16 @@ export default class Signup extends Component {
     }
     finally {
       this.setState({
+        alertVisible: true,
         response,
         statusCode: response.status
       });
+
+      window.document.body.scrollTo(0, 0);
+
+      setTimeout(() => {
+        window.location.assign(`/`);
+      }, 3000);
     }
   }
 

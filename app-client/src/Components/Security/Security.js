@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import { Container, Row } from "reactstrap";
+import { Col, Container, Row } from "reactstrap";
+import { GridLoader } from "react-spinners";
 import axios from "axios";
-import { Line, LineChart, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from "recharts";
+import { CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from "recharts";
 import CircularProgressbar from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import styles from "./Security.css";
 
-const formatterNum = (value) =>`$${value.toLocaleString()}`;
-const formatterDate = (value) => `${value.toLocaleString(`en-US`, { month: `long`, year: `numeric` })}`;
+const BLUE = 0x4286f4;
+const ORANGE = 0xf48942;
 
 export default class Security extends Component {
   constructor(props) {
@@ -16,13 +17,8 @@ export default class Security extends Component {
 
     this.state = {
       symbol: props.match.params.symbol,
-      beta: undefined,
-      expectedReturn: undefined,
-      investabilityIndex: undefined,
-      rSquared: undefined,
-      sharpeRatio: undefined,
-      standardDeviation: undefined,
-      valueAtRisk: undefined,
+      analysis: undefined,
+      information: undefined,
 
       favorite: undefined,
       redirect: false,
@@ -33,34 +29,55 @@ export default class Security extends Component {
   async componentDidMount() {
     const symbols = await this.getListOfSecurities();
 
-    if (!symbols.includes(this.state.symbol)) {
+    if (!symbols.includes(this.state.symbol) || this.state.symbol === `SPY`) {
       this.setState({ redirect: true });
     }
 
-    const analysisData = await this.getAnalysisData();
+    const analysis = await this.getAnalysis();
     const historicalData = await this.getHistoricalData();
-    this.setState({ historicalData });
-
-    const { beta, expectedReturn, investabilityIndex, rSquared, sharpeRatio, standardDeviation, valueAtRisk } = analysisData;
-    this.setState({
-      beta,
-      expectedReturn,
-      investabilityIndex,
-      rSquared,
-      sharpeRatio,
-      standardDeviation,
-      valueAtRisk
-    });
-
+    const information = await this.getCompanyInformation();
     const favorites = await this.getFavorites();
+
     const favorite = favorites.includes(this.state.symbol) ? true : false;
-    this.setState({ favorite });
+    if (information.exchange === `Nasdaq Global Select`) {
+      information.exchange = `NASDAQ`;
+    }
+
+    this.setState({ analysis, favorite, historicalData, information });
   }
 
-  getAnalysisData = async () => {
+  lerpColor = (minimumColor, maximumColor, amount) => {
+    /* eslint-disable */
+    const micR = minimumColor >> 16;
+    const micG = minimumColor >> 8 & 0xff;
+    const micB = minimumColor & 0xff;
+
+    const macR = maximumColor >> 16;
+    const macG = maximumColor >> 8 & 0xff;
+    const macB = maximumColor & 0xff;
+
+    const resultR = micR + amount * (macR - micR);
+    const resultG = micG + amount * (macG - micG);
+    const resultB = micB + amount * (macB - micB);
+    return ((resultR << 16) + (resultG << 8) + (resultB | 0)).toString(16);
+    /* eslint-enable */
+  }
+
+  getAnalysis = async () => {
     const options = {
       method: `GET`,
-      url: `/api/securities/${this.state.symbol}`,
+      url: `/api/securities/analysis/${this.state.symbol}`,
+      resolveWithFullResponse: true
+    };
+
+    const response = await axios(options);
+    return response.data;
+  }
+
+  getCompanyInformation = async () => {
+    const options = {
+      method: `GET`,
+      url: `/api/securities/companyInformation/${this.state.symbol}`,
       resolveWithFullResponse: true
     };
 
@@ -71,7 +88,7 @@ export default class Security extends Component {
   getHistoricalData = async () => {
     const options = {
       method: `GET`,
-      url: `/api/securities/${this.state.symbol}/historical`,
+      url: `/api/securities/historical/${this.state.symbol}`,
       resolveWithFullResponse: true
     };
 
@@ -123,90 +140,100 @@ export default class Security extends Component {
       return <Redirect to="/404" />;
     }
 
-    if (this.state.investabilityIndex === undefined || this.state.favorite === undefined) {
-      return null;
+    const loading = this.state.analysis === undefined || this.state.favorite === undefined || this.state.information === undefined;
+
+    if (loading) {
+      return <GridLoader color="#4286f4" css={{ margin: `40vh auto auto auto` }}/>
     }
 
-    const starClasses = [`fa-lg`, `fa-star`];
+    const starClasses = [`fa-star`, styles.favoriteIcon];
     this.state.favorite ? starClasses.push(`fas`) : starClasses.push(`far`);
+
+    const iconTitle = this.state.favorite ? `Remove from Favorites` : `Add to Favorites`;
+
+    const color = this.lerpColor(ORANGE, BLUE, this.state.analysis.investabilityIndex / 100);
 
     return (
       <React.Fragment>
-
-        <Container className={styles.containerStyling}>
-          <Row className="Row">
-            <h3>Security Results</h3>
+        <Container className={styles.container}>
+          <Row className={styles.row}>
+            <Col xs={9} className={styles.informationContainer}>
+              <h1 className={styles.symbol}>{this.state.symbol}<i onClick={this.toggleFavorite} title={iconTitle} className={starClasses.join(` `)}/></h1>
+              <p className={styles.companyNameAndExchange}>{this.state.information.companyName} | {this.state.information.exchange}</p>
+              <p className={styles.sectorAndIndustry}>{this.state.information.sector} | {this.state.information.industry}</p>
+            </Col>
+            <Col xs={3} className={styles.logoContainer}>
+              <img className={styles.logo} src={this.state.information.logo} alt="company logo"/>
+            </Col>
+            <Col xs={9} className={styles.descriptionContainer}>
+              <p>{this.state.information.description}</p>
+            </Col>
           </Row>
-          <Row className="Row">
-            <hr className={styles.hr1}/>
-          </Row>
-          <Row className="Row">
-            <h1>{this.state.symbol}</h1>
-            <i onClick={this.toggleFavorite} className={starClasses.join(` `)}></i>
-          </Row>
-          <Row className="Row">
-              companyName
-            <hr className={styles.hr2}/>
-          </Row>
-          <Row className="Row">
-            <CircularProgressbar className="radialAnimation"
-              initialAnimation={true}
-              percentage={this.state.investabilityIndex}
-              text={`${this.state.investabilityIndex}`}
-            />
-          </Row>
-          <Row className="Row">
-            <h2>Investability Index</h2>
-          </Row>
-          <Row className="Row">
-            <table>
-              <tbody>
-                <tr>
-                  <td className={styles.td2}>
-                    <b>{this.state.expectedReturn}%</b>
-                    <br/><br/>
-                    Expected Return
-                  </td>
-                  <td className={styles.td2}>
-                    <b>{this.state.valueAtRisk}%</b>
-                    <br/><br/>
-                    Value at Risk
-                  </td>
-                  <td className={styles.td1}>
-                    <b>{this.state.beta}</b>
-                    <br/><br/>
-                    Beta
-                  </td>
-                </tr>
-                <tr>
-                  <td className={styles.td3}>
-                    <b>{this.state.rSquared}</b>
-                    <br/><br/>
-                    R Squared
-                  </td>
-                  <td className={styles.td3}>
-                    <b>{this.state.sharpeRatio}</b>
-                    <br/><br/>
-                    Sharpe Ratio
-                  </td>
-                  <td>
-                    <b>{this.state.standardDeviation}%</b>
-                    <br/><br/>
-                    Standard Deviation
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+          <hr className={styles.hr}/>
+          <Row className={styles.row}>
+            <Col xs={6} className={styles.gaugeContainer}>
+              <CircularProgressbar
+                className={styles.gauge}
+                percentage={this.state.analysis.investabilityIndex}
+                text={`${this.state.analysis.investabilityIndex}`}
+                initialAnimation={true}
+                strokeWidth={4}
+                styles={{
+                  path: {
+                    stroke: color,
+                    strokeLinecap: `butt`,
+                    transition: `stroke-dashoffset 0.5s ease 0s`
+                  },
+                  trail: {
+                    stroke: `#d6d6d6`
+                  },
+                  text: {
+                    fill: color,
+                    fontSize: `30px`
+                  }
+                }}
+              />
+            </Col>
+            <Col xs={6} className={styles.tableContainer}>
+              <table className={styles.table}>
+                <tbody>
+                  <tr>
+                    <td className={styles.td2}>
+                      <p><b>{this.state.analysis.expectedReturn}%</b></p>
+                      <span>Expected Return</span>
+                    </td>
+                    <td className={styles.td2}>
+                      <p><b>{this.state.analysis.standardDeviation}%</b></p>
+                      <span>Standard Deviation</span>
+                    </td>
+                    <td className={styles.td1}>
+                      <p><b>{this.state.analysis.sharpeRatio}</b></p>
+                      <span>Sharpe Ratio</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className={styles.td3}>
+                      <p><b>{this.state.analysis.beta}</b></p>
+                      <span>Beta</span>
+                    </td>
+                    <td className={styles.td3}>
+                      <p><b>{this.state.analysis.rSquared}</b></p>
+                      <span>R Squared</span>
+                    </td>
+                    <td>
+                      <p><b>{this.state.analysis.valueAtRisk}%</b></p>
+                      <span>Value at Risk</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </Col>
           </Row>
         </Container>
-        <Container className={styles.containerStyling}>
-          <Row className="Row">
-            <hr className={styles.hr2}/>
-          </Row>
-          <Row className="Row">
-            <h3>Historical Performance of {this.state.symbol} </h3>
-          </Row>
-          <Row className="Row">
+        <Container className={styles.container}>
+          <hr className={styles.hr}/>
+          <h3 className={styles.chartHeader}>Historical Performance of {this.state.symbol}</h3>
+          <div className={styles.chartContainer}>
             <LineChart className={styles.chart} width={900} height={400} data={this.state.historicalData}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="date"/>
@@ -216,29 +243,20 @@ export default class Security extends Component {
               <Line type="natural" dataKey="SPY" stroke="#4286f4" strokeWidth={2} animationDuration={1400}/>
               <Line type="natural" dataKey={this.state.symbol} stroke="#82ca9d" strokeWidth={2} animationDuration={1400}/>
             </LineChart>
-          </Row>
-        </Container>
-        <Container className={styles.containerStyling}>
-          <Row className="Row">
-            <hr className={styles.hr2}/>
-          </Row>
-          <Row className="Row">
-            <h3>Portfolio Performance of {this.state.symbol} Compared To The SPY </h3>
-          </Row>
-          <Row className="Row">
+          </div>
+          <h3 className={styles.chartHeader}>Portfolio Performance of {this.state.symbol} Compared To SPY </h3>
+          <div className={styles.chartContainer}>
             <LineChart className={styles.chart} width={900} height={400} data={this.state.historicalData}>
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="date" tickFormatter={formatterDate}/>
-              <YAxis type="number" domain={[40000, 120000]} tickFormatter={formatterNum}/>
-              {/* <XAxis dataKey="date" />
-          <YAxis type="number" domain={[40000,120000]} /> */}
+              <XAxis dataKey="date" tickFormatter={(value) => `${value.toLocaleString("en-US", { month: "long", year: "numeric" })}`}/>
+              <YAxis type="number" domain={[40000, 120000]} tickFormatter={(value) => `$${value.toLocaleString()}`}/>
               <Tooltip />
               <Legend />
               <Line type="natural" dataKey="PortfolioSPY" stroke="#4286f4" strokeWidth={2} animationDuration={1400}/>
-              <Line type="natural" dataKey={`Portfolio`+this.state.symbol} stroke="#82ca9d" strokeWidth={2} animationDuration={1400}/>
+              <Line type="natural" dataKey={`Portfolio${this.state.symbol}`} stroke="#82ca9d" strokeWidth={2} animationDuration={1400}/>
             </LineChart>
-            <p>The chart above depicts the return on investment if $100,000 was invested in {this.state.symbol} vs the SPY 6 months prior.</p>
-          </Row>
+          </div>
+          <p className={styles.chartFooter}>The chart above depicts the return on investment if $100,000 was invested in {this.state.symbol} compared to SPY 6 months prior.</p>
         </Container>
       </React.Fragment>
     );

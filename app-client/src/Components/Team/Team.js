@@ -1,32 +1,35 @@
 import React, { Component } from "react";
-import { NavLink as RRNavLink } from 'react-router-dom';
-import { Button, Col, Container, NavLink, Row } from 'reactstrap';
+import { NavLink as RRNavLink } from "react-router-dom";
+import { Button, Col, Container, NavLink, Row } from "reactstrap";
+import { Line, LineChart } from "recharts";
 import styles from "./Team.css";
-import Alex from './assets/alex.png';
-import James from './assets/james.png';
-import Nate from './assets/nate.png';
+import Alex from "./assets/alex.png";
+import James from "./assets/james.png";
+import Nate from "./assets/nate.png";
+
+const data = [
+  { value: 45 },
+  { value: 45 }
+];
 
 export default class Team extends Component {
   render() {
     return (
       <React.Fragment>
-        <Container className={styles.containerFrame2}>
-          <Row className={`FrameTitleText`}>
-            <Col>
-              <h2>MEET THE TEAM</h2>
-              <hr className="dark"/>
-            </Col>
-          </Row>
-          <Row >
-            <Col xs="10" className={`FrameSupportText`}>
+        <h2 className={styles.title}>Meet the Team</h2>
+        <Container>
+          <Row>
+            <Col xs={9} className={styles.supportText}>
               <p>
-                Our team is comprised of dedicated engineers and entrepreneurs that all have unique backgrounds in finance, computer science, business, and financial technology.
+                Our team is comprised of dedicated engineers and entrepreneurs that all have unique backgrounds in finance, computer science, business, and financial technology. Get to know us below!
               </p>
-              <p>Get to know us below!</p>
             </Col>
           </Row>
+          <LineChart className={styles.chart} width={75} height={75} data={data}>
+            <Line type="natural" dataKey="value" stroke="#4286f4" strokeWidth={2} dot={null} animationDuration={1200}/>
+          </LineChart>
           <Row className={styles.row}>
-            <Col xs="2">
+            <Col xs={2}>
               <img src={Nate} className={styles.rightTeamImage} alt="Team member Nate"/>
             </Col>
             <Col>
@@ -36,21 +39,25 @@ export default class Team extends Component {
               <h2>Nathanael Fuller</h2>
             </Col>
           </Row>
-          <hr className="dark"/>
+          <LineChart className={styles.chart} width={75} height={75} data={data}>
+            <Line type="natural" dataKey="value" stroke="#4286f4" strokeWidth={2} dot={null} animationDuration={1200}/>
+          </LineChart>
           <Row className={styles.row}>
-            <Col xs ="10">
+            <Col xs={10}>
               <p className={styles.teamParagraph}>
                 James is a graduating Senior at the University of Nevada, Reno studying Computer Science and Engineering. James specializes in Data Science and Machine Learning as well as short-term investing (trading). James will be earning his Master’s degree in Computer Science in the Spring of 2020 and will then look to enter the Financial Technologies industry as either a Software Engineer or Machine Learning Engineer (Data Scientist). James recently co-founded a FinTech company, along with Alex, where he looks to put his data-minded brain to use in order to produce excess returns.
               </p>
               <h2 style={{ 'textAlign': `right` }}>James Schnebly</h2>
             </Col>
-            <Col xs="2">
+            <Col xs={2}>
               <img src={James} className={styles.rightTeamImage} alt="Team member James"></img>
             </Col>
           </Row>
-          <hr className="dark"/>
+          <LineChart className={styles.chart} width={75} height={75} data={data}>
+            <Line type="natural" dataKey="value" stroke="#4286f4" strokeWidth={2} dot={null} animationDuration={1200}/>
+          </LineChart>
           <Row className={styles.row}>
-            <Col xs="2">
+            <Col xs={2}>
               <img src={Alex} className={styles.rightTeamImage} alt="Team member Alex"></img>
             </Col>
             <Col>
@@ -61,8 +68,8 @@ export default class Team extends Component {
             </Col>
           </Row>
           <Row>
-            <Col className={styles.buttonAlignment}>
-              <Button color="primary"><NavLink to="/contactUs" tag={RRNavLink} style={{ color: `white` }}>Contact Us</NavLink></Button>
+            <Col className={styles.buttonContainer}>
+              <Button color="primary"><NavLink to="/contactUs" tag={RRNavLink} className={styles.button}>Contact Us</NavLink></Button>
             </Col>
           </Row>
         </Container>
