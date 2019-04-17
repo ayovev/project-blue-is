@@ -4,7 +4,7 @@ services:
     image: ayovev/project-blue-is_analyzer-service
     container_name: analyzer-service
     ports:
-      - 4000
+      - 9090
     networks:
       - backend
     environment:
