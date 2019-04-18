@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import { Col, Container, Row } from "reactstrap";
+import { Col, Container, Row, UncontrolledTooltip } from "reactstrap";
 import { GridLoader } from "react-spinners";
 import axios from "axios";
-import { CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from "recharts";
+import { CartesianGrid, Legend, Line, LineChart, Tooltip as Ttip, XAxis, YAxis } from "recharts";
 import CircularProgressbar from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import styles from "./Security.css";
@@ -19,10 +19,65 @@ export default class Security extends Component {
       symbol: props.match.params.symbol,
       analysis: undefined,
       information: undefined,
-
       favorite: undefined,
       redirect: false,
-      historicalData: undefined
+      historicalData: undefined,
+
+      tooltipOpen: false,
+      tooltips: [
+        {
+          text: 'The Capital Asset Pricing Model (CAPM) describes the\
+          relationship between systematic risk and expected return\
+          for assets, particularly stocks. CAPM is widely used throughout\
+          finance for pricing risky securities and generating expected\
+          returns for assets given the risk of those assets and cost of capital.',
+          target: 'ERtt'
+        },
+        {
+          text: 'Standard deviation is a statistical measurement in finance that,\
+          when applied to the annual rate of return of an investment, sheds light\
+          on the historical volatility of that investment. The greater the standard\
+          deviation of a security, the greater the variance between each price and the\
+          mean, which shows a larger price range. For example, a volatile stock has a\
+          high standard deviation, while the deviation of a stable blue-chip stock is\
+          usually rather low.',
+          target: 'SDtt'
+        },
+        {
+          text: 'The Sharpe ratio was developed by Nobel laureate William F. Sharpe and\
+          is used to help investors understand the return of an investment compared to\
+          its risk. The ratio is the average return earned in excess of the risk-free\
+          rate per unit of volatility or total risk. Subtracting the risk-free rate\
+          from the mean return allows an investor to better isolate the profits\
+          associated with risk-taking activities. Generally, the greater the value\
+          of the Sharpe ratio, the more attractive the risk-adjusted return.',
+          target: 'SRtt'
+        },
+        {
+          text: "A beta coefficient is a measure of the volatility, or systematic risk,\
+          of an individual stock in comparison to the unsystematic risk of the entire market.\
+          Beta is used in the capital asset pricing model (CAPM), which calculates the expected\
+          return of an asset using beta and expected market returns. In statistical terms, beta\
+          represents the slope of the line through a regression of data points from an individual\
+          stock's returns against those of the market.",
+          target: 'Betatt'
+        },
+        {
+          text: "R-squared is a statistical measure that shows the percentage of a security's historical\
+          price movements that could be explained by movements in a benchmark index.",
+          target: 'R2tt'
+        },
+        {
+          text: 'Value at risk (VaR) is a statistic that measures and quantifies the level of financial\
+          risk within a firm, portfolio or position over a specific time frame. This metric is most commonly\
+          used by investment and commercial banks to determine the extent and occurrence ratio of potential\
+          losses in their institutional portfolios. Risk managers use VaR to measure and control the level\
+          of risk exposure. One can apply VaR calculations to specific positions or whole portfolios\
+          or to measure firm-wide risk exposure.',
+          target: 'VaRtt'
+        }
+      ]
+
     };
   }
 
@@ -135,6 +190,12 @@ export default class Security extends Component {
     this.setState({ favorite: !this.state.favorite });
   }
 
+  toggleTooltip = () => {
+    this.setState({
+      tooltipOpen: !this.state.tooltipOpen
+    });
+  }
+
   render() {
     if (this.state.redirect) {
       return <Redirect to="/404" />;
@@ -199,30 +260,39 @@ export default class Security extends Component {
                 <tbody>
                   <tr>
                     <td className={styles.td2}>
+
+                      { this.state.tooltips.map((tooltip, i) => {
+                        return (
+                          <UncontrolledTooltip placement="right" target={tooltip.target}>
+                          {tooltip.text}
+                          </UncontrolledTooltip>
+                        );
+                      })}
+
                       <p><b>{this.state.analysis.expectedReturn}%</b></p>
-                      <span>Expected Return</span>
+                      <span id="ERtt">Expected Return</span>
                     </td>
                     <td className={styles.td2}>
                       <p><b>{this.state.analysis.standardDeviation}%</b></p>
-                      <span>Standard Deviation</span>
+                      <span id="SDtt">Standard Deviation</span>
                     </td>
                     <td className={styles.td1}>
                       <p><b>{this.state.analysis.sharpeRatio}</b></p>
-                      <span>Sharpe Ratio</span>
+                      <span id="SRtt">Sharpe Ratio</span>
                     </td>
                   </tr>
                   <tr>
                     <td className={styles.td3}>
                       <p><b>{this.state.analysis.beta}</b></p>
-                      <span>Beta</span>
+                      <span id="Betatt">Beta</span>
                     </td>
                     <td className={styles.td3}>
                       <p><b>{this.state.analysis.rSquared}</b></p>
-                      <span>R Squared</span>
+                      <span id="R2tt">R Squared</span>
                     </td>
                     <td>
                       <p><b>{this.state.analysis.valueAtRisk}%</b></p>
-                      <span>Value at Risk</span>
+                      <span id="VaRtt">Value at Risk</span>
                     </td>
                   </tr>
                 </tbody>
@@ -238,7 +308,7 @@ export default class Security extends Component {
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="date"/>
               <YAxis />
-              <Tooltip />
+              <Ttip />
               <Legend />
               <Line type="natural" dataKey="SPY" stroke="#4286f4" strokeWidth={2} animationDuration={1400}/>
               <Line type="natural" dataKey={this.state.symbol} stroke="#82ca9d" strokeWidth={2} animationDuration={1400}/>
@@ -250,7 +320,7 @@ export default class Security extends Component {
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="date" tickFormatter={(value) => `${value.toLocaleString("en-US", { month: "long", year: "numeric" })}`}/>
               <YAxis type="number" domain={[40000, 120000]} tickFormatter={(value) => `$${value.toLocaleString()}`}/>
-              <Tooltip />
+              <Ttip />
               <Legend />
               <Line type="natural" dataKey="PortfolioSPY" stroke="#4286f4" strokeWidth={2} animationDuration={1400}/>
               <Line type="natural" dataKey={`Portfolio${this.state.symbol}`} stroke="#82ca9d" strokeWidth={2} animationDuration={1400}/>
