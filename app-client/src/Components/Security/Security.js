@@ -26,38 +26,32 @@ export default class Security extends Component {
       tooltipOpen: false,
       tooltips: [
         {
-          text: 'The Capital Asset Pricing Model (CAPM) describes the\
-          relationship between systematic risk and expected return\
-          for assets, particularly stocks. CAPM is widely used throughout\
+          text: 'The Capital Asset Pricing Model (CAPM) provides the expected\
+          return over the next 6 months. CAPM is widely used throughout\
           finance for pricing risky securities and generating expected\
           returns for assets given the risk of those assets and cost of capital.',
           target: 'ERtt'
         },
         {
-          text: 'Standard deviation is a statistical measurement in finance that,\
-          when applied to the annual rate of return of an investment, sheds light\
+          text: 'Standard deviation is a statistical measurement in finance that\
+          sheds light\
           on the historical volatility of that investment. The greater the standard\
           deviation of a security, the greater the variance between each price and the\
-          mean, which shows a larger price range. For example, a volatile stock has a\
-          high standard deviation, while the deviation of a stable blue-chip stock is\
-          usually rather low.',
+          mean, which shows a larger price range.',
           target: 'SDtt'
         },
         {
-          text: 'The Sharpe ratio was developed by Nobel laureate William F. Sharpe and\
+          text: 'The Sharpe ratio\
           is used to help investors understand the return of an investment compared to\
           its risk. The ratio is the average return earned in excess of the risk-free\
-          rate per unit of volatility or total risk. Subtracting the risk-free rate\
-          from the mean return allows an investor to better isolate the profits\
-          associated with risk-taking activities. Generally, the greater the value\
+          rate per unit of volatility or total risk. Generally, the greater the value\
           of the Sharpe ratio, the more attractive the risk-adjusted return.',
           target: 'SRtt'
         },
         {
           text: "A beta coefficient is a measure of the volatility, or systematic risk,\
           of an individual stock in comparison to the unsystematic risk of the entire market.\
-          Beta is used in the capital asset pricing model (CAPM), which calculates the expected\
-          return of an asset using beta and expected market returns. In statistical terms, beta\
+          In statistical terms, beta\
           represents the slope of the line through a regression of data points from an individual\
           stock's returns against those of the market.",
           target: 'Betatt'
@@ -69,11 +63,8 @@ export default class Security extends Component {
         },
         {
           text: 'Value at risk (VaR) is a statistic that measures and quantifies the level of financial\
-          risk within a firm, portfolio or position over a specific time frame. This metric is most commonly\
-          used by investment and commercial banks to determine the extent and occurrence ratio of potential\
-          losses in their institutional portfolios. Risk managers use VaR to measure and control the level\
-          of risk exposure. One can apply VaR calculations to specific positions or whole portfolios\
-          or to measure firm-wide risk exposure.',
+          risk within a firm, portfolio or position over a specific time frame. Risk managers use VaR to measure and control the level\
+          of risk exposure.',
           target: 'VaRtt'
         }
       ]
