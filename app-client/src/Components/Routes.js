@@ -16,6 +16,7 @@ import SecuritySearch from "./SecuritySearch/SecuritySearch";
 import Demo from "./Demo/Demo";
 import ForgotPassword from "./ForgotPassword/ForgotPassword";
 import ResetPassword from "./ResetPassword/ResetPassword";
+import UserFavorites from "./UserFavorites/UserFavorites";
 
 export default () =>
   <Switch>
@@ -31,7 +32,8 @@ export default () =>
     <Route path="/forgotPassword" exact component={ForgotPassword} />
     <Route path="/resetPassword/:token" exact component={ResetPassword} />
     <ProtectedRoute path="/search" exact component={SecuritySearch} />
-    <ProtectedRoute path="/userSettings" exact component={UserSettings} />
+    <ProtectedRoute path="/settings" exact component={UserSettings} />
+    <ProtectedRoute path="/favorites" exact component={UserFavorites} />
     <ProtectedRoute path="/security/:symbol" exact component={Security} />
     <Route component={NotFoundPage} />
   </Switch>;
