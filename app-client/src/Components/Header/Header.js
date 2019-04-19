@@ -103,7 +103,8 @@ export default class Header extends Component {
                   <img src={this.state.profilePicture} alt="profile initials"/>
                 </DropdownToggle>
                 <DropdownMenu right>
-                  <DropdownItem tag={Link} to="/userSettings">My Account</DropdownItem>
+                  <DropdownItem tag={Link} to="/settings">My Account</DropdownItem>
+                  <DropdownItem tag={Link} to="/favorites">My Favorites</DropdownItem>
                   <DropdownItem tag={Link} to="#" onClick={logout}>Logout</DropdownItem>
                 </DropdownMenu>
               </Dropdown>
