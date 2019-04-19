@@ -158,8 +158,8 @@ export default class UserSettings extends Component {
             <Col>
               <Media middle className={styles.preText}>User Preferences</Media>
               <LineChart className={styles.chart} width={75} height={75} data={data}>
-            <Line type="natural" dataKey="value" stroke="#4286f4" strokeWidth={2} dot={null} animationDuration={1200}/>
-          </LineChart>
+                <Line type="natural" dataKey="value" stroke="#4286f4" strokeWidth={2} dot={null} animationDuration={1200}/>
+              </LineChart>
             </Col>
           </Row>
           <Row className={styles.memberHeaderInformation}>

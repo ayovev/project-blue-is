@@ -143,7 +143,7 @@ export default class Security extends Component {
     const loading = this.state.analysis === undefined || this.state.favorite === undefined || this.state.information === undefined;
 
     if (loading) {
-      return <GridLoader color="#4286f4" css={{ margin: `40vh auto auto auto` }}/>
+      return <GridLoader color="#4286f4" css={{ margin: `40vh auto auto auto` }}/>;
     }
 
     const starClasses = [`fa-star`, styles.favoriteIcon];
@@ -248,7 +248,7 @@ export default class Security extends Component {
           <div className={styles.chartContainer}>
             <LineChart className={styles.chart} width={900} height={400} data={this.state.historicalData}>
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="date" tickFormatter={(value) => `${value.toLocaleString("en-US", { month: "long", year: "numeric" })}`}/>
+              <XAxis dataKey="date" tickFormatter={(value) => `${value.toLocaleString(`en-US`, { month: `long`, year: `numeric` })}`}/>
               <YAxis type="number" domain={[40000, 120000]} tickFormatter={(value) => `$${value.toLocaleString()}`}/>
               <Tooltip />
               <Legend />

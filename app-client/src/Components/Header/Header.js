@@ -66,7 +66,7 @@ export default class Header extends Component {
                   <NavLink to="/" activeClassName="selected" tag={RRNavLink} className={styles.navlink} exact>Home</NavLink>
                 </NavItem>
                 <NavItem className={styles.navitem}>
-                  <a className={[styles.navlink, "nav-link"].join(` `)} href="https://www.cse.unr.edu/~nathanaelf/" target="_blank" rel="noopener noreferrer">Senior Project</a>
+                  <a className={[styles.navlink, `nav-link`].join(` `)} href="https://www.cse.unr.edu/~nathanaelf/" target="_blank" rel="noopener noreferrer">Senior Project</a>
                 </NavItem>
                 <NavItem className={styles.navitem}>
                   <NavLink to="/methodology" activeClassName="selected" tag={RRNavLink} className={styles.navlink}>Methodology</NavLink>
