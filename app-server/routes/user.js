@@ -106,6 +106,23 @@ router.route(`/favorites`)
     }
   });
 
+router.route(`/favorites/:symbol`)
+  .delete(async (request, response, next) => {
+    let token = request.cookies[`pbiToken`] || request.header(`authorization`);
+    token = await jwt.verify(token, process.env.TOKEN_SECRET);
+    const userID = token.data;
+
+    const { UsersCollection } = request.app.locals;
+    const { result } = await UsersCollection.updateOne({ _id: ObjectID(userID) }, { $pull: { favorites: request.params[`symbol`] } });
+
+    if (!result.ok) {
+      winston.error(`failed to delete symbol ${request.params[`symbol`]} from favorites for user ${userID}`);
+      return response.sendStatus(400);
+    }
+    winston.info(`successfully deleted symbol ${request.params[`symbol`]} from favorites for user ${userID}`);
+    return response.sendStatus(200);
+  });
+
 router.route(`/profilePicture`)
   .get(async (request, response, next) => {
     try {
