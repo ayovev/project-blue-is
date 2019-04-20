@@ -1,15 +1,42 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import { Col, Container, Row } from "reactstrap";
+import { Col, Container, Row, UncontrolledTooltip } from "reactstrap";
 import { GridLoader } from "react-spinners";
 import axios from "axios";
-import { CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from "recharts";
+import { CartesianGrid, Legend, Line, LineChart, Tooltip as RCTooltip, XAxis, YAxis } from "recharts";
 import CircularProgressbar from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import styles from "./Security.css";
 
 const BLUE = 0x4286f4;
 const ORANGE = 0xf48942;
+
+const tooltips = [
+  {
+    text: `The Capital Asset Pricing Model (CAPM) provides the expected return over the next 6 months. CAPM is widely used throughout finance for pricing risky securities and generating expected returns for assets given the risk of those assets and cost of capital.`,
+    target: `expectedReturn`
+  },
+  {
+    text: `Standard deviation is a statistical measurement in finance that sheds light on the historical volatility of that investment. The greater the standard deviation of a security, the greater the variance between each price and the mean, which shows a larger price range.`,
+    target: `standardDeviation`
+  },
+  {
+    text: `The Sharpe ratio is used to help investors understand the return of an investment compared to it's risk. The ratio is the average return earned in excess of the risk-free rate per unit of volatility or total risk. Generally, the greater the value of the Sharpe ratio, the more attractive the risk-adjusted return.`,
+    target: `sharpeRatio`
+  },
+  {
+    text: `A beta coefficient is a measure of the volatility, or systematic risk, of an individual stock in comparison to the unsystematic risk of the entire market. In statistical terms, beta represents the slope of the line through a regression of data points from an individual stock's returns against those of the market.`,
+    target: `beta`
+  },
+  {
+    text: `R-squared is a statistical measure that shows the percentage of a security's historical price movements that could be explained by movements in a benchmark index.`,
+    target: `rSquared`
+  },
+  {
+    text: `Value at risk (VaR) is a statistic that measures and quantifies the level of financial risk within a firm, portfolio or position over a specific time frame. Risk managers use VaR to measure and control the level of risk exposure.`,
+    target: `valueAtRisk`
+  }
+];
 
 export default class Security extends Component {
   constructor(props) {
@@ -19,7 +46,6 @@ export default class Security extends Component {
       symbol: props.match.params.symbol,
       analysis: undefined,
       information: undefined,
-
       favorite: undefined,
       redirect: false,
       historicalData: undefined
@@ -199,30 +225,39 @@ export default class Security extends Component {
                 <tbody>
                   <tr>
                     <td className={styles.td2}>
+
+                      {tooltips.map((tooltip, index) => {
+                        return (
+                          <UncontrolledTooltip key={index} placement="right" target={tooltip.target}>
+                            {tooltip.text}
+                          </UncontrolledTooltip>
+                        );
+                      })}
+
                       <p><b>{this.state.analysis.expectedReturn}%</b></p>
-                      <span>Expected Return</span>
+                      <span id="expectedReturn">Expected Return</span>
                     </td>
                     <td className={styles.td2}>
                       <p><b>{this.state.analysis.standardDeviation}%</b></p>
-                      <span>Standard Deviation</span>
+                      <span id="standardDeviation">Standard Deviation</span>
                     </td>
                     <td className={styles.td1}>
                       <p><b>{this.state.analysis.sharpeRatio}</b></p>
-                      <span>Sharpe Ratio</span>
+                      <span id="sharpeRatio">Sharpe Ratio</span>
                     </td>
                   </tr>
                   <tr>
                     <td className={styles.td3}>
                       <p><b>{this.state.analysis.beta}</b></p>
-                      <span>Beta</span>
+                      <span id="beta">Beta</span>
                     </td>
                     <td className={styles.td3}>
                       <p><b>{this.state.analysis.rSquared}</b></p>
-                      <span>R Squared</span>
+                      <span id="rSquared">R Squared</span>
                     </td>
                     <td>
                       <p><b>{this.state.analysis.valueAtRisk}%</b></p>
-                      <span>Value at Risk</span>
+                      <span id="valueAtRisk">Value at Risk</span>
                     </td>
                   </tr>
                 </tbody>
@@ -238,7 +273,7 @@ export default class Security extends Component {
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="date"/>
               <YAxis />
-              <Tooltip />
+              <RCTooltip />
               <Legend />
               <Line type="natural" dataKey="SPY" stroke="#4286f4" strokeWidth={2} animationDuration={1400}/>
               <Line type="natural" dataKey={this.state.symbol} stroke="#82ca9d" strokeWidth={2} animationDuration={1400}/>
@@ -250,7 +285,7 @@ export default class Security extends Component {
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="date" tickFormatter={(value) => `${value.toLocaleString(`en-US`, { month: `long`, year: `numeric` })}`}/>
               <YAxis type="number" domain={[40000, 120000]} tickFormatter={(value) => `$${value.toLocaleString()}`}/>
-              <Tooltip />
+              <RCTooltip />
               <Legend />
               <Line type="natural" dataKey="PortfolioSPY" stroke="#4286f4" strokeWidth={2} animationDuration={1400}/>
               <Line type="natural" dataKey={`Portfolio${this.state.symbol}`} stroke="#82ca9d" strokeWidth={2} animationDuration={1400}/>
