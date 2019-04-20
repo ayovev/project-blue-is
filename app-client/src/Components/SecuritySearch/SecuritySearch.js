@@ -32,7 +32,7 @@ export default class SecuritySearch extends Component {
     let symbols = await this.getListOfSecurities();
 
     symbols = symbols.filter((item) => {
-      return item.symbol !== `SPY`
+      return item.symbol !== `SPY`;
     });
 
     symbols = symbols.sort((a, b) => a.companyName > b.companyName ? 1 : -1);

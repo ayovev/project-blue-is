@@ -1,0 +1,19 @@
+:local(.card) {
+  text-align: center;
+  color: black;
+}
+
+:local(.gauge) {
+  width: 150px;
+  height: auto;
+}
+
+:local(.card) {
+  text-align: center;
+}
+
+:local(.navlink) {
+  font-size: 18px;
+  display: inline;
+  color: black
+}
