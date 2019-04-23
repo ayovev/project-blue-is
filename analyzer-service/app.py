@@ -45,37 +45,32 @@ def analyzeHandler():
 
 @app.route("/analyze/<symbol>", methods = ["GET", "PUT"])
 def analyzeSymbolHandler(symbol):
+  start = time.time() ### test
 
-  # TEST
   symbolData = loadHistorical(symbol)
   symbolData = filterData(symbolData)
-  return symbolData
+  symbolData = symbolData.iloc[::-1]
+  pReturns = getPctReturns(symbolData)
 
-  # #start = time.time() ### test
+  indexData = loadHistorical(index)
+  indexData = filterData(indexData)
+  indexData = indexData.iloc[::-1]
+  bReturns = getPctReturns(indexData)
 
-  # symbolData = loadHistorical(symbol)
-  # symbolData = filterData(symbolData)
-  # symbolData = symbolData.iloc[::-1]
-  # pReturns = getPctReturns(symbolData)
+  end = time.time() ### test
 
-  # indexData = loadHistorical(index)
-  # indexData = filterData(indexData)
-  # indexData = indexData.iloc[::-1]
-  # bReturns = getPctReturns(indexData)
+  valueAtRisk = calculateValueAtRisk(pReturns)
+  beta = calculateBeta(pReturns, bReturns)
+  standardDeviation = calculateStandardDeviation(pReturns)
+  rSquared = calculateRSquared(pReturns, bReturns)
+  expectedReturn = calculateExpectedReturn(indexData, beta)
+  sharpeRatio = calculateSharpeRatio(expectedReturn, standardDeviation)
 
-  # #end = time.time() ### test
+  fullEnd = time.time() ### test
 
-  # valueAtRisk = calculateValueAtRisk(pReturns)
-  # beta = calculateBeta(pReturns, bReturns)
-  # standardDeviation = calculateStandardDeviation(pReturns)
-  # rSquared = calculateRSquared(pReturns, bReturns)
-  # expectedReturn = calculateExpectedReturn(indexData, beta)
-  # sharpeRatio = calculateSharpeRatio(expectedReturn, standardDeviation)
-
-  # #fullEnd = time.time() ### test
-
-  # return "Time taken to gather & filter tickerData: {}\n\
-  #   Time taken to calulate all 6 values: {}".format(end-start, fullEnd-end)
+  return "Time taken to gather & filter tickerData: {}<br/>\
+    Time taken to calulate all 6 values: {}<br/>\
+      Time taken for entire function: {}".format(end-start, fullEnd-end, fullEnd - start)
 
 @app.route("/", defaults={"path": ""})
 @app.route("/<path>")

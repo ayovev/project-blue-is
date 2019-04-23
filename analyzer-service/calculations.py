@@ -9,30 +9,30 @@ import time
 from app import app
 
 def filterData(symbolData):
-  start = time.time() ### test
+  #start = time.time() ### test
 
   df = pd.DataFrame.from_dict(symbolData)
   df = df.T
   df.reset_index(level=0, inplace=True)
-  x = df.loc[:,'index']
+
   current_date = datetime.today()
   filterDate = (current_date - pd.Timedelta(weeks=26)) - pd.Timedelta(days=1)
 
-  time1 = time.time() ### test
+  #time1 = time.time() ### test
 
+  df = df.loc[0:180,:]
   for i in range(len(df.loc[:, 'index'])):
     df.loc[i,'index'] = datetime.strptime(df.loc[i,'index'] , '%Y-%m-%d')
 
-  time2 = time.time() ### test
+  #time2 = time.time() ### test
 
   resultsDF = df.loc[df['index'] > filterDate]
-  #return resultsDF
+  return resultsDF
 
   # TEST
-  end = time.time() ### test
-  string = "Init calcs: {} \nFor loop: {}\nFilter: {}\nFull function: {}".format(time1-start, time2-time1, end-time2, end-start)
-
-  return string
+  #end = time.time() ### test
+  #string = "Init calcs: {} \nFor loop: {}\nFilter: {}\nFull function: {}".format(time1-start, time2-time1, end-time2, end-start)
+  #return string
 
 
 def sixMonthReturn(df):
