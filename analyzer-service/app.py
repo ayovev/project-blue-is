@@ -57,6 +57,10 @@ def analyzeSymbolHandler(symbol):
 
   return "called analyzeSymbolHandler() for {}".format(symbol)
 
+@app.route('analyze/II/<symbol>', methods = ["GET", "PUT"])
+def analyzeIIhandler(symbol):
+
+
 @app.route("/", defaults={"path": ""})
 @app.route("/<path>")
 def notFoundHandler(path):
