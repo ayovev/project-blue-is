@@ -20,7 +20,7 @@ def filterData(symbolData):
 
   #time1 = time.time() ### test
 
-  df = df.loc[0:180,:]
+  df = df.loc[0:130,:]
   for i in range(len(df.loc[:, 'index'])):
     df.loc[i,'index'] = datetime.strptime(df.loc[i,'index'] , '%Y-%m-%d')
 
@@ -30,9 +30,9 @@ def filterData(symbolData):
   return resultsDF
 
   # TEST
-  #end = time.time() ### test
-  #string = "Init calcs: {} \nFor loop: {}\nFilter: {}\nFull function: {}".format(time1-start, time2-time1, end-time2, end-start)
-  #return string
+  # end = time.time() ### test
+  # string = "Init calcs: {} \nFor loop: {}\nFilter: {}\nFull function: {}".format(time1-start, time2-time1, end-time2, end-start)
+  # return string
 
 
 def sixMonthReturn(df):

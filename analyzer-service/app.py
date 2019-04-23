@@ -45,7 +45,7 @@ def analyzeHandler():
 
 @app.route("/analyze/<symbol>", methods = ["GET", "PUT"])
 def analyzeSymbolHandler(symbol):
-  start = time.time() ### test
+  #start = time.time() ### test
 
   symbolData = loadHistorical(symbol)
   symbolData = filterData(symbolData)
@@ -57,7 +57,7 @@ def analyzeSymbolHandler(symbol):
   indexData = indexData.iloc[::-1]
   bReturns = getPctReturns(indexData)
 
-  end = time.time() ### test
+  #end = time.time() ### test
 
   valueAtRisk = calculateValueAtRisk(pReturns)
   beta = calculateBeta(pReturns, bReturns)
@@ -66,11 +66,13 @@ def analyzeSymbolHandler(symbol):
   expectedReturn = calculateExpectedReturn(indexData, beta)
   sharpeRatio = calculateSharpeRatio(expectedReturn, standardDeviation)
 
-  fullEnd = time.time() ### test
+  #fullEnd = time.time() ### test
 
-  return "Time taken to gather & filter tickerData: {}<br/>\
-    Time taken to calulate all 6 values: {}<br/>\
-      Time taken for entire function: {}".format(end-start, fullEnd-end, fullEnd - start)
+  # return "Time taken to gather & filter tickerData: {}<br/>\
+  #   Time taken to calulate all 6 values: {}<br/>\
+  #     Time taken for entire function: {}".format(end-start, fullEnd-end, fullEnd - start)
+
+  return "Calculated all values for {}".format(symbol)
 
 @app.route("/", defaults={"path": ""})
 @app.route("/<path>")
