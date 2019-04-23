@@ -18,34 +18,24 @@ Step 7: For Each: Write value to db
 
 def modifiedFilterData(symbolData):
   # need to modify to get 6 month chunk from 1 year ago to 6 months ago
+  return 0
 
-  df = pd.DataFrame.from_dict(symbolData)
-  df = df.T
-  df.reset_index(level=0, inplace=True)
-  x = df.loc[:,'index']
-  current_date = datetime.today()
-  filterDate = (current_date - pd.Timedelta(weeks=26)) - pd.Timedelta(days=1)
-
-  for i in range(len(df.loc[:, 'index'])):
-    df.loc[i,'index'] = datetime.strptime(df.loc[i,'index'] , '%Y-%m-%d')
-
-  return df.loc[df['index'] > filterDate]
-
-def trainInvestabilityIndexModel(){
+def trainInvestabilityIndexModel():
   # Step 1: Pull 12 month data from load historical
   # Step 2: Get SPY+tickers return for that 6 month period, label if beat or not
   # Step 3: Call the analysis handler for train calcs + create dataframe
   # Step 4: Train the SVC on the dataframe w/ labels
   # Return trained model
+  return 0
 
-}
 
-def computeInvestabilityIndex(trainedModel){
+def computeInvestabilityIndex(trainedModel):
   # Step 5: Run predict on each ticker with 6 calcs from db
   # Step 6: Output probability
   # Step 7: Truncate and write probability to the corresponding collection
   # Return status complete
-}
+  return 0
+
 
 
 
