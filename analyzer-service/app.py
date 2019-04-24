@@ -5,6 +5,7 @@ from pymongo import MongoClient
 import time
 
 from calculations import *
+from investabilityIndex import *
 from database import DATABASE_URI
 
 app = Flask("analyzer-service")
@@ -74,9 +75,11 @@ def analyzeSymbolHandler(symbol):
 
   return "Calculated all values for {}".format(symbol)
 
-@app.route('analyze/II/<symbol>', methods = ["GET", "PUT"])
+@app.route('/analyze/II/<symbol>', methods = ["GET", "PUT"])
 def analyzeIIhandler(symbol):
-
+  symbolData = loadHistorical(symbol)
+  symbolData = modifiedFilterData(symbolData)
+  return str(symbolData['index']) + '<br/>' + str(len(symbolData['index']))
 
 @app.route("/", defaults={"path": ""})
 @app.route("/<path>")
