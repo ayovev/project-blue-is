@@ -3,16 +3,13 @@ import pandas as pd
 from sklearn.svm import SVC
 from datetime import datetime
 
-#from app import app
-
 '''
 Algorithm
 ---------
 Step 1: For all the tickers pull the last 12 months of data split into 6 month chunks
-Step 2: For Each: did the ticker beat the SP500 in the first chunk? (label)
+Step 2: For Each: did the ticker beat the SP500 in the second chunk? (label)
 Step 3: For Each: Calculate the 6 calcs for the first 6 month chunk
 Step 4: Train Classification model
-
 Step 5: For Each: Test on second chunk with calc values from the db
 Step 6: For Each: Output probability
 Step 7: For Each: Write value to db
@@ -35,9 +32,47 @@ def modifiedFilterData(symbolData):
   resultsDF = df.loc[(df['index'] > yearDate) & (df['index'] < sixMonthDate)]
   return resultsDF
 
-def trainInvestabilityIndexModel(symbol):
-  # Step 1: Pull 12 month data from load historical
-  # Step 2: Get SPY+tickers return for that 6 month period, label if beat or not
+def trainInvestabilityIndexModel():
+  # Step 1: Pull data from load historical
+  symbols = pd.read_csv('DOW30.csv')
+  symbols = symbols.iloc[:,0].values.tolist()
+
+  # Get data for recent 6 mon chunk
+  indexData = loadHistorical('SPY')
+  indexDataRecent = filterData(indexData)
+  indexDataRecent = indexDataRecent.iloc[::-1]
+
+  # Get SPY return over last 6 months
+  r_spy = sixMonthReturn(indexDataRecent)
+
+  # Get data for old 6 mon chunk (used in calcs)
+  indexDataOld = modifiedFilterData(indexData)
+  indexDataOld = indexDataOld.iloc[::-1]
+  bReturnsTrain = getPctReturns(indexDataOld)
+
+  return str(r_spy)
+
+  ## TEST:
+  symbols = ['MU', 'AAPL', 'MSFT']
+  ## END TEST
+
+  for ticker in symbols:
+    tickerData = loadHistorical(ticker)
+    tickerData = modifiedFilterData(tickerData)
+    pReturnsTrain = getPctReturns(tickerData)
+    r_symbol = sixMonthReturn(tickerData)
+
+    valueAtRisk = calculateValueAtRisk(pReturnsTrain)
+    beta = calculateBeta(pReturnsTrain, bReturnsTrain)
+    standardDeviation = calculateStandardDeviation(pReturns)
+    rSquared = calculateRSquared(pReturnsTrain, bReturnsTrain)
+    expectedReturn = calculateExpectedReturn(indexDataTrain, beta)
+    sharpeRatio = calculateSharpeRatio(expectedReturn, standardDeviation)
+
+    insertList = [symbol, valueAtRisk, beta, standardDeviation, rSquared, expectedReturn, sharpeRatio]
+    return str(insertList)
+
+  # Step 2: Get SPY+tickers return for next 6 month period, label if beat or not
   # Step 3: Call the analysis handler for train calcs + create dataframe
   # Step 4: Train the SVC on the dataframe w/ labels
   # Return trained model
