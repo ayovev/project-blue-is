@@ -126,7 +126,9 @@ hr.dark {
   font-size:22px;
   margin:0;
 }
-
+:local(.blurbText) {
+  text-align:justify;
+}
 :local(.ctaButton) {
   color: white;
   padding: 0;

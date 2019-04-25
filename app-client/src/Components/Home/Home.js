@@ -45,7 +45,7 @@ export default class Home extends Component {
           {/* What Section */}
           <Row className={styles.homePageRow}>
             <Col md={12} className={styles.informationHeader}>
-              <h1 style={{ 'margin-top': `60px` }}>What We Do</h1>
+              <h1 style={{ marginTop: `60px` }}>What We Do</h1>
             </Col>
             <Col md={3} className={styles.contentSeperatorRight}>
               {/* Image insert */}
@@ -54,12 +54,12 @@ export default class Home extends Component {
               </Card>
             </Col>
             <Col md={7}>
-              <p>IEEN is a FinTech-based project that combines computer science and finance to provide its users with wealth-building insights that aim to strengthen an
+              <p className={styles.blurbText}>IEEN is a FinTech-based project that combines computer science and finance to provide its users with wealth-building insights that aim to strengthen an
                 investor&apos;s portfolio. The primary goal of this service is to provide a one stop shop that individuals can utilize in order to learn more about finance and make
                 more informed investment decisions. The broader importance of this project is its combination of advanced yet easily digestible analysis that appeals to investors of
                 all backgrounds and levels of experience.</p>
               <div className={styles.buttonDiv}>
-                <Button color="primary" href="/methodology">Learn More!</Button>
+                <Button color="primary" href="/methodology">Try it out!</Button>
               </div>
             </Col>
           </Row>
@@ -74,9 +74,10 @@ export default class Home extends Component {
               <h1 style={{ textAlign: `right`, marginRight: `80px` }}>How We Do It</h1>
             </Col>
             <Col md={7}>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sollicitudin hendrerit rhoncus. Aenean ut volutpat magna. Mauris semper blandit pellentesque.
-                Etiam in orci eget ante vulputate lobortis non a sapien. Proin eu posuere sem. Curabitur eget dui at ligula suscipit porttitor. Morbi ac maximus libero, quis
-                malesuada tortor. Integer lacinia condimentum velit sed lobortis. Quisque vitae rutrum nibh. Mauris imperdiet tellus ac blandit facilisis. Nam vel enim elit.</p>
+              <p className={styles.blurbText}>The importance of mathematics in our web application cannot be understated. IEEN uses a combination of finance theory and statistics 
+                to ensure that the analysis provided is as accurate and up-to-date as possible and can be reproduced due to it's deterministic nature. 
+                This trustworthy and transparent analysis gives way to more reliable insights and better investment decisions. Learn more about our analysis 
+                and the underlying process below.</p>
               <div className={styles.buttonDiv}>
                 <Button color="primary" href="/methodology">Learn More!</Button>
               </div>
