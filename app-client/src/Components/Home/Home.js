@@ -39,13 +39,13 @@ export default class Home extends Component {
             </div>
           </div>
         </div>
-        <div style={{ top: `-60px` }} ref={this.myRef}/>
+        <div ref={this.myRef}/>
 
         <Container className={styles.containerFrame2}>
           {/* What Section */}
           <Row className={styles.homePageRow}>
             <Col md={12} className={styles.informationHeader}>
-              <h1 >What We Do</h1>
+              <h1 style={{ 'margin-top': `60px` }}>What We Do</h1>
             </Col>
             <Col md={3} className={styles.contentSeperatorRight}>
               {/* Image insert */}
