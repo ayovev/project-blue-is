@@ -4,7 +4,7 @@ from pymongo import MongoClient
 
 import time
 
-from database import DATABASE_URI
+from database import DATABASE_URI, getAVData, getIEXData
 from calculations import *
 
 app = Flask("analyzer-service")
@@ -27,7 +27,10 @@ index = "SPY"
 
 @app.route("/", methods = ["GET"])
 def rootHandler():
-  return "Flask root"
+  # status = getAVData(app.PricedataCollection)
+  # status1 = getIEXData(app.CompanyInformationCollection)
+  # return str(status) + ' ' +  str(status1)
+  return "ok - root"
 
 @app.route("/status", methods = ["GET"])
 def statusHandler():
@@ -39,14 +42,49 @@ def statusHandler():
 
   return Response(status = 200)
 
-@app.route("/analyze", methods = ["PUT"])
+@app.route("/analyze", methods = ["PUT", "GET"])
 def analyzeHandler():
+  symbols = pd.read_csv('DOW30.csv', header=None)
+  symbols = symbols.iloc[:,0].values.tolist()
+  symbols.append('SPY')
+  symbols.append('MU')
+
+  for symbol in symbols:
+    symbolData = loadHistorical(symbol)
+    symbolData = filterData(symbolData)
+    symbolData = symbolData.iloc[::-1]
+    pReturns = getPctReturns(symbolData)
+
+    indexData = loadHistorical(index)
+    indexData = filterData(indexData)
+    indexData = indexData.iloc[::-1]
+    bReturns = getPctReturns(indexData)
+
+    valueAtRisk = calculateValueAtRisk(pReturns)
+    beta = calculateBeta(pReturns, bReturns)
+    standardDeviation = calculateStandardDeviation(pReturns)
+    rSquared = calculateRSquared(pReturns, bReturns)
+    expectedReturn = calculateExpectedReturn(indexData, beta)
+    sharpeRatio = calculateSharpeRatio(expectedReturn, standardDeviation)
+    investabilityIndex = float(0.0)
+
+    returnDict = {}
+    returnDict["symbol"] = symbol
+    returnDict["valueAtRisk"] = valueAtRisk
+    returnDict["beta"] = beta
+    returnDict["standardDeviation"] = standardDeviation
+    returnDict["rSquared"] = rSquared
+    returnDict["expectedReturn"] = expectedReturn
+    returnDict["sharpeRatio"] = sharpeRatio
+    returnDict["investabilityIndex"] = investabilityIndex
+
+    query = {"symbol" : symbol}
+    app.AnalysisCollection.replace_one(query, returnDict, True)
+
   return "called analyzeHandler()"
 
 @app.route("/analyze/<symbol>", methods = ["GET", "PUT"])
 def analyzeSymbolHandler(symbol):
-  #start = time.time() ### test
-
   symbolData = loadHistorical(symbol)
   symbolData = filterData(symbolData)
   symbolData = symbolData.iloc[::-1]
@@ -57,8 +95,6 @@ def analyzeSymbolHandler(symbol):
   indexData = indexData.iloc[::-1]
   bReturns = getPctReturns(indexData)
 
-  #end = time.time() ### test
-
   valueAtRisk = calculateValueAtRisk(pReturns)
   beta = calculateBeta(pReturns, bReturns)
   standardDeviation = calculateStandardDeviation(pReturns)
@@ -66,20 +102,13 @@ def analyzeSymbolHandler(symbol):
   expectedReturn = calculateExpectedReturn(indexData, beta)
   sharpeRatio = calculateSharpeRatio(expectedReturn, standardDeviation)
 
-  #fullEnd = time.time() ### test
-
-  # return "Time taken to gather & filter tickerData: {}<br/>\
-  #   Time taken to calulate all 6 values: {}<br/>\
-  #     Time taken for entire function: {}".format(end-start, fullEnd-end, fullEnd - start)
-
   return "Calculated all values for {}".format(symbol)
 
-@app.route('/analyze/II/<symbol>', methods = ["GET", "PUT"])
-def analyzeIIhandler(symbol):
-  #symbolData = loadHistorical(symbol)
-  #symbolData = modifiedFilterData(symbolData)
+@app.route('/analyze/II', methods = ["GET", "PUT"])
+def analyzeIIhandler():
   IIModel = trainInvestabilityIndexModel()
-  return computeInvestabilityIndex(IIModel)
+  computeInvestabilityIndex(IIModel)
+  return "Bdone"
 
 @app.route("/", defaults={"path": ""})
 @app.route("/<path>")

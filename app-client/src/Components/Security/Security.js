@@ -177,7 +177,7 @@ export default class Security extends Component {
 
     const iconTitle = this.state.favorite ? `Remove from Favorites` : `Add to Favorites`;
 
-    const color = this.lerpColor(ORANGE, BLUE, this.state.analysis.investabilityIndex / 100);
+    const color = this.lerpColor(ORANGE, BLUE, this.state.analysis.investabilityIndex);
 
     return (
       <React.Fragment>
@@ -200,8 +200,8 @@ export default class Security extends Component {
             <Col xs={6} className={styles.gaugeContainer}>
               <CircularProgressbar
                 className={styles.gauge}
-                percentage={this.state.analysis.investabilityIndex}
-                text={`${this.state.analysis.investabilityIndex}`}
+                percentage={Math.floor(this.state.analysis.investabilityIndex * 100)}
+                text={`${Math.floor(this.state.analysis.investabilityIndex * 100)}`}
                 initialAnimation={true}
                 strokeWidth={4}
                 styles={{
@@ -234,29 +234,29 @@ export default class Security extends Component {
                         );
                       })}
 
-                      <p><b>{this.state.analysis.expectedReturn}%</b></p>
+                      <p><b>{Number(this.state.analysis.expectedReturn * 100).toFixed(2)}%</b></p>
                       <span id="expectedReturn">Expected Return</span>
                     </td>
                     <td className={styles.td2}>
-                      <p><b>{this.state.analysis.standardDeviation}%</b></p>
+                      <p><b>{Number(this.state.analysis.standardDeviation * 100).toFixed(2)}%</b></p>
                       <span id="standardDeviation">Standard Deviation</span>
                     </td>
                     <td className={styles.td1}>
-                      <p><b>{this.state.analysis.sharpeRatio}</b></p>
+                      <p><b>{Number(this.state.analysis.sharpeRatio).toFixed(2)}</b></p>
                       <span id="sharpeRatio">Sharpe Ratio</span>
                     </td>
                   </tr>
                   <tr>
                     <td className={styles.td3}>
-                      <p><b>{this.state.analysis.beta}</b></p>
+                      <p><b>{Number(this.state.analysis.beta).toFixed(2)}</b></p>
                       <span id="beta">Beta</span>
                     </td>
                     <td className={styles.td3}>
-                      <p><b>{this.state.analysis.rSquared}</b></p>
+                      <p><b>{Number(this.state.analysis.rSquared).toFixed(2)}</b></p>
                       <span id="rSquared">R Squared</span>
                     </td>
                     <td>
-                      <p><b>{this.state.analysis.valueAtRisk}%</b></p>
+                      <p><b>{Number(this.state.analysis.valueAtRisk * 100).toFixed(2)}%</b></p>
                       <span id="valueAtRisk">Value at Risk</span>
                     </td>
                   </tr>

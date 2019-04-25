@@ -7,7 +7,7 @@ $jsonSchema: {
       minLength: 1
     },
     investabilityIndex: {
-      bsonType: "int",
+      bsonType: "double",
       minimum: 0,
       maximum: 99
     },

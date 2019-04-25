@@ -1,7 +1,7 @@
 [
   {
     "symbol": "MSFT",
-    "investabilityIndex" : 75,
+    "investabilityIndex" : 0.75,
     "beta": 1.43,
     "expectedReturn": 0.1209,
     "rSquared": 0.84,
@@ -21,7 +21,7 @@
   },
   {
     "symbol": "MU",
-    "investabilityIndex" : 45,
+    "investabilityIndex" : 0.45,
     "beta": 2.54,
     "expectedReturn": 0.1854,
     "rSquared": 0.23,
@@ -31,7 +31,7 @@
   },
   {
     "symbol": "AAPL",
-    "investabilityIndex" : 59,
+    "investabilityIndex" : 0.59,
     "beta": 1.12,
     "expectedReturn": 0.1011,
     "rSquared": 0.79,

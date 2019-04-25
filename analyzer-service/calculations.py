@@ -45,7 +45,7 @@ def sixMonthReturn(df):
 
 def loadHistorical(symbol):
   collection = app.PricedataCollection
-  result = collection.find_one({"metadata.symbol": "{}".format(symbol)})
+  result = collection.find_one({"metadata.symbol": symbol})
   data = result["data"]
 
   return data
@@ -65,9 +65,7 @@ def calculateValueAtRisk(pReturns):
   VaR_95 = norm.ppf(.05, pr_mean, pr_std)
   VaR_99 = norm.ppf(.01, pr_mean, pr_std)
 
-  returnDict = {"Value at Risk 90%" : round(VaR_90, 4), "Value at Risk 95%" : round(VaR_95, 4), "Value at Risk 99%" : round(VaR_99, 4)}
-
-  return returnDict
+  return round(VaR_95, 4)
 
 
 def calculateBeta(pReturns, bReturns):
@@ -145,8 +143,10 @@ def modifiedFilterData(symbolData):
 
 def trainInvestabilityIndexModel():
   # Step 1: Pull data from load historical
-  symbols = pd.read_csv('DOW30.csv')
+  symbols = pd.read_csv('DOW30.csv', header=None)
   symbols = symbols.iloc[:,0].values.tolist()
+  symbols.append('SPY')
+  symbols.append('MU')
 
   # Get data for recent 6 month chunk
   indexData = loadHistorical('SPY')
@@ -161,10 +161,6 @@ def trainInvestabilityIndexModel():
   indexDataOld = indexDataOld.iloc[::-1]
   bReturnsTrain = getPctReturns(indexDataOld)
 
-  ## TEST:
-  symbols = ['MU', 'AAPL', 'MSFT']
-  ## END TEST
-
   datasetTrain = pd.DataFrame(columns=['Symbol','VaR', 'B', 'SD', 'r2', 'ER', 'SR', 'isBeat'])
   # Step 2: Get SPY+tickers return for next 6 month period, label if beat or not
   # Step 3: Call the analysis handler for train calcs + create dataframe
@@ -176,7 +172,6 @@ def trainInvestabilityIndexModel():
     r_symbol = sixMonthReturn(tickerData)
 
     valueAtRisk = calculateValueAtRisk(pReturnsTrain)
-    valueAtRisk = valueAtRisk["Value at Risk 95%"]
     beta = calculateBeta(pReturnsTrain, bReturnsTrain)
     standardDeviation = calculateStandardDeviation(pReturnsTrain)
     rSquared = calculateRSquared(pReturnsTrain, bReturnsTrain)
@@ -201,36 +196,48 @@ def trainInvestabilityIndexModel():
   # Step 4: Train the SVC on the dataframe w/ labels
   # Fitting classifier to the Training set
   prob_classifier = SVC(kernel = 'rbf', probability=True)
-  prob_classifier.fit(X_train, y_train,)
+  prob_classifier.fit(X_train, y_train)
 
   # Return trained model
   return prob_classifier
 
 
 def computeInvestabilityIndex(trainedModel):
-  # Build test data
-  datasetTest = pd.DataFrame(columns=['Symbol','VaR', 'B', 'SD', 'r2', 'ER', 'SR'])
-  symbol = "MSFT"
-  collection = app.AnalysisCollection
-  result = collection.find_one({"symbol": "{}".format(symbol)})
-
-  valueAtRisk = result['valueAtRisk']
-  beta = result['beta']
-  standardDeviation = result['standardDeviation']
-  rSquared = result['rSquared']
-  expectedReturn = result['expectedReturn']
-  sharpeRatio = result['sharpeRatio']
-
-  insertList = [symbol, valueAtRisk, beta, standardDeviation, rSquared, expectedReturn, sharpeRatio]
-  datasetTest.loc[len(datasetTest)] = insertList
-
-  X_test = datasetTest.iloc[:, 1:7]
-  isBeat = trainedModel.predict_proba(X_test)
-  return str(isBeat[0])
-
-
   # Step 5: Run predict on each ticker with 6 calcs from db
   # Step 6: Output probability
   # Step 7: Truncate and write probability to the corresponding collection
   # Return status complete
-  return 0
+
+  # Build test data
+  datasetTest = pd.DataFrame(columns=['Symbol','VaR', 'B', 'SD', 'r2', 'ER', 'SR'])
+
+  symbols = pd.read_csv('DOW30.csv', header=None)
+  symbols = symbols.iloc[:,0].values.tolist()
+  symbols.append('SPY')
+  symbols.append('MU')
+
+  collection = app.AnalysisCollection
+  returnDict = {}
+
+  for symbol in symbols:
+    result = collection.find_one({"symbol": symbol})
+
+    valueAtRisk = result['valueAtRisk']
+    beta = result['beta']
+    standardDeviation = result['standardDeviation']
+    rSquared = result['rSquared']
+    expectedReturn = result['expectedReturn']
+    sharpeRatio = result['sharpeRatio']
+
+    insertList = [symbol, valueAtRisk, beta, standardDeviation, rSquared, expectedReturn, sharpeRatio]
+    datasetTest.loc[len(datasetTest)] = insertList
+
+  X_test = datasetTest.iloc[:, 1:7]
+  isBeat = trainedModel.predict_proba(X_test)
+
+  i = 0
+  for symbol in symbols:
+    IIValue = '%.2f'%(float(isBeat[i][0]))
+    i = i + 1
+    query = {"symbol" : symbol}
+    collection.update_one(query, { "$set": { "investabilityIndex": float(IIValue)}})

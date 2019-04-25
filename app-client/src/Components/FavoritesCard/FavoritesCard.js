@@ -58,7 +58,7 @@ export default class FavoritesCard extends Component {
       return <GridLoader color="#4286f4" css={{ margin: `50% 50% auto auto` }}/>;
     }
 
-    const color = this.lerpColor(ORANGE, BLUE, this.state.analysis.investabilityIndex / 100);
+    const color = this.lerpColor(ORANGE, BLUE, this.state.analysis.investabilityIndex);
 
     return (
       <React.Fragment>
@@ -70,8 +70,8 @@ export default class FavoritesCard extends Component {
             <CardText>
               <CircularProgressbar
                 className={styles.gauge}
-                percentage={this.state.analysis.investabilityIndex}
-                text={`${this.state.analysis.investabilityIndex}`}
+                percentage={this.state.analysis.investabilityIndex * 100}
+                text={`${this.state.analysis.investabilityIndex * 100}`}
                 initialAnimation={true}
                 strokeWidth={4}
                 styles={{
