@@ -126,7 +126,9 @@ hr.dark {
   font-size:22px;
   margin:0;
 }
-
+:local(.blurbText) {
+  text-align:justify;
+}
 :local(.ctaButton) {
   color: white;
   padding: 0;
@@ -134,6 +136,10 @@ hr.dark {
 
 :local(.ctaButton:hover) {
   color: white;
+}
+
+:local(.DemoHeader) {
+  margin-top: 30px;
 }
 
 /* Needed to add the px definition so the cursor border wouldn't go crazy. */
