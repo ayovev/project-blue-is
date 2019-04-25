@@ -13,6 +13,7 @@ services:
       DATABASE_PASSWORD:
       DATABASE_HOST:
       DATABASE_NAME:
+      IEX_API_KEY:
       PYTHON_ENV: production
     restart: on-failure
 
