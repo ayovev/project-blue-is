@@ -4,7 +4,10 @@ import { Button, Card, CardBody, CardImg, CardText, CardTitle, Col, Container, N
 import styles from "./Home.css";
 import Search from "./assets/securitySearchv2.png";
 import Security from "./assets/analysis.png";
-import Historical from "./assets/historicalPerformance.png";
+import PortfolioPerformance from "./assets/portfolioPerformance.png";
+import Login from "./assets/login.png";
+import Favorites from "./assets/favorites.png";
+import AccountPreferences from "./assets/AccountPreferences.png";
 import What from "./assets/what.jpg";
 import How from "./assets/how.png";
 
@@ -36,7 +39,7 @@ export default class Home extends Component {
             </div>
           </div>
         </div>
-        <div ref={this.myRef}/>
+        <div style={{ top: `-60px` }} ref={this.myRef}/>
 
         <Container className={styles.containerFrame2}>
           {/* What Section */}
@@ -56,7 +59,7 @@ export default class Home extends Component {
                 more informed investment decisions. The broader importance of this project is its combination of advanced yet easily digestible analysis that appeals to investors of
                 all backgrounds and levels of experience.</p>
               <div className={styles.buttonDiv}>
-                <Button color="primary" href="#">Check out something</Button>
+                <Button color="primary" href="/methodology">Learn More!</Button>
               </div>
             </Col>
           </Row>
@@ -75,7 +78,7 @@ export default class Home extends Component {
                 Etiam in orci eget ante vulputate lobortis non a sapien. Proin eu posuere sem. Curabitur eget dui at ligula suscipit porttitor. Morbi ac maximus libero, quis
                 malesuada tortor. Integer lacinia condimentum velit sed lobortis. Quisque vitae rutrum nibh. Mauris imperdiet tellus ac blandit facilisis. Nam vel enim elit.</p>
               <div className={styles.buttonDiv}>
-                <Button color="primary" href="#">Learn More!</Button>
+                <Button color="primary" href="/methodology">Learn More!</Button>
               </div>
             </Col>
             <Col md={3} className={styles.contentSeperatorLeft}>
@@ -90,7 +93,7 @@ export default class Home extends Component {
         </Row>
         <Container>
           <Row className="FrameTitleText">
-            <Col md={12}>
+            <Col md={12} className={styles.DemoHeader}>
               <h1>Demo IEEN Today</h1>
               <hr className="dark"></hr>
             </Col>
@@ -113,9 +116,43 @@ export default class Home extends Component {
 
             <Col xs="3" >
               <Card className={styles.mediaCard} onClick={() => this.props.history.push(`/demo`)}>
-                <CardImg top width="100%" src={Historical} alt="Historical Performance Demo" />
+                <CardImg top width="100%" src={PortfolioPerformance} alt="Historical Performance Demo" />
                 <CardBody>
-                  <CardTitle><b>Historical Performance</b></CardTitle>
+                  <CardTitle><b>Portfolio Performance</b></CardTitle>
+                  {/* <CardSubtitle>Check out how this cool thing does stuff.</CardSubtitle> */}
+                  <CardText></CardText>
+                </CardBody>
+              </Card>
+            </Col>
+
+            <Col xs="3" >
+              <Card className={styles.mediaCard} onClick={() => this.props.history.push(`/demo`)}>
+                <CardImg top width="100%" src={Favorites} alt="Security Search Demo" />
+                <CardBody>
+                  <CardTitle><b>Favorites Page</b></CardTitle>
+                  {/* <CardSubtitle>Some cool text to follow</CardSubtitle> */}
+                  <CardText></CardText>
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
+          <Row className={styles.mediaCardContainer}>
+            <Col xs="3" >
+              <Card className={styles.mediaCard} onClick={() => this.props.history.push(`/demo`)}>
+                <CardImg top width="100%" src={Login} alt="Secuirty Analysis Demo" />
+                <CardBody>
+                  <CardTitle><b>User Login</b></CardTitle>
+                  {/* <CardSubtitle>check out our super cool thing</CardSubtitle> */}
+                  <CardText></CardText>
+                </CardBody>
+              </Card>
+            </Col>
+
+            <Col xs="3" >
+              <Card className={styles.mediaCard} onClick={() => this.props.history.push(`/demo`)}>
+                <CardImg top width="100%" src={AccountPreferences} alt="Historical Performance Demo" />
+                <CardBody>
+                  <CardTitle><b>Account Preferences</b></CardTitle>
                   {/* <CardSubtitle>Check out how this cool thing does stuff.</CardSubtitle> */}
                   <CardText></CardText>
                 </CardBody>

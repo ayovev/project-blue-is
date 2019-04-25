@@ -136,6 +136,10 @@ hr.dark {
   color: white;
 }
 
+:local(.DemoHeader) {
+  margin-top: 30px;
+}
+
 /* Needed to add the px definition so the cursor border wouldn't go crazy. */
 .typewriter {
   width: 770px;
