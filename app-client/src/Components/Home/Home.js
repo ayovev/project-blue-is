@@ -49,7 +49,7 @@ export default class Home extends Component {
             </Col>
             <Col md={3} className={styles.contentSeperatorRight}>
               {/* Image insert */}
-              <Card className={styles.mediaCard} onClick={() => this.props.history.push(`#`)}>
+              <Card className={styles.mediaCard}>
                 <CardImg top width="100%" src={What} alt="What we do" />
               </Card>
             </Col>
@@ -59,7 +59,7 @@ export default class Home extends Component {
                 more informed investment decisions. The broader importance of this project is its combination of advanced yet easily digestible analysis that appeals to investors of
                 all backgrounds and levels of experience.</p>
               <div className={styles.buttonDiv}>
-                <Button color="primary" href="/methodology">Try it out!</Button>
+                <Button color="primary"><NavLink to="/demo" tag={RRNavLink} className={styles.ctaButton}>Try it out!</NavLink></Button>
               </div>
             </Col>
           </Row>
@@ -74,16 +74,13 @@ export default class Home extends Component {
               <h1 style={{ textAlign: `right`, marginRight: `80px` }}>How We Do It</h1>
             </Col>
             <Col md={7}>
-              <p className={styles.blurbText}>The importance of mathematics in our web application cannot be understated. IEEN uses a combination of finance theory and statistics 
-                to ensure that the analysis provided is as accurate and up-to-date as possible and can be reproduced due to it's deterministic nature. 
-                This trustworthy and transparent analysis gives way to more reliable insights and better investment decisions. Learn more about our analysis 
-                and the underlying process below.</p>
+              <p className={styles.blurbText}>The importance of mathematics in our web application cannot be understated. IEEN uses a combination of finance theory and statistics to ensure that the analysis provided is as accurate and up-to-date as possible and can be reproduced due to it&apos;s deterministic nature. This trustworthy and transparent analysis gives way to more reliable insights and better investment decisions. Learn more about our analysis and the underlying process below.</p>
               <div className={styles.buttonDiv}>
-                <Button color="primary" href="/methodology">Learn More!</Button>
+                <Button color="primary"><NavLink to="/methodology" tag={RRNavLink} className={styles.ctaButton}>Learn more!</NavLink></Button>
               </div>
             </Col>
             <Col md={3} className={styles.contentSeperatorLeft}>
-              <Card className={styles.mediaCard} onClick={() => this.props.history.push(`#`)}>
+              <Card className={styles.mediaCard}>
                 <CardImg top width="100%" src={How} alt="How we do it" />
               </Card>
             </Col>
@@ -100,7 +97,7 @@ export default class Home extends Component {
             </Col>
             <Col md={12}>
               <p>Why wait? Check out our demo page below and see for yourself!</p>
-              <p>Find out why people <b>just like you</b> are using IEEN for their investment analysis. </p>
+              <p>Find out why people&nbsp;<b>just like you</b>&nbsp;are using IEEN for their investment analysis.</p>
             </Col>
           </Row>
           <Row className={styles.mediaCardContainer}>
@@ -109,7 +106,6 @@ export default class Home extends Component {
                 <CardImg top width="100%" src={Security} alt="Secuirty Analysis Demo" />
                 <CardBody>
                   <CardTitle><b>Investability Index</b></CardTitle>
-                  {/* <CardSubtitle>check out our super cool thing</CardSubtitle> */}
                   <CardText></CardText>
                 </CardBody>
               </Card>
@@ -120,7 +116,6 @@ export default class Home extends Component {
                 <CardImg top width="100%" src={PortfolioPerformance} alt="Historical Performance Demo" />
                 <CardBody>
                   <CardTitle><b>Portfolio Performance</b></CardTitle>
-                  {/* <CardSubtitle>Check out how this cool thing does stuff.</CardSubtitle> */}
                   <CardText></CardText>
                 </CardBody>
               </Card>
@@ -131,7 +126,6 @@ export default class Home extends Component {
                 <CardImg top width="100%" src={Favorites} alt="Security Search Demo" />
                 <CardBody>
                   <CardTitle><b>Favorites Page</b></CardTitle>
-                  {/* <CardSubtitle>Some cool text to follow</CardSubtitle> */}
                   <CardText></CardText>
                 </CardBody>
               </Card>
@@ -143,7 +137,6 @@ export default class Home extends Component {
                 <CardImg top width="100%" src={Login} alt="Secuirty Analysis Demo" />
                 <CardBody>
                   <CardTitle><b>User Login</b></CardTitle>
-                  {/* <CardSubtitle>check out our super cool thing</CardSubtitle> */}
                   <CardText></CardText>
                 </CardBody>
               </Card>
@@ -154,7 +147,6 @@ export default class Home extends Component {
                 <CardImg top width="100%" src={AccountPreferences} alt="Historical Performance Demo" />
                 <CardBody>
                   <CardTitle><b>Account Preferences</b></CardTitle>
-                  {/* <CardSubtitle>Check out how this cool thing does stuff.</CardSubtitle> */}
                   <CardText></CardText>
                 </CardBody>
               </Card>
@@ -165,7 +157,6 @@ export default class Home extends Component {
                 <CardImg top width="100%" src={Search} alt="Security Search Demo" />
                 <CardBody>
                   <CardTitle><b>Security Search</b></CardTitle>
-                  {/* <CardSubtitle>Some cool text to follow</CardSubtitle> */}
                   <CardText></CardText>
                 </CardBody>
               </Card>
