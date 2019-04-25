@@ -6,7 +6,6 @@ import time
 
 from database import DATABASE_URI
 from calculations import *
-from investabilityIndex import *
 
 app = Flask("analyzer-service")
 
@@ -79,7 +78,8 @@ def analyzeSymbolHandler(symbol):
 def analyzeIIhandler(symbol):
   #symbolData = loadHistorical(symbol)
   #symbolData = modifiedFilterData(symbolData)
-  return trainInvestabilityIndexModel()
+  IIModel = trainInvestabilityIndexModel()
+  return computeInvestabilityIndex(IIModel)
 
 @app.route("/", defaults={"path": ""})
 @app.route("/<path>")

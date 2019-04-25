@@ -3,40 +3,40 @@
     "symbol": "MSFT",
     "investabilityIndex" : 75,
     "beta": 1.43,
-    "expectedReturn": 12.09,
+    "expectedReturn": 0.1209,
     "rSquared": 0.84,
     "sharpeRatio": 0.71,
-    "standardDeviation": 13.21,
-    "valueAtRisk": 13.26
+    "standardDeviation": 0.1321,
+    "valueAtRisk": 0.1326
   },
   {
     "symbol": "SPY",
     "investabilityIndex" : 0,
     "beta": 1.00,
-    "valueAtRisk": 10.43,
-    "expectedReturn": 8.37,
+    "valueAtRisk": 0.1043,
+    "expectedReturn": 0.0837,
     "sharpeRatio": 0.91,
-    "standardDeviation": 10.32,
+    "standardDeviation": 0.1032,
     "rSquared": 1.00
   },
   {
     "symbol": "MU",
     "investabilityIndex" : 45,
     "beta": 2.54,
-    "expectedReturn": 18.54,
+    "expectedReturn": 0.1854,
     "rSquared": 0.23,
     "sharpeRatio": 0.74,
-    "standardDeviation": 19.67,
-    "valueAtRisk": 21.34
+    "standardDeviation": 0.1967,
+    "valueAtRisk": 0.2134
   },
   {
     "symbol": "AAPL",
     "investabilityIndex" : 59,
     "beta": 1.12,
-    "expectedReturn": 10.11,
+    "expectedReturn": 0.1011,
     "rSquared": 0.79,
     "sharpeRatio": 0.81,
-    "standardDeviation": 12.13,
-    "valueAtRisk": 8.97
+    "standardDeviation": 0.1213,
+    "valueAtRisk": 0.0897
   }
 ]
