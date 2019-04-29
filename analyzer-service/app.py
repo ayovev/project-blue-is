@@ -1,8 +1,9 @@
 from flask import Flask, Response, jsonify
 import os
 from pymongo import MongoClient
-
+import schedule
 import time
+import functools
 
 from database import DATABASE_URI, getAVData, getIEXData
 from calculations import *
@@ -108,12 +109,53 @@ def analyzeSymbolHandler(symbol):
 def analyzeIIhandler():
   IIModel = trainInvestabilityIndexModel()
   computeInvestabilityIndex(IIModel)
-  return "Bdone"
+  return "Success"
 
 @app.route("/", defaults={"path": ""})
 @app.route("/<path>")
 def notFoundHandler(path):
   return Response(status = 404)
+
+######### Scheduling Stuff #########
+## Potentially unnecessary
+def with_logging(func):
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        print('LOG: Running job "%s"' % func.__name__)
+        result = func(*args, **kwargs)
+        print('LOG: Job "%s" completed' % func.__name__)
+        return result
+    return wrapper
+
+## Job Scheduling
+@with_logging
+def deployNightlyJob():
+  status1 = getAVData(app.PricedataCollection)
+  status2 = getIEXData(app.CompanyInformationCollection)
+  status3 = analyzeHandler()
+  status4 = analyzeIIhandler()
+
+  with open('log.txt', 'a') as f:
+      f.write("I'm working: " + str(time.time()))
+
+  if (status1 == 0 & status2 == 0 & status3 == "called analyzeHandler()" & status4 == "Success"):
+    return 0
+  else:
+    return 1
+
+## TEST
+@with_logging
+def job():
+    with open('log.txt', 'a') as f:
+      f.write("I'm working...")
+
+# THIS IS UTC TIME (03 UTC = 20 PST = 8PM PST)
+schedule.every().day.at("03:00:00").do(deployNightlyJob)
+while True:
+  schedule.run_pending()
+  time.sleep(1)
+
+######### END #########
 
 if __name__ == "__main__":
   app.run("0.0.0.0", os.getenv("PORT", 4000))

@@ -65,7 +65,7 @@ def getAVData(database):
 
     time.sleep(15)
 
-  return "success"
+  return 0
 
 def getIEXData(database):
   KEY = os.getenv('IEX_API_KEY')
@@ -98,5 +98,7 @@ def getIEXData(database):
     query = {"symbol" : symbol}
     database.replace_one(query, companyData, True)
 
-  return "success"
+  return 0
+
+
 
