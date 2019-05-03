@@ -74,9 +74,9 @@ export default class Home extends Component {
               <h1 style={{ textAlign: `right`, marginRight: `80px` }}>How We Do It</h1>
             </Col>
             <Col md={7}>
-              <p className={styles.blurbText}>The importance of mathematics in our web application cannot be understated. IEEN uses a combination of finance theory and statistics to ensure that the analysis provided is as accurate and up-to-date as possible and can be reproduced due to it&apos;s deterministic nature. This trustworthy and transparent analysis gives way to more reliable insights and better investment decisions. Learn more about our analysis and the underlying process below.</p>
+              <p className={styles.blurbText}>The importance of mathematics in our web application cannot be understated. IEEN uses a combination of finance theory and statistics to ensure that the analysis provided is as accurate and up-to-date as possible and can be reproduced due to it&apos;s deterministic nature. This trustworthy and transparent analysis gives way to more reliable insights and better investment decisions. See the results of our process and analysis below.</p>
               <div className={styles.buttonDiv}>
-                <Button color="primary"><NavLink to="/methodology" tag={RRNavLink} className={styles.ctaButton}>Learn more!</NavLink></Button>
+                <Button color="primary"><NavLink to="/demo" tag={RRNavLink} className={styles.ctaButton}>Learn more!</NavLink></Button>
               </div>
             </Col>
             <Col md={3} className={styles.contentSeperatorLeft}>

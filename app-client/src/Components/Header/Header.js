@@ -69,9 +69,6 @@ export default class Header extends Component {
                   <a className={[styles.navlink, `nav-link`].join(` `)} href="https://www.cse.unr.edu/~nathanaelf/" target="_blank" rel="noopener noreferrer">Senior Project</a>
                 </NavItem>
                 <NavItem className={styles.navitem}>
-                  <NavLink to="/methodology" activeClassName="selected" tag={RRNavLink} className={styles.navlink}>Methodology</NavLink>
-                </NavItem>
-                <NavItem className={styles.navitem}>
                   <NavLink to="/team" activeClassName="selected" tag={RRNavLink} className={styles.navlink}>Meet the Team</NavLink>
                 </NavItem>
                 {isAuthenticated &&

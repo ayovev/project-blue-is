@@ -4,7 +4,6 @@ import Home from "./Home/Home";
 import Signup from "./Signup/Signup";
 import Status from "./Status/Status";
 import Team from "./Team/Team";
-import Methodology from "./Methodology/Methodology";
 import CS426 from "./CS426/CS426";
 import Login from "./Login/Login";
 import NotFoundPage from "./NotFoundPage/NotFound";
@@ -22,7 +21,6 @@ export default () =>
   <Switch>
     <Route path="/" exact component={Home} />
     <Route path="/login" exact component={Login} />
-    <Route path="/methodology" exact component={Methodology} />
     <Route path="/cs426" exact component={CS426} />
     <Route path="/signup" exact component={Signup} />
     <Route path="/status" exact component={Status} />
