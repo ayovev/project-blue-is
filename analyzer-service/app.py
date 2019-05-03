@@ -3,7 +3,7 @@ import os
 from pymongo import MongoClient
 import schedule
 import time
-import functools
+import threading
 
 from database import DATABASE_URI, getAVData, getIEXData
 from calculations import *
@@ -28,10 +28,9 @@ index = "SPY"
 
 @app.route("/", methods = ["GET"])
 def rootHandler():
-  # status = getAVData(app.PricedataCollection)
-  # status1 = getIEXData(app.CompanyInformationCollection)
-  # return str(status) + ' ' +  str(status1)
-  return "ok - root"
+  alphavantageStatus = getAVData(app.PricedataCollection)
+  iexStatus = getIEXData(app.CompanyInformationCollection)
+  return iexStatus
 
 @app.route("/status", methods = ["GET"])
 def statusHandler():
@@ -45,44 +44,55 @@ def statusHandler():
 
 @app.route("/analyze", methods = ["PUT", "GET"])
 def analyzeHandler():
-  symbols = pd.read_csv('DOW30.csv', header=None)
+  symbols = pd.read_csv('S&P500.csv', header=None)
   symbols = symbols.iloc[:,0].values.tolist()
   symbols.append('SPY')
-  symbols.append('MU')
 
-  for symbol in symbols:
-    symbolData = loadHistorical(symbol)
-    symbolData = filterData(symbolData)
-    symbolData = symbolData.iloc[::-1]
-    pReturns = getPctReturns(symbolData)
+  alreadyInserted = app.AnalysisCollection.find({})
+  alreadyInsertedList = []
 
-    indexData = loadHistorical(index)
-    indexData = filterData(indexData)
-    indexData = indexData.iloc[::-1]
-    bReturns = getPctReturns(indexData)
+  for document in alreadyInserted:
+    alreadyInsertedList.append(document["symbol"])
 
-    valueAtRisk = calculateValueAtRisk(pReturns)
-    beta = calculateBeta(pReturns, bReturns)
-    standardDeviation = calculateStandardDeviation(pReturns)
-    rSquared = calculateRSquared(pReturns, bReturns)
-    expectedReturn = calculateExpectedReturn(indexData, beta)
-    sharpeRatio = calculateSharpeRatio(expectedReturn, standardDeviation)
-    investabilityIndex = float(0.0)
+  symbols = list(set(symbols) - set(alreadyInsertedList))
 
-    returnDict = {}
-    returnDict["symbol"] = symbol
-    returnDict["valueAtRisk"] = valueAtRisk
-    returnDict["beta"] = beta
-    returnDict["standardDeviation"] = standardDeviation
-    returnDict["rSquared"] = rSquared
-    returnDict["expectedReturn"] = expectedReturn
-    returnDict["sharpeRatio"] = sharpeRatio
-    returnDict["investabilityIndex"] = investabilityIndex
+  with open("all.log", "a+") as f:
+    for symbol in symbols:
+      f.write("Analyzing symbol {}\n".format(symbol))
+      f.flush()
 
-    query = {"symbol" : symbol}
-    app.AnalysisCollection.replace_one(query, returnDict, True)
+      symbolData = loadHistorical(symbol)
+      symbolData = filterData(symbolData)
+      symbolData = symbolData.iloc[::-1]
+      pReturns = getPctReturns(symbolData)
 
-  return "called analyzeHandler()"
+      indexData = loadHistorical(index)
+      indexData = filterData(indexData)
+      indexData = indexData.iloc[::-1]
+      bReturns = getPctReturns(indexData)
+
+      valueAtRisk = calculateValueAtRisk(pReturns)
+      beta = calculateBeta(pReturns, bReturns)
+      standardDeviation = calculateStandardDeviation(pReturns)
+      rSquared = calculateRSquared(pReturns, bReturns)
+      expectedReturn = calculateExpectedReturn(indexData, beta)
+      sharpeRatio = calculateSharpeRatio(expectedReturn, standardDeviation)
+      investabilityIndex = float(0.0)
+
+      returnDict = {}
+      returnDict["symbol"] = symbol
+      returnDict["valueAtRisk"] = valueAtRisk
+      returnDict["beta"] = beta
+      returnDict["standardDeviation"] = standardDeviation
+      returnDict["rSquared"] = rSquared
+      returnDict["expectedReturn"] = expectedReturn
+      returnDict["sharpeRatio"] = sharpeRatio
+      returnDict["investabilityIndex"] = investabilityIndex
+
+      query = {"symbol" : symbol}
+      app.AnalysisCollection.replace_one(query, returnDict, True)
+
+  return True
 
 @app.route("/analyze/<symbol>", methods = ["GET", "PUT"])
 def analyzeSymbolHandler(symbol):
@@ -103,59 +113,46 @@ def analyzeSymbolHandler(symbol):
   expectedReturn = calculateExpectedReturn(indexData, beta)
   sharpeRatio = calculateSharpeRatio(expectedReturn, standardDeviation)
 
-  return "Calculated all values for {}".format(symbol)
+  return True
 
 @app.route('/analyze/II', methods = ["GET", "PUT"])
 def analyzeIIhandler():
-  IIModel = trainInvestabilityIndexModel()
-  computeInvestabilityIndex(IIModel)
-  return "Success"
+  # IIModel = trainInvestabilityIndexModel()
+  computeInvestabilityIndex(0)
+  return True
 
 @app.route("/", defaults={"path": ""})
 @app.route("/<path>")
 def notFoundHandler(path):
   return Response(status = 404)
 
-######### Scheduling Stuff #########
-## Potentially unnecessary
-def with_logging(func):
-    @functools.wraps(func)
-    def wrapper(*args, **kwargs):
-        print('LOG: Running job "%s"' % func.__name__)
-        result = func(*args, **kwargs)
-        print('LOG: Job "%s" completed' % func.__name__)
-        return result
-    return wrapper
-
-## Job Scheduling
-@with_logging
 def deployNightlyJob():
+  # with open('all.log', 'a+') as f:
+  # f.write("I'm starting nightly job at: " + str(time.time()) + "\n")
   status1 = getAVData(app.PricedataCollection)
-  status2 = getIEXData(app.CompanyInformationCollection)
-  status3 = analyzeHandler()
-  status4 = analyzeIIhandler()
+  # f.write("Got AV Data Bossman\n")
+  # status2 = getIEXData(app.CompanyInformationCollection)
+  # f.write("Got IEX Data Bossman\n")
+  # status3 = analyzeHandler()
+  # f.write("Analyzed Data Bossman\n")
+  # status4 = analyzeIIhandler()
+  # f.write("Constructed II Bossman\n")
+  # f.write("Nightly job completed at: " + str(time.time()))
 
-  with open('log.txt', 'a') as f:
-      f.write("I'm working: " + str(time.time()))
-
-  if (status1 == 0 & status2 == 0 & status3 == "called analyzeHandler()" & status4 == "Success"):
-    return 0
+  if (status1 == True & status2 == True & status3 == True & status4 == True):
+    return True
   else:
-    return 1
+    return False
 
-## TEST
-@with_logging
-def job():
-    with open('log.txt', 'a') as f:
-      f.write("I'm working...")
+def scheduleCheck():
+  while True:
+    schedule.run_pending()
+    time.sleep(60)
 
-# THIS IS UTC TIME (03 UTC = 20 PST = 8PM PST)
-schedule.every().day.at("03:00:00").do(deployNightlyJob)
-while True:
-  schedule.run_pending()
-  time.sleep(1)
-
-######### END #########
+# schedule.every().day.at("04:30:00").do(deployNightlyJob)
+# schedule.every().minute.do(deployNightlyJob)
+# myThread = threading.Thread(target=scheduleCheck)
+# myThread.start()
 
 if __name__ == "__main__":
   app.run("0.0.0.0", os.getenv("PORT", 4000))

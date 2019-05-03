@@ -8,3 +8,4 @@ statsmodels
 pylint
 sklearn
 schedule
+dnspython

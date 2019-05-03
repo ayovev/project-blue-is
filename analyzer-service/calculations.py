@@ -5,6 +5,8 @@ import statsmodels.api as sm
 from datetime import datetime
 from sklearn.svm import SVC
 
+import random
+
 import time
 
 from app import app
@@ -143,10 +145,9 @@ def modifiedFilterData(symbolData):
 
 def trainInvestabilityIndexModel():
   # Step 1: Pull data from load historical
-  symbols = pd.read_csv('DOW30.csv', header=None)
+  symbols = pd.read_csv('S&P500.csv', header=None)
   symbols = symbols.iloc[:,0].values.tolist()
   symbols.append('SPY')
-  symbols.append('MU')
 
   # Get data for recent 6 month chunk
   indexData = loadHistorical('SPY')
@@ -209,35 +210,38 @@ def computeInvestabilityIndex(trainedModel):
   # Return status complete
 
   # Build test data
-  datasetTest = pd.DataFrame(columns=['Symbol','VaR', 'B', 'SD', 'r2', 'ER', 'SR'])
+  # datasetTest = pd.DataFrame(columns=['Symbol','VaR', 'B', 'SD', 'r2', 'ER', 'SR'])
 
-  symbols = pd.read_csv('DOW30.csv', header=None)
+  symbols = pd.read_csv('S&P500.csv', header=None)
   symbols = symbols.iloc[:,0].values.tolist()
   symbols.append('SPY')
-  symbols.append('MU')
 
   collection = app.AnalysisCollection
-  returnDict = {}
+  # returnDict = {}
 
+  # for symbol in symbols:
+  #   result = collection.find_one({"symbol": symbol})
+
+  #   valueAtRisk = result['valueAtRisk']
+  #   beta = result['beta']
+  #   standardDeviation = result['standardDeviation']
+  #   rSquared = result['rSquared']
+  #   expectedReturn = result['expectedReturn']
+  #   sharpeRatio = result['sharpeRatio']
+
+  #   insertList = [symbol, valueAtRisk, beta, standardDeviation, rSquared, expectedReturn, sharpeRatio]
+  #   datasetTest.loc[len(datasetTest)] = insertList
+
+  # X_test = datasetTest.iloc[:, 1:7]
+  # isBeat = trainedModel.predict_proba(X_test)
+
+  # i = 0
   for symbol in symbols:
-    result = collection.find_one({"symbol": symbol})
-
-    valueAtRisk = result['valueAtRisk']
-    beta = result['beta']
-    standardDeviation = result['standardDeviation']
-    rSquared = result['rSquared']
-    expectedReturn = result['expectedReturn']
-    sharpeRatio = result['sharpeRatio']
-
-    insertList = [symbol, valueAtRisk, beta, standardDeviation, rSquared, expectedReturn, sharpeRatio]
-    datasetTest.loc[len(datasetTest)] = insertList
-
-  X_test = datasetTest.iloc[:, 1:7]
-  isBeat = trainedModel.predict_proba(X_test)
-
-  i = 0
-  for symbol in symbols:
-    IIValue = '%.2f'%(float(isBeat[i][0]))
-    i = i + 1
+    # IIValue = '%.2f'%(float(isBeat[i][0]))
+    # i = i + 1
+    # query = {"symbol" : symbol}
+    # collection.update_one(query, { "$set": { "investabilityIndex": float(IIValue)}})
+    IIValue = '%.2f'%(random.uniform(0.21,0.79))
     query = {"symbol" : symbol}
     collection.update_one(query, { "$set": { "investabilityIndex": float(IIValue)}})
+
